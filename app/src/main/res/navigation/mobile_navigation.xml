@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@id/homePage_nav">
+
+    <fragment
+        android:id="@+id/nav_home"
+        android:name="com.example.travel_guide.ui.home.HomeFragment"
+        android:label="@string/menu_home"
+        tools:layout="@layout/fragment_home" />
+
+    <fragment
+        android:id="@+id/nav_gallery"
+        android:name="com.example.travel_guide.ui.gallery.GalleryFragment"
+        android:label="@string/menu_gallery"
+        tools:layout="@layout/fragment_gallery" />
+
+    <fragment
+        android:id="@+id/nav_slideshow"
+        android:name="com.example.travel_guide.ui.slideshow.SlideshowFragment"
+        android:label="@string/menu_slideshow"
+        tools:layout="@layout/fragment_slideshow" />
+    <fragment
+        android:id="@+id/homePage_nav"
+        android:name="com.example.travel_guide.ui.home.HomePage"
+        android:label="Home"
+        tools:layout="@layout/fragment_home_page" />
+    <fragment
+        android:id="@+id/account_nav"
+        android:name="com.example.travel_guide.ui.account.Account"
+        android:label="Account"
+        tools:layout="@layout/fragment_account" />
+    <fragment
+        android:id="@+id/logIn_nav"
+        android:name="com.example.travel_guide.ui.login.LogIn"
+        android:label="Log In"
+        tools:layout="@layout/fragment_log_in" />
+    <fragment
+        android:id="@+id/signUp_nav"
+        android:name="com.example.travel_guide.ui.signUp.SignUp"
+        android:label="Sign In"
+        tools:layout="@layout/fragment_sign_up" />
+</navigation>

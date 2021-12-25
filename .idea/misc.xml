@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="..\:/Users/Lenovo/AndroidStudioProjects/Travel_Guide/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.12129629629629629" />
+        <entry key="..\:/Users/Lenovo/AndroidStudioProjects/Travel_Guide/app/src/main/res/drawable/ic_launcher_background.xml" value="0.12129629629629629" />
+        <entry key="..\:/Users/Lenovo/AndroidStudioProjects/Travel_Guide/app/src/main/res/drawable/ic_menu_camera.xml" value="0.12129629629629629" />
+        <entry key="..\:/Users/Lenovo/AndroidStudioProjects/Travel_Guide/app/src/main/res/drawable/ic_menu_gallery.xml" value="0.12129629629629629" />
+        <entry key="..\:/Users/Lenovo/AndroidStudioProjects/Travel_Guide/app/src/main/res/drawable/ic_menu_slideshow.xml" value="0.12129629629629629" />
+        <entry key="..\:/Users/Lenovo/AndroidStudioProjects/Travel_Guide/app/src/main/res/drawable/side_nav_bar.xml" value="0.12129629629629629" />
+        <entry key="..\:/Users/Lenovo/AndroidStudioProjects/Travel_Guide/app/src/main/res/layout/activity_main.xml" value="0.10144927536231885" />
+        <entry key="..\:/Users/Lenovo/AndroidStudioProjects/Travel_Guide/app/src/main/res/layout/app_bar_main.xml" value="0.13496376811594202" />
+        <entry key="..\:/Users/Lenovo/AndroidStudioProjects/Travel_Guide/app/src/main/res/layout/content_main.xml" value="0.9032258064516129" />
+        <entry key="..\:/Users/Lenovo/AndroidStudioProjects/Travel_Guide/app/src/main/res/layout/fragment_account.xml" value="0.22" />
+        <entry key="..\:/Users/Lenovo/AndroidStudioProjects/Travel_Guide/app/src/main/res/layout/fragment_activities.xml" value="0.10144927536231885" />
+        <entry key="..\:/Users/Lenovo/AndroidStudioProjects/Travel_Guide/app/src/main/res/layout/fragment_create_post.xml" value="0.1" />
+        <entry key="..\:/Users/Lenovo/AndroidStudioProjects/Travel_Guide/app/src/main/res/layout/fragment_gallery.xml" value="0.1" />
+        <entry key="..\:/Users/Lenovo/AndroidStudioProjects/Travel_Guide/app/src/main/res/layout/fragment_home.xml" value="0.1" />
+        <entry key="..\:/Users/Lenovo/AndroidStudioProjects/Travel_Guide/app/src/main/res/layout/fragment_home_page.xml" value="0.14666666666666667" />
+        <entry key="..\:/Users/Lenovo/AndroidStudioProjects/Travel_Guide/app/src/main/res/layout/fragment_log_in.xml" value="0.22" />
+        <entry key="..\:/Users/Lenovo/AndroidStudioProjects/Travel_Guide/app/src/main/res/layout/fragment_saved_activities.xml" value="0.10144927536231885" />
+        <entry key="..\:/Users/Lenovo/AndroidStudioProjects/Travel_Guide/app/src/main/res/layout/fragment_search.xml" value="0.1" />
+        <entry key="..\:/Users/Lenovo/AndroidStudioProjects/Travel_Guide/app/src/main/res/layout/fragment_sign_up.xml" value="0.16666666666666666" />
+        <entry key="..\:/Users/Lenovo/AndroidStudioProjects/Travel_Guide/app/src/main/res/layout/fragment_slideshow.xml" value="0.1" />
+        <entry key="..\:/Users/Lenovo/AndroidStudioProjects/Travel_Guide/app/src/main/res/layout/nav_header_main.xml" value="0.1" />
+        <entry key="..\:/Users/Lenovo/AndroidStudioProjects/Travel_Guide/app/src/main/res/menu/activity_main_drawer.xml" value="0.17552083333333332" />
+        <entry key="..\:/Users/Lenovo/AndroidStudioProjects/Travel_Guide/app/src/main/res/menu/main.xml" value="0.17552083333333332" />
+      </map>
+    </option>
+  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="Android Studio default JDK" project-jdk-type="JavaSDK">
+    <output url="file://$PROJECT_DIR$/build/classes" />
+  </component>
+  <component name="ProjectType">
+    <option name="id" value="Android" />
+  </component>
+</project>
