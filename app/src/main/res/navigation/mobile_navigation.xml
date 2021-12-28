@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@id/homePage_nav">
+    app:startDestination="@id/logIn_nav">
 
     <fragment
         android:id="@+id/nav_home"
@@ -26,7 +26,11 @@
         android:id="@+id/homePage_nav"
         android:name="com.example.travel_guide.ui.home.HomePage"
         android:label="Home"
-        tools:layout="@layout/fragment_home_page" />
+        tools:layout="@layout/fragment_home_page" >
+        <argument
+            android:name="userID"
+            app:argType="string" />
+    </fragment>
     <fragment
         android:id="@+id/account_nav"
         android:name="com.example.travel_guide.ui.account.Account"
@@ -36,10 +40,22 @@
         android:id="@+id/logIn_nav"
         android:name="com.example.travel_guide.ui.login.LogIn"
         android:label="Log In"
-        tools:layout="@layout/fragment_log_in" />
+        tools:layout="@layout/fragment_log_in" >
+        <action
+            android:id="@+id/action_logIn_nav_to_homePage_nav"
+            app:destination="@id/homePage_nav" />
+        <action
+            android:id="@+id/action_logIn_nav_to_signUp_nav"
+            app:destination="@id/signUp_nav" />
+    </fragment>
     <fragment
         android:id="@+id/signUp_nav"
         android:name="com.example.travel_guide.ui.signUp.SignUp"
-        android:label="Sign In"
-        tools:layout="@layout/fragment_sign_up" />
+        android:label="Sign Up"
+        tools:layout="@layout/fragment_sign_up" >
+        <action
+            android:id="@+id/action_signUp_nav_to_logIn_nav"
+            app:destination="@id/logIn_nav"
+            app:popUpToInclusive="true" />
+    </fragment>
 </navigation>

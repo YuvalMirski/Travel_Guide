@@ -5,13 +5,14 @@ package com.example.travel_guide.model;
 
 public class UserActivity {
 
-    String name,location, type, about, id;
+    String name,location, type, about, id, category;
 
-    public UserActivity(String name, String location, String type, String about, String id) {
+    public UserActivity(String name, String location, String type, String about, String id, String category) {
         this.name = name;
         this.location = location;
         this.type = type;
         this.about = about;
         this.id = id;
+        this.category = category;
     }
 }
