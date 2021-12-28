@@ -6,23 +6,6 @@
     app:startDestination="@id/logIn_nav">
 
     <fragment
-        android:id="@+id/nav_home"
-        android:name="com.example.travel_guide.ui.home.HomeFragment"
-        android:label="@string/menu_home"
-        tools:layout="@layout/fragment_home" />
-
-    <fragment
-        android:id="@+id/nav_gallery"
-        android:name="com.example.travel_guide.ui.gallery.GalleryFragment"
-        android:label="@string/menu_gallery"
-        tools:layout="@layout/fragment_gallery" />
-
-    <fragment
-        android:id="@+id/nav_slideshow"
-        android:name="com.example.travel_guide.ui.slideshow.SlideshowFragment"
-        android:label="@string/menu_slideshow"
-        tools:layout="@layout/fragment_slideshow" />
-    <fragment
         android:id="@+id/homePage_nav"
         android:name="com.example.travel_guide.ui.home.HomePage"
         android:label="Home"
@@ -30,6 +13,9 @@
         <argument
             android:name="userID"
             app:argType="string" />
+        <action
+            android:id="@+id/action_homePage_nav_to_postListRvFragment"
+            app:destination="@id/postListRvFragment" />
     </fragment>
     <fragment
         android:id="@+id/account_nav"
@@ -57,5 +43,23 @@
             android:id="@+id/action_signUp_nav_to_logIn_nav"
             app:destination="@id/logIn_nav"
             app:popUpToInclusive="true" />
+    </fragment>
+    <fragment
+        android:id="@+id/postListRvFragment"
+        android:name="com.example.travel_guide.PostListRvFragment"
+        android:label="fragment_post_list_rv"
+        tools:layout="@layout/fragment_post_list_rv" >
+        <action
+            android:id="@+id/action_postListRvFragment_to_postPage"
+            app:destination="@id/postPage" />
+    </fragment>
+    <fragment
+        android:id="@+id/postPage"
+        android:name="com.example.travel_guide.PostPage"
+        android:label="fragment_post_page"
+        tools:layout="@layout/fragment_post_page" >
+        <argument
+            android:name="postId"
+            app:argType="string" />
     </fragment>
 </navigation>
