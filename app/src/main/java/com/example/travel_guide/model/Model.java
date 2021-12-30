@@ -1,5 +1,7 @@
 package com.example.travel_guide.model;
 
+import androidx.navigation.Navigation;
+
 import com.example.travel_guide.PostPage;
 
 import java.util.LinkedList;
@@ -7,6 +9,8 @@ import java.util.List;
 
 public class Model {
     public static final Model instance = new Model();
+
+    ModelFirebase modelFirebase = new ModelFirebase();
 
     //List<UserPost> userPostListData;
     private Model(){
@@ -16,29 +20,47 @@ public class Model {
             //data.add(u);
             UserPost userPost = new UserPost("name "+i,"location"+i,"type"+i,"about"+i,""+i,"catalog"+i);
             userPostListData.add(userPost);
+            addUserPost(userPost,()->{
+                System.out.println("kdjfkd");
+            });
         }
     }
 
     List<User> data = new LinkedList<User>();
     List<UserPost> userPostListData = new LinkedList<UserPost>();
 
-    public List<UserPost> getAllPosts(){
-        return userPostListData;
+    public interface GetAllPostsListener{
+        void onComplete(List<UserPost> list);
+    }
+    public void getAllPosts(GetAllPostsListener listener){
+        //  return userPostListData;
+        modelFirebase.getAllPosts(listener);
+    }
+    public interface AddPostListener{
+        void onComplete();
+    }
+    public void addUserPost (UserPost userPost,AddPostListener listener){
+        //data.add(student);
+        modelFirebase.addUserPost(userPost,listener);
     }
 
-    public void addStudent(User student){
-        data.add(student);
+    public interface GetPostById{
+        void onComplete(UserPost userPost);
     }
 
-    public User getStudentById(String studentId) {
-        for(User s : data)
-        {
-            if(s.getId().equals(studentId))
-                return s;
-        }
-
+    public UserPost getPostById(String postId, GetPostById listener) {
+//        for(User s : data)
+//        {
+//            if(s.getId().equals(studentId))
+//                return s;
+//        }
+//
+//        return null;
+        modelFirebase.getPostById(postId,listener);
         return null;
     }
+
+
     public int getStudentByPosition(String studentId) throws Exception {
         for(int i = 0 ; i< data.size() ; i++)
         {

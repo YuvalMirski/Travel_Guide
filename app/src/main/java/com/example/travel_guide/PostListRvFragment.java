@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,16 +24,22 @@ public class PostListRvFragment extends Fragment {
 
     List<UserPost> postList;
     MyAdapter adapter;
+    SwipeRefreshLayout swipeRefresh;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_post_list_rv, container, false);
+
+        swipeRefresh = view.findViewById(R.id.post_list_swiperefresh);
+        swipeRefresh.setOnRefreshListener(() -> refresh());
+
         RecyclerView list = view.findViewById(R.id.post_list_rv);
         list.setHasFixedSize(true);
         list.setLayoutManager(new LinearLayoutManager(getContext()));
-        postList = Model.instance.getAllPosts();
 
+      // postList = Model.instance.getAllPosts();
+        //Model.instance.getAllPosts(()->postList);
         adapter = new MyAdapter();
         list.setAdapter(adapter);
 
@@ -43,8 +50,20 @@ public class PostListRvFragment extends Fragment {
                 Navigation.findNavController(v).navigate(PostListRvFragmentDirections.actionPostListRvFragmentToPostPage(postId));
             }
         });
+        refresh();
 
+
+       // System.out.println("postList is  "+postList.size());
         return view;
+    }
+
+    private void refresh() {
+        swipeRefresh.setRefreshing(true);
+        Model.instance.getAllPosts((list)->{
+            postList = list;
+            adapter.notifyDataSetChanged();
+            swipeRefresh.setRefreshing(false);
+        });
     }
 
 

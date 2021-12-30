@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "21222174677",
+    "project_id": "travelguide-154b6",
+    "storage_bucket": "travelguide-154b6.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:21222174677:android:392950e405aa062fc5d75c",
+        "android_client_info": {
+          "package_name": "com.example.travel_guide"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "21222174677-fai5e24fkfas3fi18mht79oomf3k7kb9.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDnd7tHazBkePpSPiTyjvCtkGcbmlCwVMs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "21222174677-fai5e24fkfas3fi18mht79oomf3k7kb9.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

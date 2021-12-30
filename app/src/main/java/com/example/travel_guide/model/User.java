@@ -6,8 +6,8 @@ public class User {
 
     String name, email, sex, country, userName, password, id;
     boolean isChecked;
-    List<UserPost>userActivities; // list of posts\activities of user
-    List<UserPost>savedActivities;
+    //List<UserPost>userActivities; // list of posts\activities of user
+    //List<UserPost>savedActivities;
     //TODO - personal picture
 
 
