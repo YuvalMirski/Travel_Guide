@@ -1,9 +1,12 @@
 package com.example.travel_guide;
 
+import android.content.Context;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -21,10 +24,16 @@ import com.example.travel_guide.model.UserPost;
 import java.util.List;
 
 public class PostListRvFragment extends Fragment {
-
-    List<UserPost> postList;
+    PostListRvViewModel viewModel;
     MyAdapter adapter;
     SwipeRefreshLayout swipeRefresh;
+
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+        viewModel = new ViewModelProvider(this).get(PostListRvViewModel.class);
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -32,38 +41,51 @@ public class PostListRvFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_post_list_rv, container, false);
 
         swipeRefresh = view.findViewById(R.id.post_list_swiperefresh);
-        swipeRefresh.setOnRefreshListener(() -> refresh());
+        swipeRefresh.setOnRefreshListener(() -> Model.instance.refreshPostList());
 
         RecyclerView list = view.findViewById(R.id.post_list_rv);
         list.setHasFixedSize(true);
         list.setLayoutManager(new LinearLayoutManager(getContext()));
 
-      // postList = Model.instance.getAllPosts();
-        //Model.instance.getAllPosts(()->postList);
+
         adapter = new MyAdapter();
         list.setAdapter(adapter);
 
         adapter.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClick(View v, int position) {
-                String postId = postList.get(position).getId();
+                String postId = viewModel.getPostList().getValue().get(position).getId();
                 Navigation.findNavController(v).navigate(PostListRvFragmentDirections.actionPostListRvFragmentToPostPage(postId));
             }
         });
-        refresh();
+        viewModel.getPostList().observe(getViewLifecycleOwner(), userPosts -> refresh());
 
+        swipeRefresh.setRefreshing(Model.instance.getPostListLoadingState().getValue() == Model.PostListLoadingState.loading);
 
-       // System.out.println("postList is  "+postList.size());
+        Model.instance.getPostListLoadingState().observe(getViewLifecycleOwner(), new Observer<Model.PostListLoadingState>() {
+            @Override
+            public void onChanged(Model.PostListLoadingState postListLoadingState) {
+                if (postListLoadingState == Model.PostListLoadingState.loading) {
+                    swipeRefresh.setRefreshing(true);
+                } else {
+                    swipeRefresh.setRefreshing(false);
+                }
+            }
+        });
         return view;
     }
 
     private void refresh() {
-        swipeRefresh.setRefreshing(true);
-        Model.instance.getAllPosts((list)->{
-            postList = list;
-            adapter.notifyDataSetChanged();
-            swipeRefresh.setRefreshing(false);
-        });
+
+        adapter.notifyDataSetChanged();
+        swipeRefresh.setRefreshing(false);
+
+//        swipeRefresh.setRefreshing(true);
+//        Model.instance.getAllPosts((list)->{
+//            viewModel.setPostList(list);
+//            adapter.notifyDataSetChanged();
+//            swipeRefresh.setRefreshing(false);
+//        });
     }
 
 
@@ -112,22 +134,22 @@ public class PostListRvFragment extends Fragment {
 
         @Override
         public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
-            UserPost post = postList.get(position);
+            UserPost post = viewModel.getPostList().getValue().get(position);
 
             holder.postName.setText(post.getName());
             holder.type.setText(post.getType());
             holder.location.setText(post.getLocation());
-          //  holder.imageView.setImageResource(post.getUserProfile());
+            //  holder.imageView.setImageResource(post.getUserProfile());
 
             //TODO:: maybe i can save post id here instead of subtract it twice
-           //  String post_id = post.getId();
+            //  String post_id = post.getId();
         }
 
         @Override
         public int getItemCount() {
-            if(postList == null)
+            if (viewModel.getPostList().getValue() == null)
                 return 0;
-            return postList.size();
+            return viewModel.getPostList().getValue().size();
         }
     }
 

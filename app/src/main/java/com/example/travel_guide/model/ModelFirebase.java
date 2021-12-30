@@ -23,7 +23,11 @@ public class ModelFirebase {
 
     FirebaseFirestore db = FirebaseFirestore.getInstance();
 
-    public void getAllPosts(Model.GetAllPostsListener listener) {
+    public interface GetAllPostsListener{
+        void onComplete(List<UserPost> list);
+    }
+
+    public void getAllPosts(GetAllPostsListener listener) {
 
         db.collection(UserPost.COLLECTION_NAME)
                 .get()
