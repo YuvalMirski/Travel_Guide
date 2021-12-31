@@ -79,7 +79,6 @@ public class Model {
         void onComplete();
     }
     public void addUserPost (UserPost userPost,AddPostListener listener){
-        //data.add(student);
         modelFirebase.addUserPost(userPost,listener);
     }
 
@@ -88,31 +87,24 @@ public class Model {
     }
 
     public UserPost getPostById(String postId, GetPostById listener) {
-//        for(User s : data)
-//        {
-//            if(s.getId().equals(studentId))
-//                return s;
-//        }
-//
-//        return null;
         modelFirebase.getPostById(postId,listener);
         return null;
     }
 
 
-    public int getStudentByPosition(String studentId) throws Exception {
+    public int getPostByPosition(String PostId) throws Exception {
         for(int i = 0 ; i< data.size() ; i++)
         {
-            if(data.get(i).getId().equals(studentId))
+            if(data.get(i).getId().equals(PostId))
                 return i;
         }
         throw new Exception("no id matched");
     }
 
-    public void deleteStudentById(String studentId){
+    public void deletePostById(String PostId){
         for(int i = 0 ; i< data.size() ; i++)
         {
-            if(data.get(i).getId().equals(studentId))
+            if(data.get(i).getId().equals(PostId))
             {
                 data.remove(i);
                 return;

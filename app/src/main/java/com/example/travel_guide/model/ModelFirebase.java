@@ -55,10 +55,10 @@ public class ModelFirebase {
                 .addOnFailureListener(e -> listener.onComplete());
     }
 
-    public void getPostById(String studentId, Model.GetPostById listener) {
+    public void getPostById(String postId, Model.GetPostById listener) {
 
         db.collection(UserPost.COLLECTION_NAME)
-                .document(studentId)
+                .document(postId)
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                     @Override
