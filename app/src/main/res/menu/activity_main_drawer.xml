@@ -19,6 +19,6 @@
         <item
             android:id="@+id/signUp_nav"
             android:icon="@drawable/ic_menu_slideshow"
-            android:title="Sign In" />
+            android:title="Sign Up" />
     </group>
 </menu>

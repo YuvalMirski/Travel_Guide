@@ -2,7 +2,6 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/email_account_str_tv"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.account.Account">
@@ -21,12 +20,12 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/name_account_tv"
+        android:id="@+id/username_account_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="50dp"
-        android:text="Name:"
+        android:text="User Name:"
         android:textSize="24sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/signup_account_tv" />
@@ -40,7 +39,7 @@
         android:text="Email:"
         android:textSize="24sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/name_account_tv" />
+        app:layout_constraintTop_toBottomOf="@+id/username_account_tv" />
 
     <TextView
         android:id="@+id/sex_account_tv"
@@ -65,17 +64,6 @@
         app:layout_constraintTop_toBottomOf="@+id/sex_account_tv" />
 
     <TextView
-        android:id="@+id/username_account_tv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="40dp"
-        android:text="User Name:"
-        android:textSize="24sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/country_account_tv" />
-
-    <TextView
         android:id="@+id/password_account_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -84,7 +72,7 @@
         android:text="Password:"
         android:textSize="24sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/username_account_tv" />
+        app:layout_constraintTop_toBottomOf="@+id/country_account_tv" />
 
     <Button
         android:id="@+id/post_account_btn"
@@ -118,19 +106,19 @@
         app:layout_constraintTop_toBottomOf="@+id/edit_accoutn_btn" />
 
     <TextView
-        android:id="@+id/name_account_str_tv"
+        android:id="@+id/user_name_account_str_tv"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="16dp"
         android:text="TextView"
         android:textSize="24sp"
-        app:layout_constraintBottom_toBottomOf="@+id/name_account_tv"
+        app:layout_constraintBottom_toBottomOf="@+id/username_account_tv"
         app:layout_constraintEnd_toStartOf="@+id/edit_accoutn_btn"
-        app:layout_constraintStart_toEndOf="@+id/name_account_tv" />
+        app:layout_constraintStart_toEndOf="@+id/username_account_tv" />
 
     <TextView
-        android:id="@+id/textView3"
+        android:id="@+id/email_account_str_tv"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -165,18 +153,6 @@
         app:layout_constraintBottom_toBottomOf="@+id/country_account_tv"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/country_account_tv" />
-
-    <TextView
-        android:id="@+id/username_account_str_tv"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="16dp"
-        android:text="TextView"
-        android:textSize="24sp"
-        app:layout_constraintBottom_toBottomOf="@+id/username_account_tv"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/username_account_tv" />
 
     <EditText
         android:id="@+id/password_account_str_tv"

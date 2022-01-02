@@ -1,34 +1,47 @@
 package com.example.travel_guide.model;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class User {
 
-    String name, email, sex, country, userName, password, id;
-    boolean isChecked;
-    //List<UserPost>userActivities; // list of posts\activities of user
-    //List<UserPost>savedActivities;
-    //TODO - personal picture
+    String userName, email, sex, country, password, id;
+    final public static String COLLECTION_NAME = "Users";
 
-
-    public User(String name, String email, String sex, String country, String userName, String password, String id, boolean isChecked) {
-        this.name = name;
+    public User(String userName, String email, String sex, String country, String password, String id) {
+        this.userName = userName;
         this.email = email;
         this.sex = sex;
         this.country = country;
-        this.userName = userName;
         this.password = password;
         this.id = id;
-        this.isChecked = isChecked;
     }
 
-    public String getName() {
-        return name;
+    public static User create(Map<String, Object> json) {
+        String userName = (String)json.get("userName");
+        String email = (String)json.get("email");
+        String sex = (String)json.get("sex");
+        String country = (String)json.get("country");
+        String password = (String)json.get("password");
+        String id = (String)json.get("id");
+
+        User user = new User(userName,email,sex,country,password,id);
+
+        return user;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public Map<String, Object> toJson() {
+        Map<String,Object>json = new HashMap<String,Object>();
+        json.put("userName",userName);
+        json.put("email",email);
+        json.put("sex",sex);
+        json.put("country",country);
+        json.put("password",password);
+        json.put("id",id);
+        return json;
     }
+
 
     public String getEmail() {
         return email;
@@ -78,11 +91,4 @@ public class User {
         this.id = id;
     }
 
-    public boolean isChecked() {
-        return isChecked;
-    }
-
-    public void setChecked(boolean checked) {
-        isChecked = checked;
-    }
 }

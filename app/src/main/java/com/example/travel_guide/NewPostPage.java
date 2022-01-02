@@ -15,6 +15,8 @@ import android.widget.EditText;
 import com.example.travel_guide.model.Model;
 import com.example.travel_guide.model.UserPost;
 
+import java.util.Random;
+
 // here User will be able to create a new post
 
 public class NewPostPage extends Fragment {
@@ -32,13 +34,14 @@ public class NewPostPage extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_new_post_page, container, false);
 
-        // the new id will be 1 id above size of list
+        // the new id will be size of post list (last post +1)
         // need to add check if the id not exist
-        if(Model.instance.getAllPosts().getValue() != null) // there are'nt any posts
+        if(Model.instance.getAllPosts().getValue() != null) // there aren't any posts
              new_id = String.valueOf(Model.instance.getAllPosts().getValue().size());
         else{
-            //TODO :: change logic of both conditions
-            new_id = String.valueOf(0);
+            //TODO :: change logic of both conditions we need id that not exist
+            // the way it should be is that User creates Post, rn we are creating them in a different way
+            new_id = getRand(0,100);
         }
 
         postName = view.findViewById(R.id.post_name_post_page_new_et);
@@ -62,9 +65,12 @@ public class NewPostPage extends Fragment {
             }
         });
 
-
-
-
         return view;
+    }
+
+    public String getRand(int n1, int n2) {
+        Random rand = new Random();
+        int min = n1, max = n2;
+        return String.valueOf(rand.nextInt(max - min + 1) + min);
     }
 }

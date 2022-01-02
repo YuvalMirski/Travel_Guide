@@ -24,7 +24,6 @@ public class ModelFirebase {
     FirebaseFirestore db = FirebaseFirestore.getInstance();
 
 
-
     public interface GetAllPostsListener {
         void onComplete(List<UserPost> list);
     }
@@ -82,4 +81,46 @@ public class ModelFirebase {
                     }
                 });
     }
+
+
+    //------------------------------------USER------------------------------------//
+    
+    public void addUser(User user, Model.AddUserListener listener) {
+        Map<String, Object> json = user.toJson();
+        db.collection(User.COLLECTION_NAME)
+                .document(user.getId())
+                .set(json)
+                .addOnSuccessListener(unused -> listener.onComplete())
+                .addOnFailureListener(e -> listener.onComplete());
+
+    }
+
+
+    public void deleteUserById(String userId, Model.DeleteUserById listener) {
+        db.collection(User.COLLECTION_NAME)
+                .document(userId)
+                .delete()
+                .addOnSuccessListener(unused -> listener.onComplete())
+                .addOnFailureListener(e -> listener.onComplete());
+    }
+
+
+    public void getUserById(String userId, Model.GetUserById listener) {
+
+        db.collection(User.COLLECTION_NAME)
+                .document(userId)
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                        User user = null;
+                        if (task.isSuccessful() & task.getResult() != null) {
+
+                            user = User.create(task.getResult().getData());
+                        }
+                        listener.onComplete(user);
+                    }
+                });
+    }
+
 }

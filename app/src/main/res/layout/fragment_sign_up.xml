@@ -20,12 +20,12 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/name_signup_tv"
+        android:id="@+id/username_signup_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="60dp"
-        android:text="Name:"
+        android:text="User Name:"
         android:textSize="24sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/signup_signup_tv" />
@@ -39,7 +39,7 @@
         android:text="Email:"
         android:textSize="24sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/name_signup_tv" />
+        app:layout_constraintTop_toBottomOf="@+id/username_signup_tv" />
 
     <TextView
         android:id="@+id/sex_signup_tv"
@@ -64,17 +64,6 @@
         app:layout_constraintTop_toBottomOf="@+id/sex_signup_tv" />
 
     <TextView
-        android:id="@+id/username_signup_tv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="20dp"
-        android:text="User Name:"
-        android:textSize="24sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/country_signup_tv" />
-
-    <TextView
         android:id="@+id/textView9"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -83,7 +72,7 @@
         android:text="Password:"
         android:textSize="24sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/username_signup_tv" />
+        app:layout_constraintTop_toBottomOf="@+id/country_signup_tv" />
 
 
     <Button
@@ -97,7 +86,7 @@
         app:layout_constraintTop_toBottomOf="@+id/textView9" />
 
     <EditText
-        android:id="@+id/name_signup_et"
+        android:id="@+id/username_signup_et"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -105,9 +94,9 @@
         android:ems="10"
         android:inputType="textPersonName"
         android:textSize="24sp"
-        app:layout_constraintBaseline_toBaselineOf="@+id/name_signup_tv"
+        app:layout_constraintBaseline_toBaselineOf="@+id/username_signup_tv"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/name_signup_tv" />
+        app:layout_constraintStart_toEndOf="@+id/username_signup_tv" />
 
     <EditText
         android:id="@+id/email_signup_et"
@@ -147,19 +136,6 @@
         app:layout_constraintBaseline_toBaselineOf="@+id/country_signup_tv"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/country_signup_tv" />
-
-    <EditText
-        android:id="@+id/username_signup_et"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:textSize="24sp"
-        app:layout_constraintBaseline_toBaselineOf="@+id/username_signup_tv"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/username_signup_tv" />
 
     <EditText
         android:id="@+id/password_signup_et"

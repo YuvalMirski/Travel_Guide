@@ -27,7 +27,6 @@ public class Model {
 
 
 
-
     //List<UserPost> userPostListData;
     private Model(){
         postListLoadingState.setValue(PostListLoadingState.loaded);
@@ -43,8 +42,8 @@ public class Model {
         }
     }
 
-    List<User> data = new LinkedList<User>();
-    List<UserPost> userPostListData = new LinkedList<UserPost>();
+   // List<User> data = new LinkedList<User>();
+   // List<UserPost> userPostListData = new LinkedList<UserPost>();
 
 
 //    public void getAllPosts(GetAllPostsListener listener){
@@ -53,6 +52,9 @@ public class Model {
 //    }
 
     MutableLiveData<List<UserPost>> listLiveDataPost = new MutableLiveData<List<UserPost>>();
+
+    MutableLiveData<List<User>>listLiveDataUser = new MutableLiveData<List<User>>();
+    //------------------------------------POST------------------------------------//
 
     public LiveData<List<UserPost>>getAllPosts(){
 
@@ -92,18 +94,63 @@ public class Model {
     }
 
 
-    public int getPostByPosition(String PostId) throws Exception {
-        for(int i = 0 ; i< data.size() ; i++)
-        {
-            if(data.get(i).getId().equals(PostId))
-                return i;
-        }
-        throw new Exception("no id matched");
-    }
+//    public int getPostByPosition(String PostId) throws Exception {
+//        for(int i = 0 ; i< data.size() ; i++)
+//        {
+//            if(data.get(i).getId().equals(PostId))
+//                return i;
+//        }
+//        throw new Exception("no id matched");
+//    }
     public interface DeletePostById{
         void onComplete();
     }
     public void deletePostById(String postId, DeletePostById listener){
         modelFirebase.deletePostById(postId,listener);
     }
+    //------------------------------------END POST------------------------------------//
+    //--------------------------------------------------------------------------------//
+
+
+
+    //--------------------------------------------------------------------------------//
+    //------------------------------------USER------------------------------------//
+
+    public LiveData<List<User>>getAllUsers(){
+
+        if(listLiveDataUser.getValue() == null){
+            refreshPostList();
+        }
+        return listLiveDataUser;
+    }
+
+    public void refreshUserList(){
+    }
+
+    public interface AddUserListener{
+        void onComplete();
+    }
+    public void addUser (User user,AddUserListener listener){
+        modelFirebase.addUser(user,listener);
+    }
+
+    public interface GetUserById{
+        void onComplete(User user);
+    }
+
+    public User getUserById(String userId, GetUserById listener) {
+        modelFirebase.getUserById(userId,listener);
+        return null;
+    }
+
+
+    public interface DeleteUserById{
+        void onComplete();
+    }
+    public void deleteUserById(String userId, DeleteUserById listener){
+        modelFirebase.deleteUserById(userId,listener);
+    }
+    //------------------------------------END USER------------------------------------//
+
+
 }
