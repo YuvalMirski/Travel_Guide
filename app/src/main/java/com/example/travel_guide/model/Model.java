@@ -35,8 +35,8 @@ public class Model {
             PostPage a = new PostPage();
             //User u = new User();
             //data.add(u);
-            UserPost userPost = new UserPost("name "+i,"location"+i,"type"+i,"about"+i,""+i,"catalog"+i);
-            userPostListData.add(userPost);
+            UserPost userPost = new UserPost("name "+i,"location"+i,"about"+i,""+i,"catalog"+i);
+            //userPostListData.add(userPost);
             addUserPost(userPost,()->{
                 System.out.println("kdjfkd");
             });
@@ -100,15 +100,10 @@ public class Model {
         }
         throw new Exception("no id matched");
     }
-
-    public void deletePostById(String PostId){
-        for(int i = 0 ; i< data.size() ; i++)
-        {
-            if(data.get(i).getId().equals(PostId))
-            {
-                data.remove(i);
-                return;
-            }
-        }
+    public interface DeletePostById{
+        void onComplete();
+    }
+    public void deletePostById(String postId, DeletePostById listener){
+        modelFirebase.deletePostById(postId,listener);
     }
 }

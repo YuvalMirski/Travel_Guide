@@ -30,6 +30,14 @@ public class HomePage extends Fragment {
         Button attractionBtn = (Button)view.findViewById(R.id.attractions_home_btn);
         Button toursBtn = (Button)view.findViewById(R.id.tours_home_btn);
 
+        //this is temporary Button will be replace with the bottom nav bar
+        Button addBtn = (Button)view.findViewById(R.id.add_new_post_btn);
+        addBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Navigation.findNavController(v).navigate(HomePageDirections.actionHomePageNavToNewPostPage());
+            }
+        });
 
         attractionBtn.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -2,12 +2,14 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/save_post_page_delete_btn"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".PostPage">
+    tools:context=".EditPostPage">
 
-    <TextView
-        android:id="@+id/post_name_post_page_details_tv"
+
+    <EditText
+        android:id="@+id/post_name_post_page_edit_et"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="30dp"
@@ -20,8 +22,8 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/location_post_page_details_tv"
+    <EditText
+        android:id="@+id/location_post_page_edit_et"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -31,43 +33,43 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/picture_post_page_details_" />
+        app:layout_constraintTop_toBottomOf="@+id/picture_post_page_edit_" />
 
     <ImageView
-        android:id="@+id/picture_post_page_details_"
+        android:id="@+id/picture_post_page_edit_"
         android:layout_width="283dp"
         android:layout_height="195dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="20dp"
         android:src="@drawable/camel"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/post_name_post_page_details_tv" />
+        app:layout_constraintTop_toBottomOf="@+id/post_name_post_page_edit_et" />
 
     <TextView
-        android:id="@+id/type_post_tv"
+        android:id="@+id/type_post_edit_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="20dp"
-        android:text="Type:"
+        android:text="Category:"
         android:textSize="24sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/location_post_page_details_tv" />
+        app:layout_constraintTop_toBottomOf="@+id/location_post_page_edit_et" />
 
-    <TextView
-        android:id="@+id/type_post_page_details_tv"
+    <EditText
+        android:id="@+id/type_post_page_edit_et"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
         android:text="TextView"
         android:textSize="24sp"
-        app:layout_constraintBaseline_toBaselineOf="@+id/type_post_tv"
+        app:layout_constraintBaseline_toBaselineOf="@+id/type_post_edit_tv"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/type_post_tv" />
+        app:layout_constraintStart_toEndOf="@+id/type_post_edit_tv" />
 
     <TextView
-        android:id="@+id/about_post_tv"
+        android:id="@+id/about_post_edit_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -75,28 +77,38 @@
         android:text="About:"
         android:textSize="24sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/type_post_tv" />
+        app:layout_constraintTop_toBottomOf="@+id/type_post_edit_tv" />
 
-    <TextView
-        android:id="@+id/about_post_page_details_"
+    <EditText
+        android:id="@+id/about_post_page_edit_et"
         android:layout_width="0dp"
         android:layout_height="110dp"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
         android:text="TextView"
         android:textSize="24sp"
-        app:layout_constraintBaseline_toBaselineOf="@+id/about_post_tv"
+        app:layout_constraintBaseline_toBaselineOf="@+id/about_post_edit_tv"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/about_post_tv" />
+        app:layout_constraintStart_toEndOf="@+id/about_post_edit_tv" />
 
     <Button
-        android:id="@+id/edit_post_page_details_btn"
+        android:id="@+id/delete_post_page_edit_btn"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
-        android:layout_marginBottom="70dp"
-        android:text="Edit"
+        android:layout_marginBottom="20dp"
+        android:text="delete"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <Button
+        android:id="@+id/save_post_page_edit_delete_btn"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="20dp"
+        android:text="save"
+        app:layout_constraintBottom_toTopOf="@+id/delete_post_page_edit_btn"
         app:layout_constraintEnd_toEndOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

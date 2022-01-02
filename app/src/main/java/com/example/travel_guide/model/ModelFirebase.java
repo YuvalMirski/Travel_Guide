@@ -23,7 +23,9 @@ public class ModelFirebase {
 
     FirebaseFirestore db = FirebaseFirestore.getInstance();
 
-    public interface GetAllPostsListener{
+
+
+    public interface GetAllPostsListener {
         void onComplete(List<UserPost> list);
     }
 
@@ -33,10 +35,10 @@ public class ModelFirebase {
                 .get()
                 .addOnCompleteListener(task -> {
                     List<UserPost> list = new LinkedList<UserPost>();
-                    if (task.isSuccessful()){
-                        for (QueryDocumentSnapshot doc : task.getResult()){
+                    if (task.isSuccessful()) {
+                        for (QueryDocumentSnapshot doc : task.getResult()) {
                             UserPost userPost = UserPost.create(doc.getData());
-                            if (userPost != null){
+                            if (userPost != null) {
                                 list.add(userPost);
                             }
                         }
@@ -55,6 +57,14 @@ public class ModelFirebase {
                 .addOnFailureListener(e -> listener.onComplete());
     }
 
+    public void deletePostById(String postId, Model.DeletePostById listener) {
+        db.collection(UserPost.COLLECTION_NAME)
+                .document(postId)
+                .delete()
+                .addOnSuccessListener(unused -> listener.onComplete())
+                .addOnFailureListener(e -> listener.onComplete());
+    }
+
     public void getPostById(String postId, Model.GetPostById listener) {
 
         db.collection(UserPost.COLLECTION_NAME)
@@ -64,10 +74,9 @@ public class ModelFirebase {
                     @Override
                     public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                         UserPost userPost = null;
-                        if(task.isSuccessful() & task.getResult() != null)
-                        {
+                        if (task.isSuccessful() & task.getResult() != null) {
 
-                        userPost = UserPost.create(task.getResult().getData());
+                            userPost = UserPost.create(task.getResult().getData());
                         }
                         listener.onComplete(userPost);
                     }

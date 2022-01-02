@@ -10,13 +10,12 @@ import java.util.Map;
 
 public class UserPost {
 
-    String name,location, type, about, id, category;
+    String name,location, about, id, category;
     ImageView userProfile;
     final public static String COLLECTION_NAME = "UserPost";
-    public UserPost(String name, String location, String type, String about, String id, String category) {
+    public UserPost(String name, String location, String about, String id, String category) {
         this.name = name;
         this.location = location;
-        this.type = type;
         this.about = about;
         this.id = id;
         this.category = category;
@@ -25,11 +24,10 @@ public class UserPost {
     public static UserPost create(Map<String, Object> json) {
         String name = (String)json.get("name");
         String location = (String)json.get("location");
-        String type = (String)json.get("type");
         String about = (String)json.get("about");
         String id = (String)json.get("id");
         String category = (String)json.get("category");
-        UserPost userPost = new UserPost(name,location,type,about,id,category);
+        UserPost userPost = new UserPost(name,location,about,id,category);
 
         return  userPost;
     }
@@ -38,7 +36,6 @@ public class UserPost {
       Map<String,Object>json = new HashMap<String,Object>();
         json.put("name",name);
         json.put("location",location);
-        json.put("type",type);
         json.put("about",about);
         json.put("id",id);
         json.put("category",category);
@@ -62,13 +59,6 @@ public class UserPost {
         this.location = location;
     }
 
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
-    }
 
     public String getAbout() {
         return about;
@@ -100,5 +90,9 @@ public class UserPost {
 
     public void setUserProfile(ImageView userProfile) {
         this.userProfile = userProfile;
+    }
+
+    public String getType() {
+        return category;
     }
 }
