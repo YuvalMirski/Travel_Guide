@@ -1,5 +1,6 @@
 package com.example.travel_guide.model;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -7,6 +8,7 @@ import java.util.Map;
 public class User {
 
     String userName, email, sex, country, password, id;
+    List<Integer> lstSaved; // TODO:: id of all the post of the saved post
     final public static String COLLECTION_NAME = "Users";
 
     public User(String userName, String email, String sex, String country, String password, String id) {
@@ -16,6 +18,7 @@ public class User {
         this.country = country;
         this.password = password;
         this.id = id;
+        lstSaved = new ArrayList<>();
     }
 
     public static User create(Map<String, Object> json) {
