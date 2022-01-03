@@ -5,14 +5,37 @@ package com.example.travel_guide.model;
 
 import android.widget.ImageView;
 
+import androidx.annotation.NonNull;
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
+
+import com.google.firebase.Timestamp;
+import com.google.firebase.firestore.FieldValue;
+
 import java.util.HashMap;
 import java.util.Map;
 
+@Entity
 public class UserPost {
+    @PrimaryKey
+    @NonNull
+    String id;
+    boolean isChecked; // for deleting data from firebase
+    String name,location, about, category;
 
-    String name,location, about, id, category;
-    ImageView userProfile;
+    public void setUpdateDate(Long updateDate) {
+        this.updateDate = updateDate;
+    }
+
+    Long updateDate = new Long(0);
+
+    //ImageView userProfile;
     final public static String COLLECTION_NAME = "UserPost";
+
+    public UserPost() { // this C'tor for ROOM
+        this.isChecked = false;
+    }
+
     public UserPost(String name, String location, String about, String id, String category) {
         this.name = name;
         this.location = location;
@@ -27,8 +50,10 @@ public class UserPost {
         String about = (String)json.get("about");
         String id = (String)json.get("id");
         String category = (String)json.get("category");
+        Timestamp ts = (Timestamp)json.get("updateDate");
+        Long updateDate = ts.getSeconds();
         UserPost userPost = new UserPost(name,location,about,id,category);
-
+        userPost.setUpdateDate(updateDate);
         return  userPost;
     }
 
@@ -39,6 +64,7 @@ public class UserPost {
         json.put("about",about);
         json.put("id",id);
         json.put("category",category);
+        json.put("updateDate", FieldValue.serverTimestamp());// get time stamp from server
         return json;
 
     }
@@ -84,15 +110,19 @@ public class UserPost {
         this.category = category;
     }
 
-    public ImageView getUserProfile() {
-        return userProfile;
-    }
-
-    public void setUserProfile(ImageView userProfile) {
-        this.userProfile = userProfile;
-    }
+//    public ImageView getUserProfile() {
+//        return userProfile;
+//    }
+//
+//    public void setUserProfile(ImageView userProfile) {
+//        this.userProfile = userProfile;
+//    }
 
     public String getType() {
         return category;
+    }
+
+    public long getUpdateData() {
+        return updateDate;
     }
 }

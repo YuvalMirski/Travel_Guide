@@ -41,7 +41,7 @@ public class NewPostPage extends Fragment {
         else{
             //TODO :: change logic of both conditions we need id that not exist
             // the way it should be is that User creates Post, rn we are creating them in a different way
-            new_id = getRand(0,100);
+            new_id = getRand(50,500);
         }
 
         postName = view.findViewById(R.id.post_name_post_page_new_et);
