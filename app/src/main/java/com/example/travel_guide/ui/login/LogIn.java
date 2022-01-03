@@ -65,6 +65,8 @@ public class LogIn extends Fragment {
             }
         });
 
+        //TODO:: add button for user without account
+
         return view;
     }
 

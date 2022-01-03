@@ -19,9 +19,9 @@ import java.util.Map;
 public class UserPost {
     @PrimaryKey
     @NonNull
-    String id;
+    String id; // TODO:: the user pass id to post
     boolean isChecked; // for deleting data from firebase
-    String name,location, about, category;
+    String name,location, about, category, userId;
 
     public void setUpdateDate(Long updateDate) {
         this.updateDate = updateDate;
@@ -36,11 +36,11 @@ public class UserPost {
         this.isChecked = false;
     }
 
-    public UserPost(String name, String location, String about, String id, String category) {
+    public UserPost(String name, String location, String about, String category) {
         this.name = name;
         this.location = location;
         this.about = about;
-        this.id = id;
+        //this.id = id;
         this.category = category;
     }
 
@@ -48,12 +48,13 @@ public class UserPost {
         String name = (String)json.get("name");
         String location = (String)json.get("location");
         String about = (String)json.get("about");
-        String id = (String)json.get("id");
+        //String id = (String)json.get("id");
         String category = (String)json.get("category");
         Timestamp ts = (Timestamp)json.get("updateDate");
         Long updateDate = ts.getSeconds();
-        UserPost userPost = new UserPost(name,location,about,id,category);
+        UserPost userPost = new UserPost(name,location,about,category);
         userPost.setUpdateDate(updateDate);
+       // userPost.setId(docId);
         return  userPost;
     }
 

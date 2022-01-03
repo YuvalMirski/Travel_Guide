@@ -59,7 +59,7 @@ public class EditPostPage extends Fragment {
                  new_location = location.getText().toString();
                  new_category = type.getText().toString();
                  new_about = about.getText().toString();
-                 UserPost un = new UserPost(new_name,new_location,new_about,new_id,new_category);
+                 UserPost un = new UserPost(new_name,new_location,new_about,new_category);
                  Model.instance.addUserPost(un,()->{
                      Navigation.findNavController(postName).navigateUp();
                  });
