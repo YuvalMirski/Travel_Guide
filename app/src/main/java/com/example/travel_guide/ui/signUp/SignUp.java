@@ -4,62 +4,69 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
 
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 
 import com.example.travel_guide.R;
+import com.example.travel_guide.model.Model;
+import com.example.travel_guide.model.User;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link SignUp#newInstance} factory method to
- * create an instance of this fragment.
- */
+import java.util.Random;
+
+//Create User Page
+
 public class SignUp extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+    EditText email, sex, country, userName,password;
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
-
-    public SignUp() {
-        // Required empty public constructor
-    }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment SignUp.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static SignUp newInstance(String param1, String param2) {
-        SignUp fragment = new SignUp();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
-    }
+    String new_userName, new_email, new_sex, new_country, new_password, new_id;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_sign_up, container, false);
+        View view = inflater.inflate(R.layout.fragment_sign_up, container, false);
+        // new_id = Model
+        //TODO:: temporary - we need id that is not exist
+         new_id = getRand(0,100);  //
+
+
+         email = view.findViewById(R.id.email_signup_et);
+         sex = view.findViewById(R.id.sex_signup_et);
+         country = view.findViewById(R.id.country_signup_et);
+         userName = view.findViewById(R.id.username_signup_et);
+         password = view.findViewById(R.id.password_signup_et);
+
+         Button submitBtn = view.findViewById(R.id.submit_signup_btn);
+
+        submitBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //TODO:: verify if user not exist in DB --> if not update DB with user and navigate to sign in page
+                //                                      --> if exist then write proper msg
+
+                new_userName = userName.getText().toString();
+                new_email = email.getText().toString();
+                new_sex = sex.getText().toString();
+                new_country = country.getText().toString();
+                new_password = password.getText().toString();
+
+                User user = new User(new_userName,new_email,new_sex,new_country,new_password,new_id);
+
+                Model.instance.addUser(user,()->{
+                   // Navigation.findNavController(email).navigateUp();
+                    Navigation.findNavController(v).navigate(SignUpDirections.actionSignUpNavToLogInNav());
+                });
+            }
+        });
+        return view;
+    }
+    public String getRand(int n1, int n2) {
+        //generating number between n1 - n2
+        Random rand = new Random();
+        int min = n1, max = n2;
+        return String.valueOf(rand.nextInt(max - min + 1) + min);
     }
 }
