@@ -77,13 +77,15 @@
 
     <Button
         android:id="@+id/delete_account_edit_btn"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
+        android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
         android:text="Delete"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/save_account_edit_btn" />
+        app:layout_constraintEnd_toStartOf="@+id/save_account_edit_btn"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:layout_editor_absoluteY="551dp" />
 
     <EditText
         android:id="@+id/user_name_account_edit_et"
@@ -100,12 +102,9 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginEnd="16dp"
         android:text="TextView"
         android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="@+id/email_account_edit_tv"
-        app:layout_constraintEnd_toStartOf="@+id/delete_account_edit_btn"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/email_account_edit_tv" />
 
     <EditText
@@ -146,12 +145,15 @@
 
     <Button
         android:id="@+id/save_account_edit_btn"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="80dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="104dp"
         android:layout_marginEnd="16dp"
         android:text="Save"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/delete_account_edit_btn"
         app:layout_constraintTop_toBottomOf="@+id/password_account_edit_et" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

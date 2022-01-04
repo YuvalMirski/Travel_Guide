@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@android:color/white"
     tools:context=".NewPostPage">
 
 
@@ -27,6 +28,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="20dp"
+        android:layout_marginEnd="16dp"
         android:hint="location"
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -66,17 +68,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/type_post_new_tv" />
 
-    <TextView
-        android:id="@+id/about_post_new_tv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:text="About:"
-        android:textSize="24sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/type_post_new_tv" />
-
     <EditText
         android:id="@+id/about_post_page_new_et"
         android:layout_width="0dp"
@@ -86,14 +77,26 @@
         android:textSize="24sp"
         app:layout_constraintBaseline_toBaselineOf="@+id/about_post_new_tv"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/about_post_new_tv" />
+
+    <TextView
+        android:id="@+id/about_post_new_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="64dp"
+        android:text="About:"
+        android:textSize="24sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/type_post_new_tv" />
 
     <Button
         android:id="@+id/add_post_page_new_btn"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginBottom="30dp"
+        android:layout_marginStart="144dp"
+        android:layout_marginBottom="84dp"
         android:text="Post"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />

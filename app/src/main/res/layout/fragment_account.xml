@@ -78,43 +78,48 @@
         android:id="@+id/post_account_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="100dp"
         android:layout_marginEnd="16dp"
         android:background="@color/purple_700"
         android:text="My Post"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/delete_account_btn"
         app:layout_constraintTop_toBottomOf="@+id/password_account_tv" />
 
     <Button
         android:id="@+id/edit_accoutn_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="60dp"
-        android:layout_marginEnd="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="100dp"
         android:text="Edit"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/signup_account_tv" />
+        app:layout_constraintEnd_toStartOf="@+id/delete_account_btn"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/password_account_tv" />
 
     <Button
         android:id="@+id/delete_account_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        android:layout_marginEnd="16dp"
+        android:layout_marginTop="100dp"
+        android:layout_marginEnd="8dp"
         android:text="Delete"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edit_accoutn_btn" />
+        app:layout_constraintEnd_toStartOf="@+id/post_account_btn"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/edit_accoutn_btn"
+        app:layout_constraintTop_toBottomOf="@+id/password_account_str_tv" />
 
     <TextView
         android:id="@+id/user_name_account_str_tv"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginEnd="16dp"
         android:text="TextView"
         android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="@+id/username_account_tv"
-        app:layout_constraintEnd_toStartOf="@+id/edit_accoutn_btn"
         app:layout_constraintStart_toEndOf="@+id/username_account_tv" />
 
     <TextView
@@ -122,12 +127,9 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginEnd="16dp"
         android:text="TextView"
         android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="@+id/email_account_tv"
-        app:layout_constraintEnd_toStartOf="@+id/delete_account_btn"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/email_account_tv" />
 
     <TextView

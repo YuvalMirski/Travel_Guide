@@ -25,9 +25,10 @@
     <EditText
         android:id="@+id/location_post_page_edit_et"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="51dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="20dp"
+        android:layout_marginEnd="16dp"
         android:text="TextView"
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -73,7 +74,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="56dp"
         android:text="About:"
         android:textSize="24sp"
         app:layout_constraintStart_toStartOf="parent"
@@ -95,20 +96,26 @@
         android:id="@+id/delete_post_page_edit_btn"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
-        android:layout_marginBottom="20dp"
+        android:layout_marginBottom="96dp"
         android:text="delete"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/save_post_page_edit_delete_btn"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/save_post_page_edit_delete_btn"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
-        android:layout_marginBottom="20dp"
         android:text="save"
-        app:layout_constraintBottom_toTopOf="@+id/delete_post_page_edit_btn"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/delete_post_page_edit_btn"
+        tools:layout_editor_absoluteY="587dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

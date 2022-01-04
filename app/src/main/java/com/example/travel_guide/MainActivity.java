@@ -3,12 +3,17 @@ package com.example.travel_guide;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.Menu;
 
+import com.example.travel_guide.ui.home.HomePage;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.navigation.NavigationView;
 
+import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -45,12 +50,39 @@ public class MainActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
+
+
+        BottomNavigationView bottomNav = (BottomNavigationView)findViewById(R.id.bottom_navigation);
+        bottomNav.animate();
+        bottomNav.setOnNavigationItemSelectedListener(navListener);
+
     }
+
+    BottomNavigationView.OnNavigationItemSelectedListener navListener = new BottomNavigationView.OnNavigationItemSelectedListener() {
+        @Override
+        public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+            Fragment selectedFragment = null;
+            switch (item.getItemId()){
+                case R.id.homePage_nav:
+                    selectedFragment = new HomePage();
+                    break;
+                case R.id.newPostPage:
+                    selectedFragment = new NewPostPage();
+                    break;
+                case R.id.postListRvFragment:
+                    selectedFragment = new PostListRvFragment(); //TODO: to change for saved only posts
+                    break;
+            }
+            getSupportFragmentManager().beginTransaction().replace(R.id.nav_host_fragment_content_main,selectedFragment).commit();
+            return true;
+        }
+    };
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main, menu);
+
         return true;
     }
 
