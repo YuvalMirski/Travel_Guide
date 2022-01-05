@@ -34,8 +34,6 @@ public class NewPostPage extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_new_post_page, container, false);
 
-        // the new id will be size of post list (last post +1)
-        // need to add check if the id not exist
         if(Model.instance.getAllPosts().getValue() != null) // there aren't any posts
              new_id = String.valueOf(Model.instance.getAllPosts().getValue().size());
         else{
@@ -60,8 +58,8 @@ public class NewPostPage extends Fragment {
                 UserPost un = new UserPost(new_name,new_location,new_about,new_category);
 
                 Model.instance.addUserPost(un,()->{
-
                     Navigation.findNavController(postName).navigateUp();
+                   // Navigation.findNavController(v).navigate(NewPostPageDirections.actionNewPostPageToPostListRvFragment());
                 });
             }
         });

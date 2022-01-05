@@ -130,6 +130,9 @@ public class Model {
     public void addUserPost (UserPost userPost,AddPostListener listener){
         modelFirebase.addUserPost(userPost,listener);
     }
+    public void updateUserPost(UserPost userPost,AddPostListener listener){
+        modelFirebase.updateUserPost(userPost,listener);
+    }
 
     public interface GetPostById{
         void onComplete(UserPost userPost);

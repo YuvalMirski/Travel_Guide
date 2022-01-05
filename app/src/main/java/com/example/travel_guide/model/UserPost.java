@@ -48,12 +48,11 @@ public class UserPost {
         String name = (String)json.get("name");
         String location = (String)json.get("location");
         String about = (String)json.get("about");
-        //String id = (String)json.get("id");
         String category = (String)json.get("category");
         Timestamp ts = (Timestamp)json.get("updateDate");
-        Long updateDate = ts.getSeconds();
+        //Long updateDate = ts.getSeconds();
         UserPost userPost = new UserPost(name,location,about,category);
-        userPost.setUpdateDate(updateDate);
+        //userPost.setUpdateDate(updateDate);
        // userPost.setId(docId);
         return  userPost;
     }

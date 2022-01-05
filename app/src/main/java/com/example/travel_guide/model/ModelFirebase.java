@@ -36,7 +36,7 @@ public class ModelFirebase {
     public void getAllPosts(Long lastUpdateDate, GetAllPostsListener listener) {
 
         db.collection(UserPost.COLLECTION_NAME)
-                .whereGreaterThanOrEqualTo("updateDate", new Timestamp(lastUpdateDate, 0))
+                //.whereGreaterThanOrEqualTo("updateDate", new Timestamp(lastUpdateDate, 0))
                 .get()
                 .addOnCompleteListener(task -> {
                     List<UserPost> list = new LinkedList<UserPost>();
@@ -61,6 +61,7 @@ public class ModelFirebase {
     }
 
     public void addUserPost(UserPost userPost, Model.AddPostListener listener) {
+        System.out.println("userPost in add: "+userPost.getId());
 
         Map<String, Object> json = userPost.toJson();
         db.collection(UserPost.COLLECTION_NAME)
@@ -70,10 +71,23 @@ public class ModelFirebase {
                     public void onSuccess(DocumentReference documentReference) {
                         System.out.println("document id: " + documentReference.getId());
 
-                        //  consol.log("TAG","document id: "+documentReference.getId());
+                        Log.d("TAG", "document id: " + documentReference.getId());
+                        listener.onComplete();
                     }
                 })
+
                 //.addOnSuccessListener(unused -> listener.onComplete())
+                .addOnFailureListener(e -> listener.onComplete());
+    }
+    public void updateUserPost(UserPost userPost, Model.AddPostListener listener)
+    {
+        System.out.println("user name "+userPost.name);
+        System.out.println("userPost: "+userPost.getId());
+        Map<String, Object> json = userPost.toJson();
+        db.collection(UserPost.COLLECTION_NAME)
+                .document(userPost.getId())
+                .set(json)
+                .addOnSuccessListener(unused -> listener.onComplete())
                 .addOnFailureListener(e -> listener.onComplete());
     }
 
