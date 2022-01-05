@@ -63,8 +63,9 @@ public class EditUserFragment extends Fragment {
                 new_country = country.getText().toString();
                 new_password = password.getText().toString();
 
-                User u = new User(new_userName,new_email,new_sex,new_country,new_password,new_id);
-                Model.instance.addUser(u,()->Navigation.findNavController(userName).navigateUp());
+                User u = new User(new_userName,new_email,new_sex,new_country,new_password);
+                u.setId(userId);
+                Model.instance.updateUser(u,()->Navigation.findNavController(userName).navigateUp());
             }
         });
 

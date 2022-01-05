@@ -11,13 +11,13 @@ public class User {
     List<Integer> lstSaved; // TODO:: id of all the post of the saved post
     final public static String COLLECTION_NAME = "Users";
 
-    public User(String userName, String email, String sex, String country, String password, String id) {
+    public User(String userName, String email, String sex, String country, String password) {
         this.userName = userName;
         this.email = email;
         this.sex = sex;
         this.country = country;
         this.password = password;
-        this.id = id;
+        //this.id = id;
         lstSaved = new ArrayList<>();
     }
 
@@ -27,9 +27,9 @@ public class User {
         String sex = (String)json.get("sex");
         String country = (String)json.get("country");
         String password = (String)json.get("password");
-        String id = (String)json.get("id");
+        //String id = (String)json.get("id");
 
-        User user = new User(userName,email,sex,country,password,id);
+        User user = new User(userName,email,sex,country,password);
 
         return user;
     }

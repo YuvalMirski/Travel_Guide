@@ -30,7 +30,7 @@ public class SignUp extends Fragment {
         View view = inflater.inflate(R.layout.fragment_sign_up, container, false);
         // new_id = Model
         //TODO:: temporary - we need id that is not exist
-         new_id = getRand(0,100);  //
+         //new_id = getRand(0,100);  //
 
 
          email = view.findViewById(R.id.email_signup_et);
@@ -53,7 +53,7 @@ public class SignUp extends Fragment {
                 new_country = country.getText().toString();
                 new_password = password.getText().toString();
 
-                User user = new User(new_userName,new_email,new_sex,new_country,new_password,new_id);
+                User user = new User(new_userName,new_email,new_sex,new_country,new_password);
 
                 Model.instance.addUser(user,()->{
                    // Navigation.findNavController(email).navigateUp();

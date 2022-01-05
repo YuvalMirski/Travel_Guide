@@ -43,8 +43,7 @@ public class ModelFirebase {
                     if (task.isSuccessful()) {
                         for (QueryDocumentSnapshot doc : task.getResult()) {
                             UserPost userPost = UserPost.create(doc.getData());
-                            updateId(lastUpdateDate, doc.getId(), userPost);
-
+                             updateId(lastUpdateDate, doc.getId(), userPost);
                             if (userPost != null) {
                                 list.add(userPost);
                             }
@@ -61,28 +60,24 @@ public class ModelFirebase {
     }
 
     public void addUserPost(UserPost userPost, Model.AddPostListener listener) {
-        System.out.println("userPost in add: "+userPost.getId());
+        System.out.println("userPost in add: " + userPost.getId());
 
         Map<String, Object> json = userPost.toJson();
         db.collection(UserPost.COLLECTION_NAME)
                 .add(json)
-                .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                .addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
                     @Override
-                    public void onSuccess(DocumentReference documentReference) {
-                        System.out.println("document id: " + documentReference.getId());
-
-                        Log.d("TAG", "document id: " + documentReference.getId());
+                    public void onComplete(@NonNull Task<DocumentReference> task) {
+                        Long a = new Long(0);
+                        updateId(a, task.getResult().getId(), userPost);
                         listener.onComplete();
                     }
                 })
-
                 //.addOnSuccessListener(unused -> listener.onComplete())
                 .addOnFailureListener(e -> listener.onComplete());
     }
-    public void updateUserPost(UserPost userPost, Model.AddPostListener listener)
-    {
-        System.out.println("user name "+userPost.name);
-        System.out.println("userPost: "+userPost.getId());
+
+    public void updateUserPost(UserPost userPost, Model.AddPostListener listener) {
         Map<String, Object> json = userPost.toJson();
         db.collection(UserPost.COLLECTION_NAME)
                 .document(userPost.getId())
@@ -122,6 +117,23 @@ public class ModelFirebase {
     public void addUser(User user, Model.AddUserListener listener) {
         Map<String, Object> json = user.toJson();
         db.collection(User.COLLECTION_NAME)
+                .add(json)
+                .addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
+                    @Override
+                    public void onComplete(@NonNull Task<DocumentReference> task) {
+                        if (task.isSuccessful() & task.getResult() != null) {
+                            updateUserId(task.getResult().getId(), user);
+                        }
+                        listener.onComplete();
+                    }
+                })
+                //.addOnSuccessListener(unused -> listener.onComplete())
+                .addOnFailureListener(e -> listener.onComplete());
+    }
+
+    public void updateUser(User user, Model.AddUserListener listener) {
+        Map<String, Object> json = user.toJson();
+        db.collection(User.COLLECTION_NAME)
                 .document(user.getId())
                 .set(json)
                 .addOnSuccessListener(unused -> listener.onComplete())
@@ -149,7 +161,6 @@ public class ModelFirebase {
                     public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                         User user = null;
                         if (task.isSuccessful() & task.getResult() != null) {
-
                             user = User.create(task.getResult().getData());
                         }
                         listener.onComplete(user);
@@ -157,4 +168,9 @@ public class ModelFirebase {
                 });
     }
 
+    public void updateUserId(String id, User user) {
+        DocumentReference documentReference = db.collection(User.COLLECTION_NAME).document(id);
+        user.setId(documentReference.getId());
+        documentReference.set(user);
+    }
 }
