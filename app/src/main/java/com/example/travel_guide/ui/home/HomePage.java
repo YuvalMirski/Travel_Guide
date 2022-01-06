@@ -30,6 +30,10 @@ public class HomePage extends Fragment {
         Button attractionBtn = (Button)view.findViewById(R.id.attractions_home_btn);
         Button toursBtn = (Button)view.findViewById(R.id.tours_home_btn);
 
+
+        String userId = HomePageArgs.fromBundle(getArguments()).getUserId();
+        System.out.println("user is is: "+userId);
+
         //this is temporary Button will be replace with the bottom nav bar
         Button addBtn = (Button)view.findViewById(R.id.add_new_post_btn);
         addBtn.setOnClickListener(new View.OnClickListener() {

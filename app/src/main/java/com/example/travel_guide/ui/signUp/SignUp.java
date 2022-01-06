@@ -55,10 +55,15 @@ public class SignUp extends Fragment {
 
                 User user = new User(new_userName,new_email,new_sex,new_country,new_password);
 
-                Model.instance.addUser(user,()->{
-                   // Navigation.findNavController(email).navigateUp();
-                    Navigation.findNavController(v).navigate(SignUpDirections.actionSignUpNavToLogInNav());
-                });
+                user.getLstSaved().add("DEMO ID ");
+                user.getLstSaved().add("DEMO ID2 ");
+
+                Model.instance.createUserWithEmail(user,()-> Navigation.findNavController(v).navigate(SignUpDirections.actionSignUpNavToLogInNav()));
+
+//                Model.instance.addUser(user,()->{
+//                   // Navigation.findNavController(email).navigateUp();
+//                    Navigation.findNavController(v).navigate(SignUpDirections.actionSignUpNavToLogInNav());
+//                });
             }
         });
         return view;

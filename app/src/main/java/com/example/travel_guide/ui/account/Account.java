@@ -29,11 +29,10 @@ public class Account extends Fragment {
 
         //TODO :: if no user id will be pass it'll be null here - add condition that check it
         // now it goes to user id 1000 !!
-     //   String userId = AccountArgs.fromBundle(getArguments()).getUserId();
-//        if(AccountArgs.fromBundle(getArguments()).getUserId()!=null)
-        //  userId = AccountArgs.fromBundle(getArguments()).getUserId();
-//        else
-          String userId = String.valueOf(1000);
+
+         String userId = AccountArgs.fromBundle(getArguments()).getUserId();
+        // String userId = AccountArgs.fromBundle(getArguments().getBundle());
+        //  String userId = String.valueOf(1000);
 
         Model.instance.getUserById(userId, new Model.GetUserById() {
             @Override

@@ -10,15 +10,15 @@
         android:name="com.example.travel_guide.ui.home.HomePage"
         android:label="Home"
         tools:layout="@layout/fragment_home_page" >
-        <argument
-            android:name="userID"
-            app:argType="string" />
         <action
             android:id="@+id/action_homePage_nav_to_postListRvFragment"
             app:destination="@id/postListRvFragment" />
         <action
             android:id="@+id/action_homePage_nav_to_newPostPage"
             app:destination="@id/newPostPage" />
+        <argument
+            android:name="userId"
+            app:argType="string" />
     </fragment>
     <fragment
         android:id="@+id/account_nav"

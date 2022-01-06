@@ -19,9 +19,10 @@ import java.util.Map;
 public class UserPost {
     @PrimaryKey
     @NonNull
-    String id; // TODO:: the user pass id to post
+    String id;
+    String userId; // the creator (user) of the post// TODO:: the user pass id to post
     boolean isChecked; // for deleting data from firebase
-    String name,location, about, category, userId;
+    String name,location, about, category;
 
     public void setUpdateDate(Long updateDate) {
         this.updateDate = updateDate;

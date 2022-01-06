@@ -19,6 +19,8 @@ public class Model {
     Executor executor = Executors.newFixedThreadPool(1);
 
 
+
+
     public enum PostListLoadingState{ //indicate the possible states
         loading,
         loaded
@@ -144,14 +146,6 @@ public class Model {
     }
 
 
-//    public int getPostByPosition(String PostId) throws Exception {
-//        for(int i = 0 ; i< data.size() ; i++)
-//        {
-//            if(data.get(i).getId().equals(PostId))
-//                return i;
-//        }
-//        throw new Exception("no id matched");
-//    }
     public interface DeletePostById{
         void onComplete();
     }
@@ -180,9 +174,20 @@ public class Model {
     public interface AddUserListener{
         void onComplete();
     }
+    public interface OnCompleteGeneralListener{
+        void onComplete(String id);
+    }
     public void addUser (User user,AddUserListener listener){
         modelFirebase.addUser(user,listener);
     }
+
+    public void createUserWithEmail(User user,AddUserListener listener) {
+        modelFirebase.createUserWithEmail(user,listener);
+    }
+    public void userSignIn(String email, String password,Model.OnCompleteGeneralListener listener){
+        modelFirebase.userSignIn(email,password,listener);
+    }
+
     public void updateUser (User user,AddUserListener listener){
         modelFirebase.updateUser(user,listener);
     }
@@ -203,6 +208,11 @@ public class Model {
     public void deleteUserById(String userId, DeleteUserById listener){
         modelFirebase.deleteUserById(userId,listener);
     }
+
+    public void initFireBaseAuto(){
+        modelFirebase.initFireBaseAuto();
+    }
+
     //------------------------------------END USER------------------------------------//
 
 

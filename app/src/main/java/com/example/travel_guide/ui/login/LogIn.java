@@ -5,15 +5,14 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
 import com.example.travel_guide.R;
+import com.example.travel_guide.model.Model;
 
 
 public class LogIn extends Fragment {
@@ -28,9 +27,12 @@ public class LogIn extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
+        //initialize the FirebaseAuth instance
+        Model.instance.initFireBaseAuto();
+
         View view = inflater.inflate(R.layout.fragment_log_in, container, false);
 
-        EditText userName = view.findViewById(R.id.username_login_et);
+        EditText email = view.findViewById(R.id.email_login_et);
         EditText password = view.findViewById(R.id.password_login_et);
 
         Button loginBtn = (Button) view.findViewById(R.id.login_login_btn);
@@ -38,11 +40,19 @@ public class LogIn extends Fragment {
         loginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(searchUser(userName.getText().toString(),password.getText().toString()))
+                if(true)
                 {
                     Log.d("Tag","success");
-                    String userID = ""; // we'll get it after verifying the user, go to it's details and get it from there
-                    Navigation.findNavController(v).navigate(LogInDirections.actionLogInNavToHomePageNav(userID));
+                    Model.instance.userSignIn(email.getText().toString().trim(), password.getText().toString().trim(), new Model.OnCompleteGeneralListener() {
+                        @Override
+                        public void onComplete(String userId) {
+                            System.out.println("before navigation");
+                            Navigation.findNavController(v).navigate(LogInDirections.actionLogInNavToHomePageNav(userId));
+                        }
+                    });
+
+
+                    //Navigation.findNavController(v).navigate(LogInDirections.actionLogInNavToHomePageNav(userID));
 
                 }
                 else{
@@ -70,10 +80,5 @@ public class LogIn extends Fragment {
         return view;
     }
 
-    private boolean searchUser(String toString, String toString1) {
-        //TODO implement logic of verifying user
-
-        return true;
-    }
 }
 //https://www.tutorialspoint.com/android/android_login_screen.htm

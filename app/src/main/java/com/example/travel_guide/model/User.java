@@ -8,8 +8,11 @@ import java.util.Map;
 public class User {
 
     String userName, email, sex, country, password, id;
-    List<Integer> lstSaved; // TODO:: id of all the post of the saved post
+    List<String> lstSaved; // TODO:: id of all the post of the saved post
+    List<String> lstUserPosts;
     final public static String COLLECTION_NAME = "Users";
+
+
 
     public User(String userName, String email, String sex, String country, String password) {
         this.userName = userName;
@@ -19,6 +22,7 @@ public class User {
         this.password = password;
         //this.id = id;
         lstSaved = new ArrayList<>();
+        lstUserPosts = new ArrayList<>();
     }
 
     public static User create(Map<String, Object> json) {
@@ -42,6 +46,8 @@ public class User {
         json.put("country",country);
         json.put("password",password);
         json.put("id",id);
+        json.put("lstSaved",lstSaved);
+        json.put("lstUserPosts",lstUserPosts);
         return json;
     }
 
@@ -92,6 +98,21 @@ public class User {
 
     public void setId(String id) {
         this.id = id;
+    }
+    public List<String> getLstSaved() {
+        return lstSaved;
+    }
+
+    public void setLstSaved(List<String> lstSaved) {
+        this.lstSaved = lstSaved;
+    }
+
+    public List<String> getLstUserPosts() {
+        return lstUserPosts;
+    }
+
+    public void setLstUserPosts(List<String> lstUserPosts) {
+        this.lstUserPosts = lstUserPosts;
     }
 
 }
