@@ -1,5 +1,6 @@
 package com.example.travel_guide;
 
+import android.app.Application;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -7,12 +8,20 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.Menu;
 
+import com.example.travel_guide.ui.LogOut;
+import com.example.travel_guide.ui.account.Account;
 import com.example.travel_guide.ui.home.HomePage;
+import com.example.travel_guide.ui.login.LogIn;
+import com.example.travel_guide.ui.login.LogInDirections;
+import com.example.travel_guide.ui.signUp.SignUp;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.navigation.NavigationView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.view.GravityCompat;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -22,11 +31,14 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.travel_guide.databinding.ActivityMainBinding;
+import com.google.api.SystemParameterOrBuilder;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity  {//implements NavigationView.OnNavigationItemSelectedListener
 
     private AppBarConfiguration mAppBarConfiguration;
     private ActivityMainBinding binding;
+    private DrawerLayout drawer;
+    private NavController navController;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,38 +48,42 @@ public class MainActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
 
         setSupportActionBar(binding.appBarMain.toolbar);
-
-        DrawerLayout drawer = binding.drawerLayout;
+        drawer = binding.drawerLayout;
         NavigationView navigationView = binding.navView;
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         // menu should be considered as top level destinations.
         mAppBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.homePage_nav, R.id.account_nav, R.id.logIn_nav,R.id.signUp_nav)
+                R.id.homePage_nav, R.id.account_nav, R.id.logIn_nav,R.id.signUp_nav, R.id.logOut_nav)
                 .setOpenableLayout(drawer)
                 .build();
 
-        Bundle bundle = new Bundle();
-        bundle.putString("userId","dd");
 
-        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
+        navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
 
+        Menu menu = navigationView.getMenu();
+        MenuItem logOut = menu.findItem(R.id.logOut_nav);
+        logOut.setVisible(false);
 
         BottomNavigationView bottomNav = (BottomNavigationView)findViewById(R.id.bottom_navigation);
-        bottomNav.animate();
+        //bottomNav.animate(); TODO:animation
         bottomNav.setOnNavigationItemSelectedListener(navListener);
-
     }
+
+
 
     BottomNavigationView.OnNavigationItemSelectedListener navListener = new BottomNavigationView.OnNavigationItemSelectedListener() {
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             Fragment selectedFragment = null;
+            Bundle bundle = new Bundle();
             switch (item.getItemId()){
                 case R.id.homePage_nav:
                     selectedFragment = new HomePage();
+                    bundle.putString("userId", SaveUserId.getId());
+                    selectedFragment.setArguments(bundle);
                     break;
                 case R.id.newPostPage:
                     selectedFragment = new NewPostPage();
@@ -94,5 +110,37 @@ public class MainActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
         return NavigationUI.navigateUp(navController, mAppBarConfiguration)
                 || super.onSupportNavigateUp();
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        Bundle bundle = new Bundle();
+        if (!super.onOptionsItemSelected(item)){
+            switch (item.getItemId()){
+//                case android.R.id.home:
+//                    navController.navigateUp();
+//                    return true;
+                case R.id.action_account:
+                    Fragment accountFragment = new Account();
+                    bundle.putString("userId", SaveUserId.getId());
+                    accountFragment.setArguments(bundle);
+                    getSupportFragmentManager().beginTransaction().replace(R.id.nav_host_fragment_content_main,accountFragment).commit();
+                    return true;
+            }
+        }else{
+            return true;
+        }
+        return false;
+    }
+
+    public static class SaveUserId {
+        private static String id;
+        public static String getId(){
+            return id;
+        }
+        public static void setId(String id)
+        {
+            SaveUserId.id =id;
+        }
     }
 }

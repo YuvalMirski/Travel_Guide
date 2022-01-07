@@ -175,7 +175,7 @@ public class Model {
         void onComplete();
     }
     public interface OnCompleteGeneralListener{
-        void onComplete(String id);
+        void onComplete(User user);
     }
     public void addUser (User user,AddUserListener listener){
         modelFirebase.addUser(user,listener);
@@ -196,9 +196,9 @@ public class Model {
         void onComplete(User user);
     }
 
-    public User getUserById(String userId, GetUserById listener) {
+    public void getUserById(String userId, GetUserById listener) {
         modelFirebase.getUserById(userId,listener);
-        return null;
+        //return null;
     }
 
 

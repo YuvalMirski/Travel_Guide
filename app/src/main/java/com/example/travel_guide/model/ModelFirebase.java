@@ -225,8 +225,14 @@ public class ModelFirebase {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d("TAG", "signInWithEmail:success");
                             FirebaseUser user = mAuth.getCurrentUser();
+                            getUserById(user.getUid(), new Model.GetUserById() {
+                                @Override
+                                public void onComplete(User usr) {
+                                    usr.setId(user.getUid());
+                                    listener.onComplete(usr);
+                                }
+                            });
 
-                            listener.onComplete(user.getUid());
                             //return user;
                             //updateUI(user);
                         } else {

@@ -3,16 +3,22 @@ package com.example.travel_guide.ui.login;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
+import com.example.travel_guide.MainActivity;
 import com.example.travel_guide.R;
 import com.example.travel_guide.model.Model;
+import com.example.travel_guide.model.User;
+import com.google.android.material.navigation.NavigationView;
 
 
 public class LogIn extends Fragment {
@@ -45,9 +51,30 @@ public class LogIn extends Fragment {
                     Log.d("Tag","success");
                     Model.instance.userSignIn(email.getText().toString().trim(), password.getText().toString().trim(), new Model.OnCompleteGeneralListener() {
                         @Override
-                        public void onComplete(String userId) {
+                        public void onComplete(User user) { //String userId
                             System.out.println("before navigation");
-                            Navigation.findNavController(v).navigate(LogInDirections.actionLogInNavToHomePageNav(userId));
+
+                            NavigationView navigationView = (NavigationView)getActivity().findViewById(R.id.nav_view);
+                            TextView userName = navigationView.getHeaderView(0).findViewById(R.id.userName_tv);
+                            TextView userEmail = navigationView.getHeaderView(0).findViewById(R.id.userEmail_tv);
+
+                            userName.setText(user.getUserName());
+                            userEmail.setText(user.getEmail());
+
+                            Menu menu = navigationView.getMenu();
+                            MenuItem nav_Login = menu.findItem(R.id.logIn_nav);
+                            MenuItem nav_signUp = menu.findItem(R.id.signUp_nav);
+                            MenuItem nav_Logout = menu.findItem(R.id.logOut_nav);
+                            nav_Login.setVisible(false);
+                            nav_signUp.setVisible(false);
+                            nav_Logout.setVisible(true);
+
+                            MainActivity.SaveUserId.setId(user.getId());
+
+                            //TODO:: to change unabled to press
+                            //navigationView.setNavigationItemSelectedListener(this);
+
+                            Navigation.findNavController(v).navigate(LogInDirections.actionLogInNavToHomePageNav(user.getId()));
                         }
                     });
 

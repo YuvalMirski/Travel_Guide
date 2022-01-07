@@ -12,10 +12,11 @@
         android:layout_width="261dp"
         android:layout_height="131dp"
         android:layout_marginTop="20dp"
+        android:visibility="visible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:srcCompat="@tools:sample/avatars" />
+        tools:srcCompat="@drawable/avatar" />
 
     <TextView
         android:id="@+id/location_listrow_tv"
