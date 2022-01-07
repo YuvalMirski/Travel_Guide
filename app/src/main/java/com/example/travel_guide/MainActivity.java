@@ -8,6 +8,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.Menu;
 
+import com.example.travel_guide.model.Model;
 import com.example.travel_guide.ui.LogOut;
 import com.example.travel_guide.ui.account.Account;
 import com.example.travel_guide.ui.home.HomePage;
@@ -32,6 +33,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.travel_guide.databinding.ActivityMainBinding;
 import com.google.api.SystemParameterOrBuilder;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class MainActivity extends AppCompatActivity  {//implements NavigationView.OnNavigationItemSelectedListener
 
@@ -39,6 +42,7 @@ public class MainActivity extends AppCompatActivity  {//implements NavigationVie
     private ActivityMainBinding binding;
     private DrawerLayout drawer;
     private NavController navController;
+    private String userId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,12 +81,19 @@ public class MainActivity extends AppCompatActivity  {//implements NavigationVie
     BottomNavigationView.OnNavigationItemSelectedListener navListener = new BottomNavigationView.OnNavigationItemSelectedListener() {
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+
             Fragment selectedFragment = null;
             Bundle bundle = new Bundle();
             switch (item.getItemId()){
                 case R.id.homePage_nav:
                     selectedFragment = new HomePage();
-                    bundle.putString("userId", SaveUserId.getId());
+                    Model.instance.getUserIdFromFB(new Model.GetUserId() {
+                        @Override
+                        public void onComplete(String id) {
+                            userId = id;
+                        }
+                    });
+                    bundle.putString("userId", userId);
                     selectedFragment.setArguments(bundle);
                     break;
                 case R.id.newPostPage:
@@ -114,6 +125,13 @@ public class MainActivity extends AppCompatActivity  {//implements NavigationVie
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+
+        Model.instance.getUserIdFromFB(new Model.GetUserId() {
+            @Override
+            public void onComplete(String id) {
+                userId = id;
+            }
+        });
         Bundle bundle = new Bundle();
         if (!super.onOptionsItemSelected(item)){
             switch (item.getItemId()){
@@ -122,7 +140,7 @@ public class MainActivity extends AppCompatActivity  {//implements NavigationVie
 //                    return true;
                 case R.id.action_account:
                     Fragment accountFragment = new Account();
-                    bundle.putString("userId", SaveUserId.getId());
+                    bundle.putString("userId", userId);
                     accountFragment.setArguments(bundle);
                     getSupportFragmentManager().beginTransaction().replace(R.id.nav_host_fragment_content_main,accountFragment).commit();
                     return true;
@@ -133,14 +151,14 @@ public class MainActivity extends AppCompatActivity  {//implements NavigationVie
         return false;
     }
 
-    public static class SaveUserId {
-        private static String id;
-        public static String getId(){
-            return id;
-        }
-        public static void setId(String id)
-        {
-            SaveUserId.id =id;
-        }
-    }
+//    public static class SaveUserId {
+//        private static String id;
+//        public static String getId(){
+//            return id;
+//        }
+//        public static void setId(String id)
+//        {
+//            SaveUserId.id =id;
+//        }
+//    }
 }

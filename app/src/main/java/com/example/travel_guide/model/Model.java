@@ -8,6 +8,8 @@ import androidx.lifecycle.MutableLiveData;
 
 import com.example.travel_guide.MyApplication;
 import com.example.travel_guide.PostPage;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 import java.util.List;
 import java.util.concurrent.Executor;
@@ -174,6 +176,7 @@ public class Model {
     public interface AddUserListener{
         void onComplete();
     }
+
     public interface OnCompleteGeneralListener{
         void onComplete(User user);
     }
@@ -198,7 +201,6 @@ public class Model {
 
     public void getUserById(String userId, GetUserById listener) {
         modelFirebase.getUserById(userId,listener);
-        //return null;
     }
 
 
@@ -212,6 +214,15 @@ public class Model {
     public void initFireBaseAuto(){
         modelFirebase.initFireBaseAuto();
     }
+
+    public interface GetUserId{
+        void onComplete(String id);
+    }
+
+    public void getUserIdFromFB(GetUserId listener) {
+        modelFirebase.getUserIdFromFB(listener);
+    }
+
 
     //------------------------------------END USER------------------------------------//
 

@@ -52,7 +52,7 @@ public class Account extends Fragment {
         password = view.findViewById(R.id.password_account_str_tv);
 
         Button editBtn = view.findViewById(R.id.edit_accoutn_btn);
-        Button userPostBtn = view.findViewById(R.id.post_account_btn);
+        Button userPostBtn = view.findViewById(R.id.post_account_btn); //list of user posts
 
         editBtn.setOnClickListener(new View.OnClickListener() {
             @Override

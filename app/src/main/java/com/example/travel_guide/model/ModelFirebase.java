@@ -35,6 +35,7 @@ public class ModelFirebase {
         db.setFirestoreSettings(settings);
     }
 
+
     public interface GetAllPostsListener {
         void onComplete(List<UserPost> list);
     }
@@ -256,6 +257,15 @@ public class ModelFirebase {
                     }
                 });
         listener.onComplete(null);
+    }
+
+    public void getUserIdFromFB(Model.GetUserId listener) {
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        String id = null;
+        if (user != null) {
+            id = user.getUid();
+        }
+        listener.onComplete(id);
     }
 
 }

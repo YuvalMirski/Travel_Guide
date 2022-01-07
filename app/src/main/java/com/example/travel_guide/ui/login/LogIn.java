@@ -69,18 +69,12 @@ public class LogIn extends Fragment {
                             nav_signUp.setVisible(false);
                             nav_Logout.setVisible(true);
 
-                            MainActivity.SaveUserId.setId(user.getId());
-
                             //TODO:: to change unabled to press
                             //navigationView.setNavigationItemSelectedListener(this);
 
                             Navigation.findNavController(v).navigate(LogInDirections.actionLogInNavToHomePageNav(user.getId()));
                         }
                     });
-
-
-                    //Navigation.findNavController(v).navigate(LogInDirections.actionLogInNavToHomePageNav(userID));
-
                 }
                 else{
 
