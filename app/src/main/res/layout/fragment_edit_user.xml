@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@android:color/white"
     tools:context=".EditUserFragment">
 
 
@@ -82,10 +83,10 @@
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
         android:text="Delete"
+        app:layout_constraintBottom_toBottomOf="@+id/save_account_edit_btn"
         app:layout_constraintEnd_toStartOf="@+id/save_account_edit_btn"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="551dp" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <EditText
         android:id="@+id/user_name_account_edit_et"

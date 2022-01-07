@@ -1,5 +1,6 @@
 package com.example.travel_guide.ui.login;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -11,22 +12,32 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 
 import com.example.travel_guide.MainActivity;
 import com.example.travel_guide.R;
 import com.example.travel_guide.model.Model;
 import com.example.travel_guide.model.User;
+import com.example.travel_guide.ui.home.HomePageViewModel;
 import com.google.android.material.navigation.NavigationView;
 
 
 public class LogIn extends Fragment {
 
+    LoginViewModel loginViewModel;
     private int attemptLogIn = 3;
 
     public LogIn() {
         // Required empty public constructor
+    }
+
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+        loginViewModel = new ViewModelProvider(this).get(LoginViewModel.class);
     }
 
     @Override

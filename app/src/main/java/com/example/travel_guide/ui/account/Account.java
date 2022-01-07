@@ -57,7 +57,7 @@ public class Account extends Fragment {
         editBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Navigation.findNavController(v).navigate(AccountDirections.actionAccountNavToEditUserFragment(userId));
+                Navigation.findNavController(v).navigate(AccountDirections.actionGlobalEditUserFragment(userId));
             }
         });
 

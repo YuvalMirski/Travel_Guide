@@ -22,7 +22,6 @@ public class Model {
 
 
 
-
     public enum PostListLoadingState{ //indicate the possible states
         loading,
         loaded
@@ -39,21 +38,17 @@ public class Model {
     //List<UserPost> userPostListData;
     private Model(){
         postListLoadingState.setValue(PostListLoadingState.loaded);
-        for(int i=0;i<10;i++){
-            PostPage a = new PostPage();
-            //User u = new User();
-            //data.add(u);
-            UserPost userPost = new UserPost("name "+i,"location"+i,"about"+i,"catalog"+i);
-            //userPostListData.add(userPost);
-            addUserPost(userPost,()->{
-                System.out.println("kdjfkd");
-            });
-        }
+//        for(int i=0;i<10;i++){
+//            PostPage a = new PostPage();
+//            //User u = new User();
+//            //data.add(u);
+//            UserPost userPost = new UserPost("name "+i,"location"+i,"about"+i,"catalog"+i);
+//            //userPostListData.add(userPost);
+//            addUserPost(userPost,()->{
+//                System.out.println("kdjfkd");
+//            });
+//        }
     }
-
-   // List<User> data = new LinkedList<User>();
-   // List<UserPost> userPostListData = new LinkedList<UserPost>();
-
 
 //    public void getAllPosts(GetAllPostsListener listener){
 //        //  return userPostListData;
@@ -62,7 +57,7 @@ public class Model {
 
     MutableLiveData<List<UserPost>> listLiveDataPost = new MutableLiveData<List<UserPost>>();
 
-    MutableLiveData<List<User>>listLiveDataUser = new MutableLiveData<List<User>>();
+    MutableLiveData<User>LiveDataUser = new MutableLiveData<User>();
     //------------------------------------POST------------------------------------//
 
     public LiveData<List<UserPost>>getAllPosts(){
@@ -125,8 +120,6 @@ public class Model {
 
             }
         });
-
-
     }
     public interface AddPostListener{
         void onComplete();
@@ -162,15 +155,22 @@ public class Model {
     //--------------------------------------------------------------------------------//
     //------------------------------------USER------------------------------------//
 
-    public LiveData<List<User>>getAllUsers(){
+    public LiveData<User>getUser(String id){
 
-        if(listLiveDataUser.getValue() == null){
-            refreshPostList();
+        if(LiveDataUser.getValue() == null){
+            refreshUser(id);
         }
-        return listLiveDataUser;
+        return LiveDataUser;
     }
 
-    public void refreshUserList(){
+    public void refreshUser(String id){
+
+        modelFirebase.getUserById(id, new GetUserById() {
+            @Override
+            public void onComplete(User user) {
+                LiveDataUser.setValue(user);
+            }
+        });
     }
 
     public interface AddUserListener{

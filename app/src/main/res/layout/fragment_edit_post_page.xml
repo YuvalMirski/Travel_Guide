@@ -5,6 +5,7 @@
     android:id="@+id/save_post_page_delete_btn"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@android:color/white"
     tools:context=".EditPostPage">
 
 
