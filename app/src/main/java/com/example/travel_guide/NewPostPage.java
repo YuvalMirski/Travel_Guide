@@ -77,7 +77,9 @@ public class NewPostPage extends Fragment {
                 if(imageBitmap!=null) {
                     Model.instance.saveImage(imageBitmap, new_name+ ".jpg", url -> {
                         userPost.setPostImgUrl(url);
-                        Model.instance.addUserPost(userPost,()->{ Navigation.findNavController(v).navigate(NewPostPageDirections.actionNewPostPageToPostListRvFragment());
+                        Model.instance.addUserPost(userPost,()->{
+                            Navigation.findNavController(v).navigateUp();
+                            //Navigation.findNavController(v).navigate(NewPostPageDirections.actionNewPostPageToPostListRvFragment());
                              //Navigation.findNavController(v).navigate(NewPostPageDirections.actionNewPostPageToPostListRvFragment());
                         });
                     });
