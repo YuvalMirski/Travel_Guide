@@ -78,13 +78,17 @@
 
     <Button
         android:id="@+id/submit_signup_btn"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="180dp"
-        android:layout_marginEnd="24dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginBottom="70dp"
         android:text="Submit"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView9" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/avatar_signup_imv" />
 
     <EditText
         android:id="@+id/username_signup_et"
@@ -152,14 +156,26 @@
         app:layout_constraintStart_toEndOf="@+id/textView9" />
 
     <Button
-        android:id="@+id/profile_pic_signup_btn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:id="@+id/profilePic_signup_btn"
+        android:layout_width="185dp"
+        android:layout_height="62dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="72dp"
         android:text="Upload Profile Picture"
-        android:textSize="20sp"
+        android:textSize="16sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView9" />
+
+    <ImageView
+        android:id="@+id/avatar_signup_imv"
+        android:layout_width="173dp"
+        android:layout_height="166dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
+        android:src="@drawable/avatar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/profilePic_signup_btn"
+        app:layout_constraintTop_toBottomOf="@+id/password_signup_et" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

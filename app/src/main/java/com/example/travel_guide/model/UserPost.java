@@ -22,7 +22,7 @@ public class UserPost {
     String id;
     String userId; // the creator (user) of the post// TODO:: the user pass id to post
     boolean isChecked; // for deleting data from firebase
-    String name,location, about, category;
+    String name,location, about, category, postImgUrl;
 
     public void setUpdateDate(Long updateDate) {
         this.updateDate = updateDate;
@@ -51,8 +51,10 @@ public class UserPost {
         String about = (String)json.get("about");
         String category = (String)json.get("category");
         Timestamp ts = (Timestamp)json.get("updateDate");
+        String postImgUrl = (String) json.get("postImgUrl");
         //Long updateDate = ts.getSeconds();
         UserPost userPost = new UserPost(name,location,about,category);
+        userPost.setPostImgUrl(postImgUrl);
         //userPost.setUpdateDate(updateDate);
        // userPost.setId(docId);
         return  userPost;
@@ -66,6 +68,7 @@ public class UserPost {
         json.put("id",id);
         json.put("category",category);
         json.put("updateDate", FieldValue.serverTimestamp());// get time stamp from server
+        json.put("postImgUrl", postImgUrl);
         return json;
 
     }
@@ -126,4 +129,8 @@ public class UserPost {
     public long getUpdateData() {
         return updateDate;
     }
+
+    public String getPostImgUrl() { return postImgUrl; }
+
+    public void setPostImgUrl(String postImg) { this.postImgUrl = postImg; }
 }

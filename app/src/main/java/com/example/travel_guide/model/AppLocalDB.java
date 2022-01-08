@@ -7,7 +7,7 @@ import androidx.room.RoomDatabase;
 
 import com.example.travel_guide.MyApplication;
 
-@Database(entities = {UserPost.class}, version = 2)
+@Database(entities = {UserPost.class}, version = 2) //TODO:: need to update version?
 abstract class AppLocalDbRepository extends RoomDatabase {
     public abstract UserPostDao userPostDao();
 }

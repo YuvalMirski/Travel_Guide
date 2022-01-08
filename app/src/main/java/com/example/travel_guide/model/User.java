@@ -7,11 +7,10 @@ import java.util.Map;
 
 public class User {
 
-    String userName, email, sex, country, password, id;
+    String userName, email, sex, country, password, id, avatarUrl;
     List<String> lstSaved; // TODO:: id of all the post of the saved post
     List<String> lstUserPosts;
     final public static String COLLECTION_NAME = "Users";
-
 
 
     public User(String userName, String email, String sex, String country, String password) {
@@ -21,6 +20,7 @@ public class User {
         this.country = country;
         this.password = password;
         //this.id = id;
+        this.avatarUrl = null;
         lstSaved = new ArrayList<>();
         lstUserPosts = new ArrayList<>();
     }
@@ -32,9 +32,9 @@ public class User {
         String country = (String)json.get("country");
         String password = (String)json.get("password");
         //String id = (String)json.get("id");
-
+        String url = (String)json.get("avatarUrl");
         User user = new User(userName,email,sex,country,password);
-
+        user.setAvatarUrl(url);
         return user;
     }
 
@@ -46,6 +46,7 @@ public class User {
         json.put("country",country);
         json.put("password",password);
         json.put("id",id);
+        json.put("avatarUrl", avatarUrl);
         json.put("lstSaved",lstSaved);
         json.put("lstUserPosts",lstUserPosts);
         return json;
@@ -115,4 +116,7 @@ public class User {
         this.lstUserPosts = lstUserPosts;
     }
 
+    public void setAvatarUrl(String url) { this.avatarUrl=url; }
+
+    public String getAvatarUrl(){ return avatarUrl; }
 }

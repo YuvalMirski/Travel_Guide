@@ -1,6 +1,8 @@
 package com.example.travel_guide.model;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.net.Uri;
 import android.util.Log;
 
 import androidx.lifecycle.LiveData;
@@ -19,7 +21,6 @@ public class Model {
     public static final Model instance = new Model();
     ModelFirebase modelFirebase = new ModelFirebase();
     Executor executor = Executors.newFixedThreadPool(1);
-
 
 
     public enum PostListLoadingState{ //indicate the possible states
@@ -125,7 +126,13 @@ public class Model {
         void onComplete();
     }
     public void addUserPost (UserPost userPost,AddPostListener listener){
-        modelFirebase.addUserPost(userPost,listener);
+        modelFirebase.addUserPost(userPost, new AddPostListener() {
+            @Override
+            public void onComplete() {
+                refreshPostList();
+                listener.onComplete();
+            }
+        });
     }
     public void updateUserPost(UserPost userPost,AddPostListener listener){
         modelFirebase.updateUserPost(userPost,listener);
@@ -221,6 +228,14 @@ public class Model {
 
     public void getUserIdFromFB(GetUserId listener) {
         modelFirebase.getUserIdFromFB(listener);
+    }
+
+
+    public interface SaveImageListener{
+        void onComplete(String url);
+    }
+    public void saveImage(Bitmap imageBitmap, String imageName, SaveImageListener listener) {
+        modelFirebase.saveImage(imageBitmap, imageName, listener);
     }
 
 

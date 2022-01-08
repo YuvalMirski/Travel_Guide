@@ -20,8 +20,7 @@ import android.widget.TextView;
 
 import com.example.travel_guide.model.Model;
 import com.example.travel_guide.model.UserPost;
-
-import java.util.List;
+import com.squareup.picasso.Picasso;
 
 public class PostListRvFragment extends Fragment {
     PostListRvViewModel viewModel;
@@ -93,7 +92,7 @@ public class PostListRvFragment extends Fragment {
         TextView postName;
         TextView type;
         TextView location;
-        ImageView imageView;
+        ImageView postImg;
 
         public MyViewHolder(@NonNull View itemView, OnItemClickListener listener) {
             super(itemView);
@@ -101,7 +100,8 @@ public class PostListRvFragment extends Fragment {
             postName = itemView.findViewById(R.id.postname_listrow_tv);
             type = itemView.findViewById(R.id.type_listrow_tv);
             location = itemView.findViewById(R.id.location_listrow_tv);
-            imageView = itemView.findViewById(R.id.post_picture_listrow_tv);
+            postImg = itemView.findViewById(R.id.post_picture_listrow_imv);
+
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -109,6 +109,18 @@ public class PostListRvFragment extends Fragment {
                     listener.onItemClick(v, pos);
                 }
             });
+        }
+
+        public void bind(UserPost post){
+            postName.setText(post.getName());
+            type.setText(post.getType());
+            location.setText(post.getLocation());
+            postImg.setImageResource(R.drawable.avatar);
+            if(post.getPostImgUrl()!=null) {
+                Picasso.get()
+                        .load(post.getPostImgUrl())
+                        .into(postImg);
+            }
         }
     }
 
@@ -135,10 +147,8 @@ public class PostListRvFragment extends Fragment {
         @Override
         public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
             UserPost post = viewModel.getPostList().getValue().get(position);
+            holder.bind(post);
 
-            holder.postName.setText(post.getName());
-            holder.type.setText(post.getType());
-            holder.location.setText(post.getLocation());
             //  holder.imageView.setImageResource(post.getUserProfile());
 
             //TODO:: maybe i can save post id here instead of subtract it twice

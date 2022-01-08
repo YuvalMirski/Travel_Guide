@@ -1,5 +1,7 @@
 package com.example.travel_guide.model;
 
+import android.graphics.Bitmap;
+import android.net.Uri;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -7,6 +9,7 @@ import androidx.annotation.NonNull;
 
 import com.example.travel_guide.MyApplication;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.Timestamp;
@@ -18,7 +21,11 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreSettings;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
+import java.io.ByteArrayOutputStream;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -34,6 +41,7 @@ public class ModelFirebase {
                 .build();
         db.setFirestoreSettings(settings);
     }
+
 
 
     public interface GetAllPostsListener {
@@ -266,6 +274,31 @@ public class ModelFirebase {
             id = user.getUid();
         }
         listener.onComplete(id);
+    }
+
+    /**
+     *  Storage implementation
+     */
+    FirebaseStorage storage = FirebaseStorage.getInstance();
+
+    public void saveImage(Bitmap imageBitmap, String imageName, Model.SaveImageListener listener) {
+        // Create a storage reference from our app
+        StorageReference storageRef = storage.getReference();
+        StorageReference imageRef = storageRef.child("/user_avatars/" + imageName); //TODO::to catch 2 types of images - user or post
+
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        imageBitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+        byte[] data = baos.toByteArray();
+
+        UploadTask uploadTask = imageRef.putBytes(data);
+        uploadTask.addOnFailureListener(exception -> {
+            listener.onComplete(null);
+        }).addOnSuccessListener(taskSnapshot -> {
+            imageRef.getDownloadUrl().addOnSuccessListener(uri -> {
+                Uri downloadUrl = uri;
+                listener.onComplete(downloadUrl.toString());
+            });
+        });
     }
 
 }
