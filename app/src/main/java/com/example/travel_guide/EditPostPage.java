@@ -24,7 +24,7 @@ public class EditPostPage extends Fragment {
     EditText location;
     EditText type;
     EditText about;
-    String new_name,new_location, new_about, new_id, new_category;
+    String new_name,new_location, new_about, new_id, new_category,userId;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -44,6 +44,8 @@ public class EditPostPage extends Fragment {
             }
         });
 
+        Model.instance.getUserIdFromFB(id -> userId = id);
+
         postName = view.findViewById(R.id.post_name_post_page_edit_et);
         location = view.findViewById(R.id.location_post_page_edit_et);
         type = view.findViewById(R.id.type_post_page_edit_et);
@@ -59,7 +61,7 @@ public class EditPostPage extends Fragment {
                  new_location = location.getText().toString();
                  new_category = type.getText().toString();
                  new_about = about.getText().toString();
-                 UserPost un = new UserPost(new_name,new_location,new_about,new_category);
+                 UserPost un = new UserPost(new_name,new_location,new_about,new_category,userId);
                  un.setId(postId);
 
                  Model.instance.updateUserPost(un,()->{

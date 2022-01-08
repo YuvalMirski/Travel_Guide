@@ -19,7 +19,6 @@ public class User {
         this.sex = sex;
         this.country = country;
         this.password = password;
-        //this.id = id;
         this.avatarUrl = null;
         lstSaved = new ArrayList<>();
         lstUserPosts = new ArrayList<>();
@@ -31,7 +30,6 @@ public class User {
         String sex = (String)json.get("sex");
         String country = (String)json.get("country");
         String password = (String)json.get("password");
-        //String id = (String)json.get("id");
         String url = (String)json.get("avatarUrl");
         User user = new User(userName,email,sex,country,password);
         user.setAvatarUrl(url);

@@ -20,6 +20,9 @@ public class UserPost {
     @PrimaryKey
     @NonNull
     String id;
+
+
+
     String userId; // the creator (user) of the post// TODO:: the user pass id to post
     boolean isChecked; // for deleting data from firebase
     String name,location, about, category, postImgUrl;
@@ -37,11 +40,11 @@ public class UserPost {
         this.isChecked = false;
     }
 
-    public UserPost(String name, String location, String about, String category) {
+    public UserPost(String name, String location, String about, String category,String userId) {
         this.name = name;
         this.location = location;
         this.about = about;
-        //this.id = id;
+        this.userId = userId;
         this.category = category;
     }
 
@@ -50,10 +53,11 @@ public class UserPost {
         String location = (String)json.get("location");
         String about = (String)json.get("about");
         String category = (String)json.get("category");
+        String userId = (String)json.get("userId");
         Timestamp ts = (Timestamp)json.get("updateDate");
         String postImgUrl = (String) json.get("postImgUrl");
         //Long updateDate = ts.getSeconds();
-        UserPost userPost = new UserPost(name,location,about,category);
+        UserPost userPost = new UserPost(name,location,about,category,userId);
         userPost.setPostImgUrl(postImgUrl);
         //userPost.setUpdateDate(updateDate);
        // userPost.setId(docId);
@@ -67,6 +71,7 @@ public class UserPost {
         json.put("about",about);
         json.put("id",id);
         json.put("category",category);
+        json.put("userId",userId);
         json.put("updateDate", FieldValue.serverTimestamp());// get time stamp from server
         json.put("postImgUrl", postImgUrl);
         return json;
@@ -121,6 +126,14 @@ public class UserPost {
 //    public void setUserProfile(ImageView userProfile) {
 //        this.userProfile = userProfile;
 //    }
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
 
     public String getType() {
         return category;

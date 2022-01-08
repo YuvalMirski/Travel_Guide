@@ -39,16 +39,6 @@ public class Model {
     //List<UserPost> userPostListData;
     private Model(){
         postListLoadingState.setValue(PostListLoadingState.loaded);
-//        for(int i=0;i<10;i++){
-//            PostPage a = new PostPage();
-//            //User u = new User();
-//            //data.add(u);
-//            UserPost userPost = new UserPost("name "+i,"location"+i,"about"+i,"catalog"+i);
-//            //userPostListData.add(userPost);
-//            addUserPost(userPost,()->{
-//                System.out.println("kdjfkd");
-//            });
-//        }
     }
 
 //    public void getAllPosts(GetAllPostsListener listener){

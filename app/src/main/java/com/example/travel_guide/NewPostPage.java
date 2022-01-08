@@ -39,27 +39,20 @@ public class NewPostPage extends Fragment {
     ImageView postPic;
     Bitmap imageBitmap;
 
-    String new_name,new_location, new_about, new_id, new_category;
+    String new_name,new_location, new_about, new_category,userId;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_new_post_page, container, false);
-
-        if(Model.instance.getAllPosts().getValue() != null) // there aren't any posts
-             new_id = String.valueOf(Model.instance.getAllPosts().getValue().size());
-        else{
-            //TODO :: change logic of both conditions we need id that not exist
-            // the way it should be is that User creates Post, rn we are creating them in a different way
-            new_id = getRand(50,500);
-        }
 
         postName = view.findViewById(R.id.post_name_post_page_new_et);
         location = view.findViewById(R.id.location_post_page_new_et);
         type = view.findViewById(R.id.type_post_page_new_et);
         about = view.findViewById(R.id.about_post_page_new_et);
         postPic = view.findViewById(R.id.picture_post_page_new_);
+
+        Model.instance.getUserIdFromFB(id -> userId = id);
 
         ImageButton galleryBtn = view.findViewById(R.id.addPost_gallery_imb);
         galleryBtn.setOnClickListener(v -> openGallery());
@@ -72,7 +65,7 @@ public class NewPostPage extends Fragment {
                 new_location = location.getText().toString();
                 new_category = type.getText().toString();
                 new_about = about.getText().toString();
-                UserPost userPost = new UserPost(new_name,new_location,new_about,new_category);
+                UserPost userPost = new UserPost(new_name,new_location,new_about,new_category,userId);
 
                 if(imageBitmap!=null) {
                     Model.instance.saveImage(imageBitmap, new_name+ ".jpg", url -> {

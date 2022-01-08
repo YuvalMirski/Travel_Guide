@@ -15,6 +15,7 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -93,6 +94,7 @@ public class PostListRvFragment extends Fragment {
         TextView type;
         TextView location;
         ImageView postImg;
+        ImageButton likeImg;
 
         public MyViewHolder(@NonNull View itemView, OnItemClickListener listener) {
             super(itemView);
@@ -101,6 +103,13 @@ public class PostListRvFragment extends Fragment {
             type = itemView.findViewById(R.id.type_listrow_tv);
             location = itemView.findViewById(R.id.location_listrow_tv);
             postImg = itemView.findViewById(R.id.post_picture_listrow_imv);
+            likeImg = itemView.findViewById(R.id.postRow_save_imb);
+            likeImg.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                }
+            });
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
