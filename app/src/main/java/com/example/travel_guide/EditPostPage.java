@@ -18,7 +18,7 @@ import com.example.travel_guide.model.UserPost;
 
 public class EditPostPage extends Fragment {
 
-    // note - it is not possible to change Post id
+    //TODO:: only the post creator will be able to edit it's post
 
     EditText postName;
     EditText location;
@@ -74,7 +74,7 @@ public class EditPostPage extends Fragment {
             @Override
             public void onClick(View v) {
                 Model.instance.deletePostById(postId,()->{
-                    Navigation.findNavController(v).navigate(EditPostPageDirections.actionEditPostPageToPostListRvFragment());
+                    Navigation.findNavController(v).navigate(EditPostPageDirections.actionEditPostPageToPostListRvFragment("",""));
                 });
             }
         });

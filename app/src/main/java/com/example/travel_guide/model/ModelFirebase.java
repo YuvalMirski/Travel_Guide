@@ -3,24 +3,22 @@ package com.example.travel_guide.model;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.util.Log;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
-import com.example.travel_guide.MyApplication;
 import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.Timestamp;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreSettings;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
@@ -43,7 +41,6 @@ public class ModelFirebase {
     }
 
 
-
     public interface GetAllPostsListener {
         void onComplete(List<UserPost> list);
     }
@@ -51,6 +48,7 @@ public class ModelFirebase {
         mAuth = FirebaseAuth.getInstance();
     }
 
+    //TODO::getAllPosts can use for the saved post in the device
     public void getAllPosts(Long lastUpdateDate, GetAllPostsListener listener) {
 
         db.collection(UserPost.COLLECTION_NAME)
@@ -60,7 +58,7 @@ public class ModelFirebase {
                     List<UserPost> list = new LinkedList<UserPost>();
                     if (task.isSuccessful()) {
                         for (QueryDocumentSnapshot doc : task.getResult()) {
-                            UserPost userPost = UserPost.create(doc.getData()); //convert from json to Post
+                             UserPost userPost = UserPost.create(doc.getData()); //convert from json to Post
                              updateId(lastUpdateDate, doc.getId(), userPost);
                             if (userPost != null) {
                                 list.add(userPost);
@@ -68,6 +66,30 @@ public class ModelFirebase {
                         }
                     }
                     listener.onComplete(list);
+                });
+    }
+    public void getCategoryPosts(String categoryName,GetAllPostsListener listener){
+        //DocumentReference a = db.collection(UserPost.COLLECTION_NAME).document();
+        CollectionReference categoryReference = db.collection(UserPost.COLLECTION_NAME);
+        Task<QuerySnapshot> q = categoryReference.whereEqualTo("category",categoryName)
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                                     List<UserPost> list = new LinkedList<UserPost>();
+                                     Long aLong = new Long(0);
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+
+                                Log.d("TAG", document.getId() + " => " + document.getData());
+                                UserPost userPost = UserPost.create(document.getData()); //convert from json to Post
+                                updateId(aLong, document.getId(), userPost);
+                                list.add(userPost);
+                            }
+                        } else {
+                            Log.d("TAG", "Error getting documents: ", task.getException());
+                        }listener.onComplete(list);
+                    }
                 });
     }
 
@@ -153,7 +175,12 @@ public class ModelFirebase {
         db.collection(User.COLLECTION_NAME)
                 .document(user.getId())
                 .set(json)
-                .addOnSuccessListener(unused -> listener.onComplete())
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void unused) {
+                        listener.onComplete();
+                    }
+                })
                 .addOnFailureListener(e -> listener.onComplete());
 
     }
@@ -179,6 +206,7 @@ public class ModelFirebase {
                         User user = null;
                         if (task.isSuccessful() & task.getResult() != null) {
                             user = User.create(task.getResult().getData());
+                            updateUserId(userId,user);
                         }
                         listener.onComplete(user);
                     }

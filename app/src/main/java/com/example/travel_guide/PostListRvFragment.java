@@ -20,13 +20,22 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.travel_guide.model.Model;
+import com.example.travel_guide.model.User;
 import com.example.travel_guide.model.UserPost;
+import com.example.travel_guide.ui.home.HomePageArgs;
 import com.squareup.picasso.Picasso;
+
+import org.w3c.dom.ls.LSOutput;
+
+import java.util.List;
+
+import io.grpc.internal.JsonUtil;
 
 public class PostListRvFragment extends Fragment {
     PostListRvViewModel viewModel;
     MyAdapter adapter;
     SwipeRefreshLayout swipeRefresh;
+    String categoryName,userId;
 
     @Override
     public void onAttach(@NonNull Context context) {
@@ -39,9 +48,16 @@ public class PostListRvFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_post_list_rv, container, false);
+        userId = PostListRvFragmentArgs.fromBundle(getArguments()).getUserId();
+        categoryName = PostListRvFragmentArgs.fromBundle(getArguments()).getCategoryName();
 
+        viewModel.demoCtor(categoryName,userId);
+
+        Model.instance.refreshCategoryPage(categoryName);
         swipeRefresh = view.findViewById(R.id.post_list_swiperefresh);
-        swipeRefresh.setOnRefreshListener(() -> Model.instance.refreshPostList());
+
+        swipeRefresh.setOnRefreshListener(() -> Model.instance.refreshCategoryPage(categoryName));
+        //swipeRefresh.setOnRefreshListener(() -> Model.instance.refreshPostList());
 
         RecyclerView list = view.findViewById(R.id.post_list_rv);
         list.setHasFixedSize(true);
@@ -54,11 +70,15 @@ public class PostListRvFragment extends Fragment {
         adapter.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClick(View v, int position) {
-                String postId = viewModel.getPostList().getValue().get(position).getId();
-                Navigation.findNavController(v).navigate(PostListRvFragmentDirections.actionPostListRvFragmentToPostPage(postId));
+          //   String postId = viewModel.getPostList().getValue().get(position).getId();
+               String postId = viewModel.getCategoryPostList().getValue().get(position).getId();
+               Navigation.findNavController(v).navigate(PostListRvFragmentDirections.actionPostListRvFragmentToPostPage(postId));
             }
         });
-        viewModel.getPostList().observe(getViewLifecycleOwner(), userPosts -> refresh());
+
+        viewModel.getUserLiveData().observe(getViewLifecycleOwner(),user -> refresh());
+        viewModel.getCategoryPostList().observe(getViewLifecycleOwner(), userPosts -> refresh());
+        //viewModel.getPostList().observe(getViewLifecycleOwner(), userPosts -> refresh());
 
         swipeRefresh.setRefreshing(Model.instance.getPostListLoadingState().getValue() == Model.PostListLoadingState.loading);
 
@@ -104,10 +124,23 @@ public class PostListRvFragment extends Fragment {
             location = itemView.findViewById(R.id.location_listrow_tv);
             postImg = itemView.findViewById(R.id.post_picture_listrow_imv);
             likeImg = itemView.findViewById(R.id.postRow_save_imb);
+
             likeImg.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    int position = getAdapterPosition();
+                    String postId = viewModel.getCategoryPostList().getValue().get(position).getId();
+                    viewModel.getUserLiveData().getValue().getLstSaved().add(postId);
 
+                    User u = viewModel.userLiveData.getValue();
+                   // u.setId(userId);
+                    Model.instance.updateUser(u, new Model.AddUserListener() {
+                        @Override
+                        public void onComplete() {
+                            System.out.println("need");
+                            likeImg.setVisibility(v.GONE);
+                        }
+                    });
                 }
             });
 
@@ -125,6 +158,7 @@ public class PostListRvFragment extends Fragment {
             type.setText(post.getType());
             location.setText(post.getLocation());
             postImg.setImageResource(R.drawable.avatar);
+
             if(post.getPostImgUrl()!=null) {
                 Picasso.get()
                         .load(post.getPostImgUrl())
@@ -155,7 +189,8 @@ public class PostListRvFragment extends Fragment {
 
         @Override
         public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
-            UserPost post = viewModel.getPostList().getValue().get(position);
+           //UserPost post = viewModel.getPostList().getValue().get(position);
+            UserPost post = viewModel.getCategoryPostList().getValue().get(position);
             holder.bind(post);
 
             //  holder.imageView.setImageResource(post.getUserProfile());
@@ -166,9 +201,12 @@ public class PostListRvFragment extends Fragment {
 
         @Override
         public int getItemCount() {
-            if (viewModel.getPostList().getValue() == null)
+//            if (viewModel.getPostList().getValue() == null)
+//                return 0;
+//            return viewModel.getPostList().getValue().size();
+            if (viewModel.getCategoryPostList().getValue() == null)
                 return 0;
-            return viewModel.getPostList().getValue().size();
+            return viewModel.getCategoryPostList().getValue().size();
         }
     }
 

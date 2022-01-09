@@ -37,6 +37,9 @@ public class HomePage extends Fragment {
 
         Button attractionBtn = (Button)view.findViewById(R.id.attractions_home_btn);
         Button toursBtn = (Button)view.findViewById(R.id.tours_home_btn);
+        Button restaurantsBtn = (Button)view.findViewById(R.id.restaurants_home_btn);
+        Button museumsBtn = (Button)view.findViewById(R.id.museums_home_btn);
+        Button allCategoriesBtn = (Button)view.findViewById(R.id.allCategories_home_btn);
 
 
         //String userId = HomePageArgs.fromBundle(getArguments()).getUserId();
@@ -55,9 +58,14 @@ public class HomePage extends Fragment {
         attractionBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Navigation.findNavController(v).navigate(HomePageDirections.actionHomePageNavToPostListRvFragment());
+                Navigation.findNavController(v).navigate(HomePageDirections.actionHomePageNavToPostListRvFragment("attractions",userId));
             }
         });
+        toursBtn.setOnClickListener(v -> Navigation.findNavController(v).navigate(HomePageDirections.actionHomePageNavToPostListRvFragment("tours",userId)));
+        restaurantsBtn.setOnClickListener(v -> Navigation.findNavController(v).navigate(HomePageDirections.actionHomePageNavToPostListRvFragment("restaurants",userId)));
+        museumsBtn.setOnClickListener(v -> Navigation.findNavController(v).navigate(HomePageDirections.actionHomePageNavToPostListRvFragment("museums",userId)));
+        allCategoriesBtn.setOnClickListener(v -> Navigation.findNavController(v).navigate(HomePageDirections.actionHomePageNavToPostListRvFragment("allCategories",userId)));
+
 
         return view;
     }

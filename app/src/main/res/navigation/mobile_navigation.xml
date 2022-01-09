@@ -61,6 +61,12 @@
         <action
             android:id="@+id/action_postListRvFragment_to_postPage"
             app:destination="@id/postPage" />
+        <argument
+            android:name="categoryName"
+            app:argType="string" />
+        <argument
+            android:name="userId"
+            app:argType="string" />
     </fragment>
     <fragment
         android:id="@+id/postPage"

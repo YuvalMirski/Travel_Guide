@@ -22,7 +22,6 @@ public class Model {
     ModelFirebase modelFirebase = new ModelFirebase();
     Executor executor = Executors.newFixedThreadPool(1);
 
-
     public enum PostListLoadingState{ //indicate the possible states
         loading,
         loaded
@@ -35,30 +34,42 @@ public class Model {
     }
 
 
-
     //List<UserPost> userPostListData;
     private Model(){
         postListLoadingState.setValue(PostListLoadingState.loaded);
     }
-
-//    public void getAllPosts(GetAllPostsListener listener){
-//        //  return userPostListData;
-//        modelFirebase.getAllPosts(listener);
-//    }
 
     MutableLiveData<List<UserPost>> listLiveDataPost = new MutableLiveData<List<UserPost>>();
 
     MutableLiveData<User>LiveDataUser = new MutableLiveData<User>();
     //------------------------------------POST------------------------------------//
 
-    public LiveData<List<UserPost>>getAllPosts(){
-
+    public LiveData<List<UserPost>>getCategoryPosts(String categoryName){
         if(listLiveDataPost.getValue() == null){
-        refreshPostList();
+            refreshCategoryPage(categoryName);
         }
         return listLiveDataPost;
     }
 
+
+    public void refreshCategoryPage(String category){
+        if(!category.equals("allCategories"))
+            refreshPageCategory(category);
+        else
+            refreshPostList();
+    }
+    public void refreshPageCategory(String category){
+
+
+        postListLoadingState.setValue(PostListLoadingState.loading);
+        modelFirebase.getCategoryPosts(category, new ModelFirebase.GetAllPostsListener() {
+            @Override
+            public void onComplete(List<UserPost> list) {
+                listLiveDataPost.setValue(list);
+                postListLoadingState.setValue(PostListLoadingState.loaded);
+            }
+        });
+    }
     // go to firebase
     public void refreshPostList(){
         postListLoadingState.setValue(PostListLoadingState.loading);
@@ -108,7 +119,6 @@ public class Model {
             public void onComplete(List<UserPost> list) {
                 listLiveDataPost.setValue(list);
                 postListLoadingState.setValue(PostListLoadingState.loaded);
-
             }
         });
     }
