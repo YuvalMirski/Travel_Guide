@@ -4,9 +4,7 @@ import static android.app.Activity.RESULT_OK;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.ImageDecoder;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.view.LayoutInflater;
@@ -25,7 +23,8 @@ import com.example.travel_guide.model.Model;
 import com.example.travel_guide.model.User;
 
 import java.io.IOException;
-import java.util.Random;
+import java.util.ArrayList;
+import java.util.List;
 
 //Create User Page
 
@@ -35,6 +34,7 @@ public class SignUp extends Fragment {
     ImageView avatarPic;
     Bitmap imageBitmap;
     String new_userName, new_email, new_sex, new_country, new_password, new_id;
+    List<String>lstSaved,lstUserPosts;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -70,11 +70,10 @@ public class SignUp extends Fragment {
                 new_sex = sex.getText().toString();
                 new_country = country.getText().toString();
                 new_password = password.getText().toString();
+                lstSaved = new ArrayList<>();
+                lstUserPosts = new ArrayList<>();
+                User user = new User(new_userName, new_email, new_sex, new_country, new_password, lstSaved,lstUserPosts);
 
-                User user = new User(new_userName, new_email, new_sex, new_country, new_password);
-
-                user.getLstSaved().add("DEMO ID ");
-                user.getLstSaved().add("DEMO ID2 ");
 
                 if(imageBitmap!=null) {
                     Model.instance.saveImage(imageBitmap, new_userName+ ".jpg", url -> {

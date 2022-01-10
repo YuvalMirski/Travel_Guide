@@ -102,6 +102,9 @@
         <action
             android:id="@+id/action_newPostPage_to_postListRvFragment"
             app:destination="@id/postListRvFragment" />
+        <argument
+            android:name="userId"
+            app:argType="string" />
     </fragment>
     <action android:id="@+id/action_global_account_nav" app:destination="@id/account_nav" />
     <fragment

@@ -13,15 +13,15 @@ public class User {
     final public static String COLLECTION_NAME = "Users";
 
 
-    public User(String userName, String email, String sex, String country, String password) {
+    public User(String userName, String email, String sex, String country, String password, List<String> lstSaved,List<String>lstUserPosts) {
         this.userName = userName;
         this.email = email;
         this.sex = sex;
         this.country = country;
         this.password = password;
         this.avatarUrl = null;
-        lstSaved = new ArrayList<>();
-        lstUserPosts = new ArrayList<>();
+        this.lstSaved =lstSaved;
+        this.lstUserPosts = lstUserPosts;
     }
 
     public static User create(Map<String, Object> json) {
@@ -31,7 +31,9 @@ public class User {
         String country = (String)json.get("country");
         String password = (String)json.get("password");
         String url = (String)json.get("avatarUrl");
-        User user = new User(userName,email,sex,country,password);
+        List<String>lstSaved = (List<String>) json.get("lstSaved");
+        List<String>lstUserPosts = (List<String>) json.get("lstUserPosts");
+        User user = new User(userName,email,sex,country,password,lstSaved,lstUserPosts);
         user.setAvatarUrl(url);
         return user;
     }

@@ -14,12 +14,14 @@ import android.widget.EditText;
 import com.example.travel_guide.model.Model;
 import com.example.travel_guide.model.User;
 
+import java.util.List;
+
 //User Edit Page
 public class EditUserFragment extends Fragment {
 
     EditText userName, email, sex, country, password;
     String new_userName, new_email, new_sex, new_country, new_password, new_id;
-
+    List<String>lstSaved,lstUserPosts;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -37,6 +39,8 @@ public class EditUserFragment extends Fragment {
                 sex.setText(user.getSex());
                 country.setText(user.getCountry());
                 password.setText(user.getPassword());
+                lstSaved = user.getLstSaved();
+                lstUserPosts =user.getLstUserPosts();
             }
         });
         userName = view.findViewById(R.id.user_name_account_edit_et);
@@ -63,7 +67,8 @@ public class EditUserFragment extends Fragment {
                 new_country = country.getText().toString();
                 new_password = password.getText().toString();
 
-                User u = new User(new_userName,new_email,new_sex,new_country,new_password);
+
+                User u = new User(new_userName,new_email,new_sex,new_country,new_password, lstSaved,lstUserPosts);
                 u.setId(userId);
                 Model.instance.updateUser(u,()->Navigation.findNavController(userName).navigateUp());
             }

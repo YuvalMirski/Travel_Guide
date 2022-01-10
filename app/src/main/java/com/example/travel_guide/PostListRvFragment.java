@@ -130,7 +130,8 @@ public class PostListRvFragment extends Fragment {
                 public void onClick(View v) {
                     int position = getAdapterPosition();
                     String postId = viewModel.getCategoryPostList().getValue().get(position).getId();
-                    viewModel.getUserLiveData().getValue().getLstSaved().add(postId);
+                    if(!viewModel.getUserLiveData().getValue().getLstSaved().contains(postId))
+                        viewModel.getUserLiveData().getValue().getLstSaved().add(postId);
 
                     User u = viewModel.userLiveData.getValue();
                    // u.setId(userId);

@@ -51,7 +51,7 @@ public class HomePage extends Fragment {
         addBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Navigation.findNavController(v).navigate(HomePageDirections.actionHomePageNavToNewPostPage());
+                Navigation.findNavController(v).navigate(HomePageDirections.actionHomePageNavToNewPostPage(userId));
             }
         });
 
