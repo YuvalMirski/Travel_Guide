@@ -17,7 +17,7 @@ import com.example.travel_guide.model.User;
 import java.util.List;
 
 //User Edit Page
-public class EditUserFragment extends Fragment {
+public class EditUserPage extends Fragment {
 
     EditText userName, email, sex, country, password;
     String new_userName, new_email, new_sex, new_country, new_password, new_id;
@@ -29,7 +29,7 @@ public class EditUserFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_edit_user, container, false);
 
-        String userId = EditUserFragmentArgs.fromBundle(getArguments()).getUserId();
+        String userId = EditUserPageArgs.fromBundle(getArguments()).getUserId();
         new_id = userId;
         Model.instance.getUserById(userId, new Model.GetUserById() {
             @Override

@@ -48,15 +48,16 @@ public class PostListRvFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_post_list_rv, container, false);
+
         userId = PostListRvFragmentArgs.fromBundle(getArguments()).getUserId();
         categoryName = PostListRvFragmentArgs.fromBundle(getArguments()).getCategoryName();
 
         viewModel.demoCtor(categoryName,userId);
 
-        Model.instance.refreshCategoryPage(categoryName);
+        Model.instance.refreshCategoryPage(categoryName,userId);
         swipeRefresh = view.findViewById(R.id.post_list_swiperefresh);
 
-        swipeRefresh.setOnRefreshListener(() -> Model.instance.refreshCategoryPage(categoryName));
+        swipeRefresh.setOnRefreshListener(() -> Model.instance.refreshCategoryPage(categoryName,userId));
         //swipeRefresh.setOnRefreshListener(() -> Model.instance.refreshPostList());
 
         RecyclerView list = view.findViewById(R.id.post_list_rv);

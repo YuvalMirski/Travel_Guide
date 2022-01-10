@@ -7,6 +7,7 @@ import android.util.Log;
 import androidx.annotation.NonNull;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -68,10 +69,20 @@ public class ModelFirebase {
                     listener.onComplete(list);
                 });
     }
-    public void getCategoryPosts(String categoryName,GetAllPostsListener listener){
+    public void getCategoryPosts(String userId,String categoryName,GetAllPostsListener listener){
         //DocumentReference a = db.collection(UserPost.COLLECTION_NAME).document();
+        String fieldKey,fieldVal;
         CollectionReference categoryReference = db.collection(UserPost.COLLECTION_NAME);
-        Task<QuerySnapshot> q = categoryReference.whereEqualTo("category",categoryName)
+        if(categoryName.equals("userCreatePosts"))
+        {
+            fieldKey = "userId";
+            fieldVal = userId;
+        }
+        else{
+            fieldKey = "category";
+            fieldVal = categoryName;
+        }
+        Task<QuerySnapshot> q = categoryReference.whereEqualTo(fieldKey,fieldVal)
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                                      List<UserPost> list = new LinkedList<UserPost>();
@@ -93,33 +104,32 @@ public class ModelFirebase {
                 });
     }
 
-    public void getMyPost(String userId,GetAllPostsListener listener){
-        CollectionReference postReference = db.collection(UserPost.COLLECTION_NAME);
-        Task<QuerySnapshot> q = postReference.whereEqualTo("userId",userId)
-                .get()
-                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                    List<UserPost> list = new LinkedList<UserPost>();
-                    Long aLong = new Long(0);
-                    @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        if (task.isSuccessful()) {
-                            for (QueryDocumentSnapshot document : task.getResult()) {
-
-                                Log.d("TAG", document.getId() + " => " + document.getData());
-                                UserPost userPost = UserPost.create(document.getData()); //convert from json to Post
-                                updateId(aLong, document.getId(), userPost);
-                                list.add(userPost);
-                            }
-                        } else {
-                            Log.d("TAG", "Error getting documents: ", task.getException());
-                        }listener.onComplete(list);
-                    }
-                });
+    public void getUserSavedPost(String userId,List<String>userSavedPostLst,GetAllPostsListener listener){
+       // CollectionReference postReference = db.collection(UserPost.COLLECTION_NAME);
 
 
+                    CollectionReference categoryReference = db.collection(UserPost.COLLECTION_NAME);
+                    Task<QuerySnapshot> q = categoryReference.whereEqualTo("id",userSavedPostLst.get(0))
+                            .get()
+                            .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                                List<UserPost> list = new LinkedList<UserPost>();
+                                Long aLong = new Long(0);
 
-//            List<UserPost> list = new LinkedList<UserPost>();
-//                for(String s : UserPostList){
+                                @Override
+                                public void onComplete(@NonNull Task<QuerySnapshot> task) {
+
+                                    if (task.isSuccessful()) {
+                                        for (QueryDocumentSnapshot document : task.getResult()) {
+
+                                            Log.d("TAG", document.getId() + " => " + document.getData());
+                                            UserPost userPost = UserPost.create(document.getData()); //convert from json to Post
+                                            updateId(aLong, document.getId(), userPost);
+                                            list.add(userPost);
+                                        }
+                                    }listener.onComplete(list);
+                                }
+                            });
+
 //                    db.collection(UserPost.COLLECTION_NAME)
 //                            .document(s)
 //                            .get()
@@ -128,12 +138,20 @@ public class ModelFirebase {
 //                                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
 //                                    UserPost userPost = null;
 //                                    if (task.isSuccessful() & task.getResult() != null) {
+//                                        DocumentSnapshot document = task.getResult();
 //                                        userPost = UserPost.create(task.getResult().getData());
+//                                        updateId(aLong, document.getId(), userPost);
+//
+//                                        System.out.println("work to fetch");
+//                                        System.out.println(userPost.getId());
+//
 //                                        list.add(userPost);
 //                                    }
 //                                }
 //                            });
-//                }listener.onComplete(list);
+
+
+               // System.out.println("list size "+list.size());
 
     }
 

@@ -109,11 +109,11 @@
     <action android:id="@+id/action_global_account_nav" app:destination="@id/account_nav" />
     <fragment
         android:id="@+id/editUserFragment"
-        android:name="com.example.travel_guide.EditUserFragment"
+        android:name="com.example.travel_guide.EditUserPage"
         android:label="Edit account"
         tools:layout="@layout/fragment_edit_user">
         <argument
             android:name="userId"
             app:argType="string" />
-    </fragment><action android:id="@+id/action_global_editUserFragment" app:destination="@id/editUserFragment"/>
+    </fragment><action android:id="@+id/action_global_editUserFragment" app:destination="@id/editUserFragment"/><action android:id="@+id/action_global_postListRvFragment" app:destination="@id/postListRvFragment"/>
 </navigation>

@@ -84,15 +84,15 @@ public class MainActivity extends AppCompatActivity  {//implements NavigationVie
 
             Fragment selectedFragment = null;
             Bundle bundle = new Bundle();
+            Model.instance.getUserIdFromFB(new Model.GetUserId() {
+                @Override
+                public void onComplete(String id) {
+                    userId = id;
+                }
+            });
             switch (item.getItemId()){
                 case R.id.homePage_nav:
                     selectedFragment = new HomePage();
-                    Model.instance.getUserIdFromFB(new Model.GetUserId() {
-                        @Override
-                        public void onComplete(String id) {
-                            userId = id;
-                        }
-                    });
                     bundle.putString("userId", userId);
                     selectedFragment.setArguments(bundle);
                     break;
@@ -101,6 +101,9 @@ public class MainActivity extends AppCompatActivity  {//implements NavigationVie
                     break;
                 case R.id.postListRvFragment:
                     selectedFragment = new PostListRvFragment(); //TODO: to change for saved only posts
+                    bundle.putString("userId",userId);
+                    bundle.putString("categoryName","userSavedPost");
+                    selectedFragment.setArguments(bundle);
                     break;
             }
             getSupportFragmentManager().beginTransaction().replace(R.id.nav_host_fragment_content_main,selectedFragment).commit();

@@ -21,7 +21,7 @@ public class PostListRvViewModel extends ViewModel {
    }
    public void demoCtor(String categoryName,String userId){
        //postList = Model.instance.getAllPosts();
-       categoryPostList = Model.instance.getCategoryPosts(categoryName);
+       categoryPostList = Model.instance.getCategoryPosts(categoryName,userId);
        userLiveData = Model.instance.getUser(userId);
    }
 

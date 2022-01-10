@@ -52,12 +52,18 @@ public class Account extends Fragment {
         password = view.findViewById(R.id.password_account_str_tv);
 
         Button editBtn = view.findViewById(R.id.edit_accoutn_btn);
-        Button userPostBtn = view.findViewById(R.id.post_account_btn); //list of user posts
+        Button userPostBtn = view.findViewById(R.id.post_account_btn); //list of posts that the user has created
 
         editBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Navigation.findNavController(v).navigate(AccountDirections.actionGlobalEditUserFragment(userId));
+            }
+        });
+        userPostBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Navigation.findNavController(v).navigate(AccountDirections.actionGlobalPostListRvFragment("userCreatePosts",userId));
             }
         });
 

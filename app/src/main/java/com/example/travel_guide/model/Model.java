@@ -44,25 +44,43 @@ public class Model {
     MutableLiveData<User>LiveDataUser = new MutableLiveData<User>();
     //------------------------------------POST------------------------------------//
 
-    public LiveData<List<UserPost>>getCategoryPosts(String categoryName){
+    public LiveData<List<UserPost>>getCategoryPosts(String categoryName,String userId){
         if(listLiveDataPost.getValue() == null){
-            refreshCategoryPage(categoryName);
+            refreshCategoryPage(categoryName,userId);
         }
         return listLiveDataPost;
     }
 
 
-    public void refreshCategoryPage(String category){
-        if(!category.equals("allCategories"))
-            refreshPageCategory(category);
+    public void refreshCategoryPage(String category,String userId){
+
+        if(category.equals("userSavedPost"))
+            refreshPageSaved(userId);
+
+      else if(!category.equals("allCategories"))
+            refreshPageCategory(userId,category);
+
         else
             refreshPostList();
     }
-    public void refreshPageCategory(String category){
 
+    public void refreshPageSaved(String userid){
+
+        List<String> lstSaved = getUser(userid).getValue().getLstSaved();
 
         postListLoadingState.setValue(PostListLoadingState.loading);
-        modelFirebase.getCategoryPosts(category, new ModelFirebase.GetAllPostsListener() {
+        modelFirebase.getUserSavedPost(userid, lstSaved, new ModelFirebase.GetAllPostsListener() {
+            @Override
+            public void onComplete(List<UserPost> list) {
+                listLiveDataPost.setValue(list);
+                postListLoadingState.setValue(PostListLoadingState.loaded);
+            }
+        });
+    }
+    public void refreshPageCategory(String userId,String category){
+
+        postListLoadingState.setValue(PostListLoadingState.loading);
+        modelFirebase.getCategoryPosts(userId,category, new ModelFirebase.GetAllPostsListener() {
             @Override
             public void onComplete(List<UserPost> list) {
                 listLiveDataPost.setValue(list);
@@ -169,6 +187,8 @@ public class Model {
         }
         return LiveDataUser;
     }
+
+
 
     public void refreshUser(String id){
 
