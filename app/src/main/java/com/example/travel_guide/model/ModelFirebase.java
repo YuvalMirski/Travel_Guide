@@ -309,10 +309,10 @@ public class ModelFirebase {
      */
     FirebaseStorage storage = FirebaseStorage.getInstance();
 
-    public void saveImage(Bitmap imageBitmap, String imageName, Model.SaveImageListener listener) {
+    public void saveImage(Bitmap imageBitmap, String imageName, String savePath ,Model.SaveImageListener listener) {
         // Create a storage reference from our app
         StorageReference storageRef = storage.getReference();
-        StorageReference imageRef = storageRef.child("/user_avatars/" + imageName); //TODO::to catch 2 types of images - user or post
+        StorageReference imageRef = storageRef.child("/" + savePath + "/" + imageName); //TODO::to catch 2 types of images - user or post
 
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         imageBitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);

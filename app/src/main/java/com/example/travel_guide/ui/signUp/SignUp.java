@@ -76,7 +76,7 @@ public class SignUp extends Fragment {
 
 
                 if(imageBitmap!=null) {
-                    Model.instance.saveImage(imageBitmap, new_userName+ ".jpg", url -> {
+                    Model.instance.saveImage(imageBitmap, new_userName+ ".jpg", "user_avatars", url -> {
                         user.setAvatarUrl(url);
                         Model.instance.createUserWithEmail(user, () -> Navigation.findNavController(v).navigate(SignUpDirections.actionSignUpNavToLogInNav()));
                     });
