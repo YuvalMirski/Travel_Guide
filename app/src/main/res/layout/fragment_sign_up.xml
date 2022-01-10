@@ -117,19 +117,6 @@
         app:layout_constraintStart_toEndOf="@+id/email_signup_tv" />
 
     <EditText
-        android:id="@+id/sex_signup_et"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:textSize="24sp"
-        app:layout_constraintBaseline_toBaselineOf="@+id/sex_signup_tv"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/sex_signup_tv" />
-
-    <EditText
         android:id="@+id/country_signup_et"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -155,27 +142,68 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/textView9" />
 
-    <Button
-        android:id="@+id/profilePic_signup_btn"
-        android:layout_width="185dp"
-        android:layout_height="62dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="72dp"
-        android:text="Upload Profile Picture"
-        android:textSize="16sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView9" />
-
     <ImageView
         android:id="@+id/avatar_signup_imv"
         android:layout_width="173dp"
         android:layout_height="166dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
         android:src="@drawable/avatar"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/profilePic_signup_btn"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/password_signup_et" />
+
+    <ImageButton
+        android:id="@+id/gallery_signup_imb"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_menu_gallery"
+        app:layout_constraintBottom_toBottomOf="@+id/avatar_signup_imv"
+        app:layout_constraintEnd_toEndOf="@+id/avatar_signup_imv" />
+
+    <RadioGroup
+        android:id="@+id/sex_radioGroup"
+        android:layout_width="316dp"
+        android:layout_height="62dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="8dp"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toTopOf="@+id/country_signup_et"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/sex_signup_tv"
+        app:layout_constraintTop_toBottomOf="@+id/email_signup_et">
+
+        <RadioButton
+            android:id="@+id/sex_male_rb"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:text="Male"
+            android:textSize="20dp"
+            app:layout_constraintBottom_toBottomOf="@+id/sex_female_rb"
+            app:layout_constraintEnd_toStartOf="@+id/sex_female_rb"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/sex_signup_tv"
+            app:layout_constraintTop_toBottomOf="@+id/email_signup_et" />
+
+        <RadioButton
+            android:id="@+id/sex_female_rb"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
+            android:text="Female"
+            android:textSize="20dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/sex_male_rb"
+            app:layout_constraintTop_toBottomOf="@+id/email_signup_et" />
+    </RadioGroup>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -15,10 +15,12 @@ import android.provider.MediaStore;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.example.travel_guide.model.Model;
@@ -32,13 +34,11 @@ public class EditPostPage extends Fragment {
 
     //TODO:: only the post creator will be able to edit it's post
 
-    EditText postName;
-    EditText location;
-    EditText type;
-    EditText about;
+    EditText postName, location, about;
     ImageView postImg;
     Bitmap imageBitmap;
-    String new_name,new_location, new_about, new_id, new_category,userId, imgUrl;
+    String new_name,new_location, new_about, new_id, new_category,userId, imageUrl;
+    Spinner categorySpinner;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -53,12 +53,13 @@ public class EditPostPage extends Fragment {
             public void onComplete(UserPost userPost) {
                 postName.setText(userPost.getName());
                 location.setText(userPost.getLocation());
-                type.setText(userPost.getCategory());
+                new_category = userPost.getCategory();
                 about.setText(userPost.getAbout());
+                imageUrl = userPost.getPostImgUrl();
 
                 if(userPost.getPostImgUrl()!=null) {
                     Picasso.get()
-                            .load(userPost.getPostImgUrl())
+                            .load(imageUrl)
                             .into(postImg);
                 }
             }
@@ -68,9 +69,15 @@ public class EditPostPage extends Fragment {
 
         postName = view.findViewById(R.id.post_name_post_page_edit_et);
         location = view.findViewById(R.id.location_post_page_edit_et);
-        type = view.findViewById(R.id.type_post_page_edit_et);
         about = view.findViewById(R.id.about_post_page_edit_et);
         postImg = view.findViewById(R.id.picture_post_page_edit_);
+        Spinner categorySpinner = (Spinner) view.findViewById(R.id.spinner_category_editPostPage);
+
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getContext(), R.array.CategoryList, android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        categorySpinner.setAdapter(adapter);
+        //categorySpinner.setSelection(GetCategoryIndexInArr(new_category));
+
 
         Button saveBtn = view.findViewById(R.id.save_post_page_edit_delete_btn);
         Button deleteBtn = view.findViewById(R.id.delete_post_page_edit_btn);
@@ -83,8 +90,9 @@ public class EditPostPage extends Fragment {
             public void onClick(View v) {
                 new_name = postName.getText().toString();
                 new_location = location.getText().toString();
-                new_category = type.getText().toString();
+                new_category = categorySpinner.getSelectedItem().toString();
                 new_about = about.getText().toString();
+
                 UserPost userPost = new UserPost(new_name,new_location,new_about,new_category,userId);
                 userPost.setId(postId);
 
@@ -97,6 +105,7 @@ public class EditPostPage extends Fragment {
                     });
                 }
                 else {
+                    userPost.setPostImgUrl(imageUrl);
                     Model.instance.updateUserPost(userPost, () -> {
                         Navigation.findNavController(postName).navigateUp();
                     });
@@ -118,7 +127,6 @@ public class EditPostPage extends Fragment {
     }
 
     final static int SELECT_PICTURE = 200;
-
     private void openGallery(){
         // Create intent for picking a photo from the gallery
         Intent intent = new Intent();
@@ -145,5 +153,25 @@ public class EditPostPage extends Fragment {
                 }
             }
         }
+    }
+
+    public int GetCategoryIndexInArr(String categoryName)
+    {
+        int res = 0; //default
+        switch(categoryName){
+            case "attractions":
+                res = 0;
+                break;
+            case "tours":
+                res = 1;
+                break;
+            case "restaurants":
+                res = 2;
+                break;
+            case "museums":
+                res = 3;
+                break;
+        }
+        return res;
     }
 }

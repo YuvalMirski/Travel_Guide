@@ -58,18 +58,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/location_post_page_edit_et" />
 
-    <EditText
-        android:id="@+id/type_post_page_edit_et"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        android:text="TextView"
-        android:textSize="24sp"
-        app:layout_constraintBaseline_toBaselineOf="@+id/type_post_edit_tv"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/type_post_edit_tv" />
-
     <TextView
         android:id="@+id/about_post_edit_tv"
         android:layout_width="wrap_content"
@@ -127,5 +115,15 @@
         android:src="@drawable/ic_menu_gallery"
         app:layout_constraintBottom_toBottomOf="@+id/picture_post_page_edit_"
         app:layout_constraintEnd_toEndOf="@+id/picture_post_page_edit_" />
+
+    <Spinner
+        android:id="@+id/spinner_category_editPostPage"
+        android:layout_width="277dp"
+        android:layout_height="35dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="24dp"
+        app:layout_constraintBottom_toBottomOf="@+id/type_post_edit_tv"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/type_post_edit_tv" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
