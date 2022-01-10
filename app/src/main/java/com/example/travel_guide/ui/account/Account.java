@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
@@ -14,12 +15,13 @@ import androidx.navigation.Navigation;
 import com.example.travel_guide.R;
 import com.example.travel_guide.model.Model;
 import com.example.travel_guide.model.User;
+import com.squareup.picasso.Picasso;
 
 //User Details Page
 public class Account extends Fragment {
 
     TextView userName, email, sex, country, password;
-
+    ImageView userAvatar;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -42,6 +44,12 @@ public class Account extends Fragment {
                 sex.setText(user.getSex());
                 country.setText(user.getCountry());
                 password.setText(user.getPassword());
+
+                if(user.getAvatarUrl()!=null) {
+                    Picasso.get()
+                            .load(user.getAvatarUrl())
+                            .into(userAvatar);
+                }
             }
         });
 
@@ -50,6 +58,7 @@ public class Account extends Fragment {
         sex = view.findViewById(R.id.sex_account_str_tv);
         country = view.findViewById(R.id.country_account_str_tv);
         password = view.findViewById(R.id.password_account_str_tv);
+        userAvatar = view.findViewById(R.id.userAvatar_account_details_imv);
 
         Button editBtn = view.findViewById(R.id.edit_accoutn_btn);
         Button userPostBtn = view.findViewById(R.id.post_account_btn); //list of posts that the user has created

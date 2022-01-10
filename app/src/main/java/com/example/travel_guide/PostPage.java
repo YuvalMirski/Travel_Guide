@@ -24,7 +24,6 @@ public class PostPage extends Fragment {
     TextView about;
     ImageView postImg;
 
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -44,11 +43,11 @@ public class PostPage extends Fragment {
               type.setText(userPost.getCategory());
               about.setText(userPost.getAbout());
 
-                if(userPost.getPostImgUrl()!=null) {
-                    Picasso.get()
-                            .load(userPost.getPostImgUrl())
-                            .into(postImg);
-                }
+              if(userPost.getPostImgUrl()!=null) {
+                  Picasso.get()
+                          .load(userPost.getPostImgUrl())
+                          .into(postImg);
+              }
             }
         });
 

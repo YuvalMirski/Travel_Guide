@@ -15,19 +15,19 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 
 import android.provider.MediaStore;
-import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.Spinner;
 
 import com.example.travel_guide.model.Model;
 import com.example.travel_guide.model.User;
 import com.example.travel_guide.model.UserPost;
-import com.example.travel_guide.ui.signUp.SignUpDirections;
 
 import java.io.IOException;
 import java.util.Random;
@@ -36,16 +36,12 @@ import java.util.Random;
 
 public class NewPostPage extends Fragment {
 
-    EditText postName;
-    EditText location;
-    EditText type;
-    EditText about;
+    String new_name,new_location, new_about, new_category,userId;
+    EditText postName, location, about;
     ImageView postPic;
     Bitmap imageBitmap;
 
     NewPostPageViewModel viewModel;
-
-    String new_name,new_location, new_about, new_category,userId;
 
     @Override
     public void onAttach(@NonNull Context context) {
@@ -60,9 +56,13 @@ public class NewPostPage extends Fragment {
 
         postName = view.findViewById(R.id.post_name_post_page_new_et);
         location = view.findViewById(R.id.location_post_page_new_et);
-        type = view.findViewById(R.id.type_post_page_new_et);
         about = view.findViewById(R.id.about_post_page_new_et);
         postPic = view.findViewById(R.id.picture_post_page_new_);
+        Spinner categorySpinner = (Spinner) view.findViewById(R.id.spinner_category_postPage);
+
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getContext(), R.array.CategoryList, android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        categorySpinner.setAdapter(adapter);
 
         Model.instance.getUserIdFromFB(id -> userId = id);
         viewModel.updateUser(userId);
@@ -76,7 +76,7 @@ public class NewPostPage extends Fragment {
             public void onClick(View v) {
                 new_name = postName.getText().toString();
                 new_location = location.getText().toString();
-                new_category = type.getText().toString();
+                new_category = categorySpinner.getSelectedItem().toString();
                 new_about = about.getText().toString();
                 UserPost userPost = new UserPost(new_name,new_location,new_about,new_category,userId);
 

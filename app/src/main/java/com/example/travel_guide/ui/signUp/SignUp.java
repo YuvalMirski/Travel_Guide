@@ -12,7 +12,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -46,17 +49,18 @@ public class SignUp extends Fragment {
 
 
         email = view.findViewById(R.id.email_signup_et);
-        sex = view.findViewById(R.id.sex_signup_et);
+        //sex = view.findViewById(R.id.sex_signup_et);
         country = view.findViewById(R.id.country_signup_et);
         userName = view.findViewById(R.id.username_signup_et);
         password = view.findViewById(R.id.password_signup_et);
         avatarPic = view.findViewById(R.id.avatar_signup_imv);
-        Button uploadPicBtn = view.findViewById(R.id.profilePic_signup_btn); //TODO:chenge to imgView of gallery??
+        RadioGroup sexRG = view.findViewById(R.id.sex_radioGroup);
+        //sex.setText(checkedSexRB.getText());
 
+        ImageButton uploadPicBtn = view.findViewById(R.id.gallery_signup_imb); //TODO:chenge to imgView of gallery??
         uploadPicBtn.setOnClickListener(v -> openGallery());
 
         Button submitBtn = view.findViewById(R.id.submit_signup_btn);
-
         submitBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -64,16 +68,16 @@ public class SignUp extends Fragment {
                 //                                      --> if exist then write proper msg
 
                 submitBtn.setEnabled(false);
+                RadioButton checkedSexRB = sexRG.findViewById(sexRG.getCheckedRadioButtonId());
 
                 new_userName = userName.getText().toString();
                 new_email = email.getText().toString();
-                new_sex = sex.getText().toString();
+                new_sex = (String) checkedSexRB.getText(); //sex.getText().toString();
                 new_country = country.getText().toString();
                 new_password = password.getText().toString();
                 lstSaved = new ArrayList<>();
                 lstUserPosts = new ArrayList<>();
                 User user = new User(new_userName, new_email, new_sex, new_country, new_password, lstSaved,lstUserPosts);
-
 
                 if(imageBitmap!=null) {
                     Model.instance.saveImage(imageBitmap, new_userName+ ".jpg", "user_avatars", url -> {
@@ -104,7 +108,6 @@ public class SignUp extends Fragment {
 
 
     final static int SELECT_PICTURE = 200;
-
     private void openGallery(){
         // Create intent for picking a photo from the gallery
         Intent intent = new Intent();
@@ -113,7 +116,6 @@ public class SignUp extends Fragment {
 
         startActivityForResult(Intent.createChooser(intent, "Select Picture"), SELECT_PICTURE);
     }
-
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
