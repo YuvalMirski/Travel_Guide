@@ -81,7 +81,7 @@ public class NewPostPage extends Fragment {
                 UserPost userPost = new UserPost(new_name,new_location,new_about,new_category,userId);
 
                 if(imageBitmap!=null) {
-                    Model.instance.saveImage(imageBitmap, new_name+ ".jpg", url -> {
+                    Model.instance.saveImage(imageBitmap, new_name+ ".jpg", "post_pics",url -> {
                         userPost.setPostImgUrl(url);
                         Model.instance.addUserPost(userPost,()->{
                             if(!viewModel.getUserLiveData().getValue().getLstUserPosts().contains(userPost.getId()))
@@ -118,7 +118,6 @@ public class NewPostPage extends Fragment {
 
 
     final static int SELECT_PICTURE = 200;
-
 
     private void openGallery(){
         // Create intent for picking a photo from the gallery
