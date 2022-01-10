@@ -2,13 +2,16 @@ package com.example.travel_guide;
 
 import static android.app.Activity.RESULT_OK;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 
 import android.provider.MediaStore;
@@ -22,6 +25,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 
 import com.example.travel_guide.model.Model;
+import com.example.travel_guide.model.User;
 import com.example.travel_guide.model.UserPost;
 import com.example.travel_guide.ui.signUp.SignUpDirections;
 
@@ -39,7 +43,15 @@ public class NewPostPage extends Fragment {
     ImageView postPic;
     Bitmap imageBitmap;
 
+    NewPostPageViewModel viewModel;
+
     String new_name,new_location, new_about, new_category,userId;
+
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+        viewModel = new ViewModelProvider(this).get(NewPostPageViewModel.class);
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -53,6 +65,7 @@ public class NewPostPage extends Fragment {
         postPic = view.findViewById(R.id.picture_post_page_new_);
 
         Model.instance.getUserIdFromFB(id -> userId = id);
+        viewModel.updateUser(userId);
 
         ImageButton galleryBtn = view.findViewById(R.id.addPost_gallery_imb);
         galleryBtn.setOnClickListener(v -> openGallery());
@@ -71,7 +84,23 @@ public class NewPostPage extends Fragment {
                     Model.instance.saveImage(imageBitmap, new_name+ ".jpg", url -> {
                         userPost.setPostImgUrl(url);
                         Model.instance.addUserPost(userPost,()->{
-                            Navigation.findNavController(v).navigateUp();
+                            if(!viewModel.getUserLiveData().getValue().getLstUserPosts().contains(userPost.getId()))
+                            {
+                                viewModel.getUserLiveData().getValue().getLstUserPosts().add(userPost.getId());
+                                User u = viewModel.userLiveData.getValue();
+                                Model.instance.updateUser(u, new Model.AddUserListener() {
+                                    @Override
+                                    public void onComplete() {
+                                        Navigation.findNavController(v).navigateUp();
+                                    }
+                                });
+                            }
+                            else {
+                                Navigation.findNavController(v).navigateUp();
+                            }
+
+
+
                             //Navigation.findNavController(v).navigate(NewPostPageDirections.actionNewPostPageToPostListRvFragment());
                              //Navigation.findNavController(v).navigate(NewPostPageDirections.actionNewPostPageToPostListRvFragment());
                         });

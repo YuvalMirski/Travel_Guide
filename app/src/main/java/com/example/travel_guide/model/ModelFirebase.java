@@ -93,6 +93,50 @@ public class ModelFirebase {
                 });
     }
 
+    public void getMyPost(String userId,GetAllPostsListener listener){
+        CollectionReference postReference = db.collection(UserPost.COLLECTION_NAME);
+        Task<QuerySnapshot> q = postReference.whereEqualTo("userId",userId)
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    List<UserPost> list = new LinkedList<UserPost>();
+                    Long aLong = new Long(0);
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+
+                                Log.d("TAG", document.getId() + " => " + document.getData());
+                                UserPost userPost = UserPost.create(document.getData()); //convert from json to Post
+                                updateId(aLong, document.getId(), userPost);
+                                list.add(userPost);
+                            }
+                        } else {
+                            Log.d("TAG", "Error getting documents: ", task.getException());
+                        }listener.onComplete(list);
+                    }
+                });
+
+
+
+//            List<UserPost> list = new LinkedList<UserPost>();
+//                for(String s : UserPostList){
+//                    db.collection(UserPost.COLLECTION_NAME)
+//                            .document(s)
+//                            .get()
+//                            .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+//                                @Override
+//                                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+//                                    UserPost userPost = null;
+//                                    if (task.isSuccessful() & task.getResult() != null) {
+//                                        userPost = UserPost.create(task.getResult().getData());
+//                                        list.add(userPost);
+//                                    }
+//                                }
+//                            });
+//                }listener.onComplete(list);
+
+    }
+
     public void updateId(Long lastUpdateDate, String id, UserPost userPost) {
         DocumentReference a = db.collection(UserPost.COLLECTION_NAME).document(id);
         userPost.setId(a.getId());

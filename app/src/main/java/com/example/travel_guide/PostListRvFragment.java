@@ -131,17 +131,19 @@ public class PostListRvFragment extends Fragment {
                     int position = getAdapterPosition();
                     String postId = viewModel.getCategoryPostList().getValue().get(position).getId();
                     if(!viewModel.getUserLiveData().getValue().getLstSaved().contains(postId))
+                    {
                         viewModel.getUserLiveData().getValue().getLstSaved().add(postId);
-
-                    User u = viewModel.userLiveData.getValue();
-                   // u.setId(userId);
-                    Model.instance.updateUser(u, new Model.AddUserListener() {
-                        @Override
-                        public void onComplete() {
-                            System.out.println("need");
-                            likeImg.setVisibility(v.GONE);
-                        }
-                    });
+                        User u = viewModel.userLiveData.getValue();
+                        Model.instance.updateUser(u, new Model.AddUserListener() {
+                            @Override
+                            public void onComplete() {
+                                likeImg.setVisibility(v.GONE);
+                            }
+                        });
+                    }
+                    else {
+                        likeImg.setVisibility(v.GONE);// maybe to write that is exist
+                    }
                 }
             });
 
