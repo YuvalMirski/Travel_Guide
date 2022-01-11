@@ -52,7 +52,6 @@ public class User {
         return json;
     }
 
-
     public String getEmail() {
         return email;
     }
@@ -100,6 +99,7 @@ public class User {
     public void setId(String id) {
         this.id = id;
     }
+
     public List<String> getLstSaved() {
         return lstSaved;
     }

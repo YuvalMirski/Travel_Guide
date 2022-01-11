@@ -79,6 +79,9 @@
         <action
             android:id="@+id/action_postPage_to_editPostPage"
             app:destination="@id/editPostPage" />
+        <argument
+            android:name="userId"
+            app:argType="string" />
     </fragment>
     <fragment
         android:id="@+id/editPostPage"

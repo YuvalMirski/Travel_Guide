@@ -94,7 +94,6 @@ public class UserPost {
         this.location = location;
     }
 
-
     public String getAbout() {
         return about;
     }
@@ -118,14 +117,6 @@ public class UserPost {
     public void setCategory(String category) {
         this.category = category;
     }
-
-//    public ImageView getUserProfile() {
-//        return userProfile;
-//    }
-//
-//    public void setUserProfile(ImageView userProfile) {
-//        this.userProfile = userProfile;
-//    }
 
     public String getUserId() {
         return userId;

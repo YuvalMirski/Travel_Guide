@@ -22,14 +22,7 @@ import android.widget.TextView;
 import com.example.travel_guide.model.Model;
 import com.example.travel_guide.model.User;
 import com.example.travel_guide.model.UserPost;
-import com.example.travel_guide.ui.home.HomePageArgs;
 import com.squareup.picasso.Picasso;
-
-import org.w3c.dom.ls.LSOutput;
-
-import java.util.List;
-
-import io.grpc.internal.JsonUtil;
 
 public class PostListRvFragment extends Fragment {
     PostListRvViewModel viewModel;
@@ -64,7 +57,6 @@ public class PostListRvFragment extends Fragment {
         list.setHasFixedSize(true);
         list.setLayoutManager(new LinearLayoutManager(getContext()));
 
-
         adapter = new MyAdapter();
         list.setAdapter(adapter);
 
@@ -74,7 +66,7 @@ public class PostListRvFragment extends Fragment {
           //   String postId = viewModel.getPostList().getValue().get(position).getId();
                String postId = viewModel.getCategoryPostList().getValue().get(position).getId();
               // Navigation.findNavController(v).navigate(PostListRvFragmentDirections.actionPostListRvFragmentToPostPage(postId));
-               Navigation.findNavController(v).navigate(PostListRvFragmentDirections.actionGlobalPostPage(postId));
+               Navigation.findNavController(v).navigate(PostListRvFragmentDirections.actionGlobalPostPage(postId, userId));
             }
         });
 
@@ -113,8 +105,10 @@ public class PostListRvFragment extends Fragment {
 
     class MyViewHolder extends RecyclerView.ViewHolder {
         TextView postName;
-        TextView type;
+        TextView category;
         TextView location;
+        TextView userName;
+        ImageView userAvatar;
         ImageView postImg;
         ImageButton likeImg;
 
@@ -122,10 +116,12 @@ public class PostListRvFragment extends Fragment {
             super(itemView);
 
             postName = itemView.findViewById(R.id.postname_listrow_tv);
-            type = itemView.findViewById(R.id.type_listrow_tv);
+            category = itemView.findViewById(R.id.category_listrow_tv);
             location = itemView.findViewById(R.id.location_listrow_tv);
             postImg = itemView.findViewById(R.id.post_picture_listrow_imv);
             likeImg = itemView.findViewById(R.id.postRow_save_imb);
+            userName = itemView.findViewById(R.id.userName_listrow_tv);
+            userAvatar = itemView.findViewById(R.id.userNameAvatar_listRow_imv);
 
             likeImg.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -136,12 +132,7 @@ public class PostListRvFragment extends Fragment {
                     {
                         viewModel.getUserLiveData().getValue().getLstSaved().add(postId);
                         User u = viewModel.userLiveData.getValue();
-                        Model.instance.updateUser(u, new Model.AddUserListener() {
-                            @Override
-                            public void onComplete() {
-                                likeImg.setVisibility(v.GONE);
-                            }
-                        });
+                        Model.instance.updateUser(u, () -> likeImg.setVisibility(v.GONE));
                     }
                     else {
                         likeImg.setVisibility(v.GONE);// maybe to write that is exist
@@ -149,18 +140,15 @@ public class PostListRvFragment extends Fragment {
                 }
             });
 
-            itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    int pos = getAdapterPosition();
-                    listener.onItemClick(v, pos);
-                }
+            itemView.setOnClickListener(v -> {
+                int pos = getAdapterPosition();
+                listener.onItemClick(v, pos);
             });
         }
 
         public void bind(UserPost post){
             postName.setText(post.getName());
-            type.setText(post.getType());
+            category.setText(post.getType());
             location.setText(post.getLocation());
             postImg.setImageResource(R.drawable.avatar);
 
@@ -169,6 +157,15 @@ public class PostListRvFragment extends Fragment {
                         .load(post.getPostImgUrl())
                         .into(postImg);
             }
+
+            Model.instance.getUserById(post.getUserId(), user -> {
+                userName.setText(user.getUserName());
+                if(user.getAvatarUrl()!=null) {
+                    Picasso.get()
+                            .load(user.getAvatarUrl())
+                            .into(userAvatar);
+                }
+            });
         }
     }
 
@@ -214,5 +211,4 @@ public class PostListRvFragment extends Fragment {
             return viewModel.getCategoryPostList().getValue().size();
         }
     }
-
 }

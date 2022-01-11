@@ -90,19 +90,8 @@ public class SignUp extends Fragment {
                 {
                     //TODO:: alert "you have to add image"
                 }
-
-//                user.getLstSaved().add("DEMO ID ");
-//                user.getLstSaved().add("DEMO ID2 ");
-//                //in case someone didnt upload pic
-//                Model.instance.createUserWithEmail(user, () -> Navigation.findNavController(v).navigate(SignUpDirections.actionSignUpNavToLogInNav()));
-
-//                Model.instance.addUser(user,()->{
-//                   // Navigation.findNavController(email).navigateUp();
-//                    Navigation.findNavController(v).navigate(SignUpDirections.actionSignUpNavToLogInNav());
-//                });
-
-                }
-            });
+            }
+        });
         return view;
     }
 

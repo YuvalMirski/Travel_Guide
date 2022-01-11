@@ -28,6 +28,7 @@ import com.example.travel_guide.model.UserPost;
 import com.squareup.picasso.Picasso;
 
 import java.io.IOException;
+import java.util.Arrays;
 
 
 public class EditPostPage extends Fragment {
@@ -39,6 +40,7 @@ public class EditPostPage extends Fragment {
     Bitmap imageBitmap;
     String new_name,new_location, new_about, new_id, new_category,userId, imageUrl;
     Spinner categorySpinner;
+    String[] categoryArr;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -57,6 +59,9 @@ public class EditPostPage extends Fragment {
                 about.setText(userPost.getAbout());
                 imageUrl = userPost.getPostImgUrl();
 
+                int categoryIndex = Arrays.asList(categoryArr).indexOf(new_category);
+                categorySpinner.setSelection(categoryIndex);
+
                 if(userPost.getPostImgUrl()!=null) {
                     Picasso.get()
                             .load(imageUrl)
@@ -71,18 +76,16 @@ public class EditPostPage extends Fragment {
         location = view.findViewById(R.id.location_post_page_edit_et);
         about = view.findViewById(R.id.about_post_page_edit_et);
         postImg = view.findViewById(R.id.picture_post_page_edit_);
-        Spinner categorySpinner = (Spinner) view.findViewById(R.id.spinner_category_editPostPage);
+        categorySpinner = (Spinner) view.findViewById(R.id.spinner_category_editPostPage);
 
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getContext(), R.array.CategoryList, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         categorySpinner.setAdapter(adapter);
-        //categorySpinner.setSelection(GetCategoryIndexInArr(new_category));
-
+        categoryArr = getResources().getStringArray(R.array.CategoryList);
 
         Button saveBtn = view.findViewById(R.id.save_post_page_edit_delete_btn);
         Button deleteBtn = view.findViewById(R.id.delete_post_page_edit_btn);
         ImageButton galleryBtn = view.findViewById(R.id.editPost_gallery_imb);
-
         galleryBtn.setOnClickListener(v -> openGallery());
 
         saveBtn.setOnClickListener(new View.OnClickListener() {
@@ -155,23 +158,4 @@ public class EditPostPage extends Fragment {
         }
     }
 
-    public int GetCategoryIndexInArr(String categoryName)
-    {
-        int res = 0; //default
-        switch(categoryName){
-            case "attractions":
-                res = 0;
-                break;
-            case "tours":
-                res = 1;
-                break;
-            case "restaurants":
-                res = 2;
-                break;
-            case "museums":
-                res = 3;
-                break;
-        }
-        return res;
-    }
 }

@@ -41,31 +41,19 @@ public class HomePage extends Fragment {
         Button museumsBtn = (Button)view.findViewById(R.id.museums_home_btn);
         Button allCategoriesBtn = (Button)view.findViewById(R.id.allCategories_home_btn);
 
-
         //String userId = HomePageArgs.fromBundle(getArguments()).getUserId();
         userId = homeViewModel.getUserId();
         System.out.println("user id is: "+userId);
 
         //this is temporary Button will be replace with the bottom nav bar
         Button addBtn = (Button)view.findViewById(R.id.add_new_post_btn);
-        addBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Navigation.findNavController(v).navigate(HomePageDirections.actionHomePageNavToNewPostPage(userId));
-            }
-        });
+        addBtn.setOnClickListener(v -> Navigation.findNavController(v).navigate(HomePageDirections.actionHomePageNavToNewPostPage(userId)));
 
-        attractionBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Navigation.findNavController(v).navigate(HomePageDirections.actionHomePageNavToPostListRvFragment("attractions",userId));
-            }
-        });
+        attractionBtn.setOnClickListener(v -> Navigation.findNavController(v).navigate(HomePageDirections.actionHomePageNavToPostListRvFragment("attractions",userId)));
         toursBtn.setOnClickListener(v -> Navigation.findNavController(v).navigate(HomePageDirections.actionHomePageNavToPostListRvFragment("tours",userId)));
         restaurantsBtn.setOnClickListener(v -> Navigation.findNavController(v).navigate(HomePageDirections.actionHomePageNavToPostListRvFragment("restaurants",userId)));
         museumsBtn.setOnClickListener(v -> Navigation.findNavController(v).navigate(HomePageDirections.actionHomePageNavToPostListRvFragment("museums",userId)));
         allCategoriesBtn.setOnClickListener(v -> Navigation.findNavController(v).navigate(HomePageDirections.actionHomePageNavToPostListRvFragment("allCategories",userId)));
-
 
         return view;
     }

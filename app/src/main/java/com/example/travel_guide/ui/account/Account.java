@@ -13,6 +13,7 @@ import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
 import com.example.travel_guide.R;
+import com.example.travel_guide.SquareImageView;
 import com.example.travel_guide.model.Model;
 import com.example.travel_guide.model.User;
 import com.squareup.picasso.Picasso;
@@ -21,7 +22,7 @@ import com.squareup.picasso.Picasso;
 public class Account extends Fragment {
 
     TextView userName, email, sex, country, password;
-    ImageView userAvatar;
+    SquareImageView userAvatar;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,

@@ -233,7 +233,6 @@ public class Model {
         modelFirebase.getUserById(userId,listener);
     }
 
-
     public interface DeleteUserById{
         void onComplete();
     }
@@ -252,7 +251,6 @@ public class Model {
     public void getUserIdFromFB(GetUserId listener) {
         modelFirebase.getUserIdFromFB(listener);
     }
-
 
     public interface SaveImageListener{
         void onComplete(String url);

@@ -32,7 +32,7 @@ public class EditUserPage extends Fragment {
 
     EditText userName, email, sex, country, password;
     String new_userName, new_email, new_sex, new_country, new_password, new_id, avatarUrl;
-    ImageView userAvatar;
+    SquareImageView userAvatar;
     Bitmap imageBitmap;
     List<String>lstSaved,lstUserPosts;
 

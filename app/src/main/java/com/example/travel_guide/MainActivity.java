@@ -1,28 +1,17 @@
 package com.example.travel_guide;
 
-import android.app.Application;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.MenuItem;
-import android.view.View;
 import android.view.Menu;
 
 import com.example.travel_guide.model.Model;
-import com.example.travel_guide.ui.LogOut;
 import com.example.travel_guide.ui.account.Account;
 import com.example.travel_guide.ui.home.HomePage;
 import com.example.travel_guide.ui.login.LogIn;
-import com.example.travel_guide.ui.login.LogInDirections;
-import com.example.travel_guide.ui.signUp.SignUp;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.navigation.NavigationView;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.ActionBarDrawerToggle;
-import androidx.appcompat.widget.Toolbar;
-import androidx.core.view.GravityCompat;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -32,9 +21,6 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.travel_guide.databinding.ActivityMainBinding;
-import com.google.api.SystemParameterOrBuilder;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 
 public class MainActivity extends AppCompatActivity  {//implements NavigationView.OnNavigationItemSelectedListener
 
@@ -54,6 +40,7 @@ public class MainActivity extends AppCompatActivity  {//implements NavigationVie
         setSupportActionBar(binding.appBarMain.toolbar);
         drawer = binding.drawerLayout;
         NavigationView navigationView = binding.navView;
+
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         // menu should be considered as top level destinations.
@@ -68,18 +55,22 @@ public class MainActivity extends AppCompatActivity  {//implements NavigationVie
         NavigationUI.setupWithNavController(navigationView, navController);
 
         Menu menu = navigationView.getMenu();
+        MenuItem logIn = menu.findItem(R.id.logIn_nav);
+        MenuItem signUp = menu.findItem(R.id.signUp_nav);
         MenuItem logOut = menu.findItem(R.id.logOut_nav);
 
         logOut.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
+
                 Model.instance.signOut();
-
                 Fragment logInFragment = new LogIn();
-
                 getSupportFragmentManager().beginTransaction().replace(R.id.nav_host_fragment_content_main,logInFragment).commit();
+                drawer.closeDrawers();
+                logOut.setVisible(false);
+                logIn.setVisible(true);
+                signUp.setVisible(true);
                 return true;
-
             }
         });
         logOut.setVisible(false);
@@ -88,7 +79,6 @@ public class MainActivity extends AppCompatActivity  {//implements NavigationVie
         //bottomNav.animate(); TODO:animation
         bottomNav.setOnNavigationItemSelectedListener(navListener);
     }
-
 
 
     BottomNavigationView.OnNavigationItemSelectedListener navListener = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -142,12 +132,7 @@ public class MainActivity extends AppCompatActivity  {//implements NavigationVie
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
 
-        Model.instance.getUserIdFromFB(new Model.GetUserId() {
-            @Override
-            public void onComplete(String id) {
-                userId = id;
-            }
-        });
+        Model.instance.getUserIdFromFB(id -> userId = id);
         Bundle bundle = new Bundle();
         if (!super.onOptionsItemSelected(item)){
             switch (item.getItemId()){

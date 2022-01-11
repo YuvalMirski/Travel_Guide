@@ -18,11 +18,10 @@ import com.squareup.picasso.Picasso;
 
 
 public class PostPage extends Fragment {
-    TextView postName;
-    TextView location;
-    TextView type; //this is category
-    TextView about;
+    TextView postName, location, category, about;
     ImageView postImg;
+    String userNamePostId, userLoggedId;
+    Button editBtn;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -31,34 +30,38 @@ public class PostPage extends Fragment {
         View view = inflater.inflate(R.layout.fragment_post_page, container, false);
 
         ImageView img = (ImageView) (view.findViewById(R.id.picture_post_page_details_));
-       // img.setImageResource(R.drawable.);
 
         String postId = PostPageArgs.fromBundle(getArguments()).getPostId();
+        userLoggedId = PostPageArgs.fromBundle(getArguments()).getUserId();
 
         Model.instance.getPostById(postId, new Model.GetPostById() {
             @Override
             public void onComplete(UserPost userPost) {
               postName.setText(userPost.getName());
               location.setText(userPost.getLocation());
-              type.setText(userPost.getCategory());
+              category.setText(userPost.getCategory());
               about.setText(userPost.getAbout());
+              userNamePostId = userPost.getUserId();
 
               if(userPost.getPostImgUrl()!=null) {
                   Picasso.get()
                           .load(userPost.getPostImgUrl())
                           .into(postImg);
               }
+
+              if(!userNamePostId.equals(userLoggedId)) {
+                  editBtn.setVisibility(View.INVISIBLE);
+              }
             }
         });
 
         postName = view.findViewById(R.id.post_name_post_page_details_tv);
         location = view.findViewById(R.id.location_post_page_details_tv);
-        type = view.findViewById(R.id.type_post_page_details_tv);
+        category = view.findViewById(R.id.type_post_page_details_tv);
         about = view.findViewById(R.id.about_post_page_details_);
         postImg = view.findViewById(R.id.picture_post_page_details_);
 
-        Button editBtn = view.findViewById(R.id.edit_post_page_details_btn);
-
+        editBtn = view.findViewById(R.id.edit_post_page_details_btn);
         editBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
