@@ -217,6 +217,9 @@ public class Model {
     public void userSignIn(String email, String password,Model.OnCompleteGeneralListener listener){
         modelFirebase.userSignIn(email,password,listener);
     }
+    public void signOut(){
+        modelFirebase.signOut();
+    }
 
     public void updateUser (User user,AddUserListener listener){
         modelFirebase.updateUser(user,listener);

@@ -115,5 +115,5 @@
         <argument
             android:name="userId"
             app:argType="string" />
-    </fragment><action android:id="@+id/action_global_editUserFragment" app:destination="@id/editUserFragment"/><action android:id="@+id/action_global_postListRvFragment" app:destination="@id/postListRvFragment"/>
+    </fragment><action android:id="@+id/action_global_editUserFragment" app:destination="@id/editUserFragment"/><action android:id="@+id/action_global_postListRvFragment" app:destination="@id/postListRvFragment"/><action android:id="@+id/action_global_postPage" app:destination="@id/postPage"/>
 </navigation>

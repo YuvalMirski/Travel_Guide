@@ -73,7 +73,8 @@ public class PostListRvFragment extends Fragment {
             public void onItemClick(View v, int position) {
           //   String postId = viewModel.getPostList().getValue().get(position).getId();
                String postId = viewModel.getCategoryPostList().getValue().get(position).getId();
-               Navigation.findNavController(v).navigate(PostListRvFragmentDirections.actionPostListRvFragmentToPostPage(postId));
+              // Navigation.findNavController(v).navigate(PostListRvFragmentDirections.actionPostListRvFragmentToPostPage(postId));
+               Navigation.findNavController(v).navigate(PostListRvFragmentDirections.actionGlobalPostPage(postId));
             }
         });
 

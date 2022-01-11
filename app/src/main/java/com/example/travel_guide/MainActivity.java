@@ -69,6 +69,19 @@ public class MainActivity extends AppCompatActivity  {//implements NavigationVie
 
         Menu menu = navigationView.getMenu();
         MenuItem logOut = menu.findItem(R.id.logOut_nav);
+
+        logOut.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                Model.instance.signOut();
+
+                Fragment logInFragment = new LogIn();
+
+                getSupportFragmentManager().beginTransaction().replace(R.id.nav_host_fragment_content_main,logInFragment).commit();
+                return true;
+
+            }
+        });
         logOut.setVisible(false);
 
         BottomNavigationView bottomNav = (BottomNavigationView)findViewById(R.id.bottom_navigation);

@@ -107,50 +107,53 @@ public class ModelFirebase {
     public void getUserSavedPost(String userId,List<String>userSavedPostLst,GetAllPostsListener listener){
        // CollectionReference postReference = db.collection(UserPost.COLLECTION_NAME);
 
-
-                    CollectionReference categoryReference = db.collection(UserPost.COLLECTION_NAME);
-                    Task<QuerySnapshot> q = categoryReference.whereEqualTo("id",userSavedPostLst.get(0))
-                            .get()
-                            .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                                List<UserPost> list = new LinkedList<UserPost>();
-                                Long aLong = new Long(0);
-
-                                @Override
-                                public void onComplete(@NonNull Task<QuerySnapshot> task) {
-
-                                    if (task.isSuccessful()) {
-                                        for (QueryDocumentSnapshot document : task.getResult()) {
-
-                                            Log.d("TAG", document.getId() + " => " + document.getData());
-                                            UserPost userPost = UserPost.create(document.getData()); //convert from json to Post
-                                            updateId(aLong, document.getId(), userPost);
-                                            list.add(userPost);
-                                        }
-                                    }listener.onComplete(list);
-                                }
-                            });
-
-//                    db.collection(UserPost.COLLECTION_NAME)
-//                            .document(s)
+        List<UserPost> list = new LinkedList<UserPost>();
+        Long aLong = new Long(0);
+//                    CollectionReference categoryReference = db.collection(UserPost.COLLECTION_NAME);
+//
+//                    Task<QuerySnapshot> q = categoryReference.whereEqualTo("id",userSavedPostLst.get(0))
 //                            .get()
-//                            .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+//                            .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+//
 //                                @Override
-//                                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-//                                    UserPost userPost = null;
-//                                    if (task.isSuccessful() & task.getResult() != null) {
-//                                        DocumentSnapshot document = task.getResult();
-//                                        userPost = UserPost.create(task.getResult().getData());
-//                                        updateId(aLong, document.getId(), userPost);
+//                                public void onComplete(@NonNull Task<QuerySnapshot> task) {
 //
-//                                        System.out.println("work to fetch");
-//                                        System.out.println(userPost.getId());
+//                                    if (task.isSuccessful()) {
+//                                        for (QueryDocumentSnapshot document : task.getResult()) {
 //
-//                                        list.add(userPost);
+//                                            Log.d("TAG", document.getId() + " => " + document.getData());
+//                                            UserPost userPost = UserPost.create(document.getData()); //convert from json to Post
+//                                            updateId(aLong, document.getId(), userPost);
+//                                            list.add(userPost);
+//                                        }
 //                                    }
+//                                    listener.onComplete(list);
 //                                }
 //                            });
 
+            for (String s : userSavedPostLst)
+            {
+                db.collection(UserPost.COLLECTION_NAME)
+                        .document(s)
+                        .get()
+                        .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                            @Override
+                            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                UserPost userPost = null;
+                                if (task.isSuccessful() & task.getResult() != null) {
+                                    DocumentSnapshot document = task.getResult();
+                                    userPost = UserPost.create(task.getResult().getData());
+                                    updateId(aLong, document.getId(), userPost);
 
+                                    System.out.println("work to fetch");
+                                    System.out.println(userPost.getId());
+                                    list.add(userPost);
+                                }listener.onComplete(list);
+                            }
+                        });
+            }
+            if(userSavedPostLst.size()==0)
+                listener.onComplete(list);
                // System.out.println("list size "+list.size());
 
     }
@@ -341,6 +344,9 @@ public class ModelFirebase {
                         }
                     }
                 });
+    }
+    public void signOut(){
+        mAuth.signOut();
     }
     public void deleteUser(Model.OnCompleteGeneralListener listener){
 
