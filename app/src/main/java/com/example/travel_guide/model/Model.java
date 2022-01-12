@@ -2,16 +2,11 @@ package com.example.travel_guide.model;
 
 import android.content.Context;
 import android.graphics.Bitmap;
-import android.net.Uri;
-import android.util.Log;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import com.example.travel_guide.MyApplication;
-import com.example.travel_guide.PostPage;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 
 import java.util.List;
 import java.util.concurrent.Executor;
@@ -204,14 +199,18 @@ public class Model {
         void onComplete();
     }
 
+    public interface AddUserToFBListener{
+        void onComplete(String msg);
+    }
+
     public interface OnCompleteGeneralListener{
         void onComplete(User user);
     }
-    public void addUser (User user,AddUserListener listener){
-        modelFirebase.addUser(user,listener);
-    }
+//    public void addUser (User user,AddUserListener listener){
+//        modelFirebase.addUser(user,listener);
+//    }
 
-    public void createUserWithEmail(User user,AddUserListener listener) {
+    public void createUserWithEmail(User user,AddUserToFBListener listener) {
         modelFirebase.createUserWithEmail(user,listener);
     }
     public void userSignIn(String email, String password,Model.OnCompleteGeneralListener listener){

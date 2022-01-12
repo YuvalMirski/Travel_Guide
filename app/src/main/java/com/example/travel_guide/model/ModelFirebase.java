@@ -7,7 +7,6 @@ import android.util.Log;
 import androidx.annotation.NonNull;
 
 import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -240,7 +239,7 @@ public class ModelFirebase {
 
     //------------------------------------USER------------------------------------//
 
-    public void addUser(User user, Model.AddUserListener listener) {
+    public void addUser(User user, Model.AddUserToFBListener listener) {
         Map<String, Object> json = user.toJson();
         db.collection(User.COLLECTION_NAME)
                 .document(user.getId())
@@ -249,11 +248,10 @@ public class ModelFirebase {
                     @Override
                     public void onSuccess(Void unused) {
                         updateUserId(user.getId(), user);
-                        listener.onComplete();
+                        listener.onComplete("true");
                     }
                 })
-
-                .addOnFailureListener(e -> listener.onComplete());
+                .addOnFailureListener(e -> listener.onComplete("failed to add the user"));
     }
 
     public void updateUser(User user, Model.AddUserListener listener) {
@@ -268,7 +266,6 @@ public class ModelFirebase {
                     }
                 })
                 .addOnFailureListener(e -> listener.onComplete());
-
     }
 
 
@@ -305,7 +302,7 @@ public class ModelFirebase {
         documentReference.set(user);
     }
 
-    public void createUserWithEmail(User userFromCode,Model.AddUserListener listener){
+    public void createUserWithEmail(User userFromCode,Model.AddUserToFBListener listener){
         String email = userFromCode.email;
         String password = userFromCode.password;
 
@@ -325,6 +322,7 @@ public class ModelFirebase {
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w("TAG", "createUserWithEmail:failure", task.getException());
+                            listener.onComplete(task.getException().toString());
                            // Toast.makeText(MyApplication.getContext().getApplicationContext(), "Registration Failed", Toast.LENGTH_LONG).show();
 
 //                            updateUI(null);
