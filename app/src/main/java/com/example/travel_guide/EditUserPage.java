@@ -18,7 +18,6 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 
 import com.example.travel_guide.model.Model;
 import com.example.travel_guide.model.User;
@@ -97,12 +96,12 @@ public class EditUserPage extends Fragment {
                 if(imageBitmap!=null) {
                     Model.instance.saveImage(imageBitmap, new_userName+ ".jpg", "user_avatars",url -> {
                         u.setAvatarUrl(url);
-                        Model.instance.updateUser(u,()->Navigation.findNavController(userName).navigateUp());
+                        Model.instance.updateUser(u, ()->Navigation.findNavController(userName).navigateUp());
                     });
                 }
                 else {
                     u.setAvatarUrl(avatarUrl);
-                    Model.instance.updateUser(u,()->Navigation.findNavController(userName).navigateUp());
+                    Model.instance.updateUser(u, ()->Navigation.findNavController(userName).navigateUp());
                 }
             }
         });

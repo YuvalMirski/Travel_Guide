@@ -16,6 +16,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -37,11 +38,11 @@ public class SignUp extends Fragment {
     ImageView avatarPic;
     Bitmap imageBitmap;
     String new_userName, new_email, new_sex, new_country, new_password, new_id;
-    List<String>lstSaved,lstUserPosts;
+    List<String> lstSaved, lstUserPosts;
+    RadioGroup sexRG;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_sign_up, container, false);
 
         email = view.findViewById(R.id.email_signup_et);
@@ -49,9 +50,9 @@ public class SignUp extends Fragment {
         userName = view.findViewById(R.id.username_signup_et);
         password = view.findViewById(R.id.password_signup_et);
         avatarPic = view.findViewById(R.id.avatar_signup_imv);
-        RadioGroup sexRG = view.findViewById(R.id.sex_radioGroup);
+        sexRG = view.findViewById(R.id.sex_radioGroup);
 
-        ImageButton uploadPicBtn = view.findViewById(R.id.gallery_signup_imb); //TODO:chenge to imgView of gallery??
+        ImageButton uploadPicBtn = view.findViewById(R.id.gallery_signup_imb);
         uploadPicBtn.setOnClickListener(v -> openGallery());
 
         Button submitBtn = view.findViewById(R.id.submit_signup_btn);
@@ -71,17 +72,23 @@ public class SignUp extends Fragment {
                 new_password = password.getText().toString();
                 lstSaved = new ArrayList<>();
                 lstUserPosts = new ArrayList<>();
-                User user = new User(new_userName, new_email, new_sex, new_country, new_password, lstSaved,lstUserPosts);
+                User user = new User(new_userName, new_email, new_sex, new_country, new_password, lstSaved, lstUserPosts);
 
-                if(imageBitmap!=null) {
-                    Model.instance.saveImage(imageBitmap, new_userName+ ".jpg", "user_avatars", url -> {
+                if (imageBitmap != null) {
+                    Model.instance.saveImage(imageBitmap, new_userName + ".jpg", "user_avatars", url -> {
                         user.setAvatarUrl(url);
-                        Model.instance.createUserWithEmail(user, () -> Navigation.findNavController(v).navigate(SignUpDirections.actionSignUpNavToLogInNav()));
+                        Model.instance.createUserWithEmail(user, new Model.AddUserToFBListener() {
+                            @Override
+                            public void onComplete(String isSuccess) {
+                                if (isSuccess.equals("true")) {
+                                    Navigation.findNavController(v).navigate(SignUpDirections.actionSignUpNavToLogInNav());
+                                } else {
+                                    Toast.makeText(getContext(), isSuccess, Toast.LENGTH_LONG).show();
+                                }
+                            }
+                        });
                     });
-
-                }
-                else
-                {
+                } else {
                     //TODO:: alert "you have to add image"
                 }
             }
@@ -91,7 +98,8 @@ public class SignUp extends Fragment {
 
 
     final static int SELECT_PICTURE = 200;
-    private void openGallery(){
+
+    private void openGallery() {
         // Create intent for picking a photo from the gallery
         Intent intent = new Intent();
         intent.setType("image/*");
@@ -109,8 +117,10 @@ public class SignUp extends Fragment {
                 Uri selectedImageUri = data.getData();
                 imageBitmap = null;
                 try {
-                    imageBitmap = MediaStore.Images.Media.getBitmap(getContext().getContentResolver(),selectedImageUri);
-                } catch (IOException e) { e.printStackTrace(); }
+                    imageBitmap = MediaStore.Images.Media.getBitmap(getContext().getContentResolver(), selectedImageUri);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
 
                 if (imageBitmap != null) {
                     avatarPic.setImageBitmap(imageBitmap);
@@ -118,11 +128,4 @@ public class SignUp extends Fragment {
             }
         }
     }
-
-//    public String getRand(int n1, int n2) {
-//        //generating number between n1 - n2
-//        Random rand = new Random();
-//        int min = n1, max = n2;
-//        return String.valueOf(rand.nextInt(max - min + 1) + min);
-//    }
 }

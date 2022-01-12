@@ -30,7 +30,6 @@ import com.example.travel_guide.model.User;
 import com.example.travel_guide.model.UserPost;
 
 import java.io.IOException;
-import java.util.Random;
 
 // here User will be able to create a new post
 
