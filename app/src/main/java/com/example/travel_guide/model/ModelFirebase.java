@@ -80,7 +80,7 @@ public class ModelFirebase {
         }
         else{
             fieldKey = "category";
-            fieldVal = categoryName;
+            fieldVal = categoryName;//.whereEqualTo("location","NYC")
         }
         Task<QuerySnapshot> q = categoryReference.whereEqualTo(fieldKey,fieldVal)
                 .get()
