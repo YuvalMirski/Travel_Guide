@@ -3,6 +3,7 @@ package com.example.travel_guide;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.Menu;
+import android.widget.Toolbar;
 
 import com.example.travel_guide.model.Model;
 import com.example.travel_guide.ui.account.Account;
@@ -45,10 +46,9 @@ public class MainActivity extends AppCompatActivity  {//implements NavigationVie
         // menu should be considered as top level destinations.
         // menu should be considered as top level destinations.
         mAppBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.homePage_nav, R.id.account_nav, R.id.logIn_nav,R.id.signUp_nav, R.id.logOut_nav)
+                R.id.logIn_nav,R.id.signUp_nav, R.id.logOut_nav)
                 .setOpenableLayout(drawer)
                 .build();
-
 
         navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);

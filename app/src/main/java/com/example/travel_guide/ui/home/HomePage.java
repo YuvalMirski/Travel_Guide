@@ -5,7 +5,9 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.Spinner;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -40,6 +42,11 @@ public class HomePage extends Fragment {
         Button restaurantsBtn = (Button)view.findViewById(R.id.restaurants_home_btn);
         Button museumsBtn = (Button)view.findViewById(R.id.museums_home_btn);
         Button allCategoriesBtn = (Button)view.findViewById(R.id.allCategories_home_btn);
+        Spinner citySpinner = (Spinner)view.findViewById(R.id.homePage_spinner);
+
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getContext(), R.array.CityList, R.layout.spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        citySpinner.setAdapter(adapter);
 
         //String userId = HomePageArgs.fromBundle(getArguments()).getUserId();
         userId = homeViewModel.getUserId();
@@ -55,16 +62,12 @@ public class HomePage extends Fragment {
 //        museumsBtn.setOnClickListener(v -> Navigation.findNavController(v).navigate(HomePageDirections.actionHomePageNavToPostListRvFragment("museums",userId)));
 //        allCategoriesBtn.setOnClickListener(v -> Navigation.findNavController(v).navigate(HomePageDirections.actionHomePageNavToPostListRvFragment("allCategories",userId)));
 
-
+        //String city = citySpinner.getSelectedItem().toString(); TODO:: to enter in the buttoms below
         attractionBtn.setOnClickListener(v->Navigation.findNavController(v).navigate(HomePageDirections.actionGlobalPostListRvFragment("attractions",userId)));
         toursBtn.setOnClickListener(v -> Navigation.findNavController(v).navigate(HomePageDirections.actionGlobalPostListRvFragment("tours",userId)));
         restaurantsBtn.setOnClickListener(v -> Navigation.findNavController(v).navigate(HomePageDirections.actionGlobalPostListRvFragment("restaurants",userId)));
         museumsBtn.setOnClickListener(v -> Navigation.findNavController(v).navigate(HomePageDirections.actionGlobalPostListRvFragment("museums",userId)));
         allCategoriesBtn.setOnClickListener(v -> Navigation.findNavController(v).navigate(HomePageDirections.actionGlobalPostListRvFragment("allCategories",userId)));
-
-
-
-
 
 
         return view;

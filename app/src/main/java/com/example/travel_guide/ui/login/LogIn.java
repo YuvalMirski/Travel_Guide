@@ -1,5 +1,6 @@
 package com.example.travel_guide.ui.login;
 
+import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
@@ -8,9 +9,11 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toolbar;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -48,12 +51,10 @@ public class LogIn extends Fragment {
         Model.instance.initFireBaseAuto();
 
         View view = inflater.inflate(R.layout.fragment_log_in, container, false);
-
         EditText email = view.findViewById(R.id.email_login_et);
         EditText password = view.findViewById(R.id.password_login_et);
 
         Button loginBtn = (Button) view.findViewById(R.id.login_login_btn);
-
         loginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -84,6 +85,8 @@ public class LogIn extends Fragment {
                             //navigationView.setNavigationItemSelectedListener(this);
 
                             Navigation.findNavController(v).navigate(LogInDirections.actionLogInNavToHomePageNav(user.getId()));
+                            InputMethodManager imm = (InputMethodManager) getContext().getSystemService(Activity.INPUT_METHOD_SERVICE);
+                            imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
                         }
                     });
                 }

@@ -128,14 +128,17 @@ public class PostListRvFragment extends Fragment {
                 public void onClick(View v) {
                     int position = getAdapterPosition();
                     String postId = viewModel.getCategoryPostList().getValue().get(position).getId();
-                    if(!viewModel.getUserLiveData().getValue().getLstSaved().contains(postId))
+                    if(!viewModel.getUserLiveData().getValue().getLstSaved().contains(postId)) //add saved post
                     {
                         viewModel.getUserLiveData().getValue().getLstSaved().add(postId);
                         User u = viewModel.userLiveData.getValue();
-                        Model.instance.updateUser(u, () -> likeImg.setVisibility(v.GONE));
+                        Model.instance.updateUser(u, () -> likeImg.setImageResource(R.drawable.ic_baseline_remove_circle_24));
                     }
-                    else {
-                        likeImg.setVisibility(v.GONE);// maybe to write that is exist
+                    else { //remove save post
+//                        likeImg.setVisibility(v.GONE);// maybe to write that is exist
+                        viewModel.getUserLiveData().getValue().getLstSaved().remove(postId);
+                        User u = viewModel.userLiveData.getValue();
+                        Model.instance.updateUser(u, () -> likeImg.setImageResource(R.drawable.ic_baseline_saved));
                     }
                 }
             });
@@ -159,6 +162,16 @@ public class PostListRvFragment extends Fragment {
             }
 
             Model.instance.getUserById(post.getUserId(), user -> {
+
+                if(user.getLstSaved().contains(post.getId()))
+                {
+                    likeImg.setImageResource(R.drawable.ic_baseline_remove_circle_24);
+                }
+                else
+                {
+                    likeImg.setImageResource(R.drawable.ic_baseline_saved);
+                }
+
                 userName.setText(user.getUserName());
                 if(user.getAvatarUrl()!=null) {
                     Picasso.get()

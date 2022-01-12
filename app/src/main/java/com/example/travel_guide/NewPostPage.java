@@ -60,7 +60,7 @@ public class NewPostPage extends Fragment {
         postPic = view.findViewById(R.id.picture_post_page_new_);
         Spinner categorySpinner = (Spinner) view.findViewById(R.id.spinner_category_postPage);
 
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getContext(), R.array.CategoryList, android.R.layout.simple_spinner_item);
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getContext(), R.array.CategoryList, R.layout.spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         categorySpinner.setAdapter(adapter);
 
