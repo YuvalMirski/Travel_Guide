@@ -35,11 +35,6 @@
         android:label="Log In"
         tools:layout="@layout/fragment_log_in" >
         <action
-            android:id="@+id/action_logIn_nav_to_homePage_nav"
-            app:destination="@id/homePage_nav"
-            app:popUpTo="@id/homePage_nav"
-            app:popUpToInclusive="true" />
-        <action
             android:id="@+id/action_logIn_nav_to_signUp_nav"
             app:destination="@id/signUp_nav" />
     </fragment>
@@ -122,4 +117,5 @@
             android:name="userId"
             app:argType="string" />
     </fragment><action android:id="@+id/action_global_editUserFragment" app:destination="@id/editUserFragment"/><action android:id="@+id/action_global_postListRvFragment" app:destination="@id/postListRvFragment"/><action android:id="@+id/action_global_postPage" app:destination="@id/postPage"/>
+    <action android:id="@+id/action_global_homePage_nav" app:destination="@id/homePage_nav" />
 </navigation>

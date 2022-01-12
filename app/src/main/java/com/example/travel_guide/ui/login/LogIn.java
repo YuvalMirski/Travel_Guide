@@ -89,7 +89,7 @@ public class LogIn extends Fragment {
                                 //TODO:: to change unabled to press
                                 //navigationView.setNavigationItemSelectedListener(this);
 
-                                Navigation.findNavController(v).navigate(LogInDirections.actionLogInNavToHomePageNav(user.getId()));
+                                Navigation.findNavController(v).navigate(LogInDirections.actionGlobalHomePageNav(user.getId()));
                                 InputMethodManager imm = (InputMethodManager) getContext().getSystemService(Activity.INPUT_METHOD_SERVICE);
                                 imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
                             } else {
