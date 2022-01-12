@@ -43,19 +43,13 @@ public class SignUp extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_sign_up, container, false);
-        // new_id = Model
-        //TODO:: temporary - we need id that is not exist
-        //new_id = getRand(0,100);  //
-
 
         email = view.findViewById(R.id.email_signup_et);
-        //sex = view.findViewById(R.id.sex_signup_et);
         country = view.findViewById(R.id.country_signup_et);
         userName = view.findViewById(R.id.username_signup_et);
         password = view.findViewById(R.id.password_signup_et);
         avatarPic = view.findViewById(R.id.avatar_signup_imv);
         RadioGroup sexRG = view.findViewById(R.id.sex_radioGroup);
-        //sex.setText(checkedSexRB.getText());
 
         ImageButton uploadPicBtn = view.findViewById(R.id.gallery_signup_imb); //TODO:chenge to imgView of gallery??
         uploadPicBtn.setOnClickListener(v -> openGallery());

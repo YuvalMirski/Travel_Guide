@@ -39,6 +39,7 @@
         <entry key="..\:/Users/mirsk/AndroidStudioProjects/Travel_Guide/Travel_Guide/app/src/main/res/drawable/custom_border_listrow.xml" value="0.5708333333333333" />
         <entry key="..\:/Users/mirsk/AndroidStudioProjects/Travel_Guide/Travel_Guide/app/src/main/res/drawable/homepage_categorie_list.xml" value="0.5708333333333333" />
         <entry key="..\:/Users/mirsk/AndroidStudioProjects/Travel_Guide/Travel_Guide/app/src/main/res/drawable/homepage_category_list.xml" value="0.5708333333333333" />
+        <entry key="..\:/Users/mirsk/AndroidStudioProjects/Travel_Guide/Travel_Guide/app/src/main/res/drawable/ic_baseline_exit_to_app_24.xml" value="0.5708333333333333" />
         <entry key="..\:/Users/mirsk/AndroidStudioProjects/Travel_Guide/Travel_Guide/app/src/main/res/drawable/ic_baseline_home.xml" value="0.39479166666666665" />
         <entry key="..\:/Users/mirsk/AndroidStudioProjects/Travel_Guide/Travel_Guide/app/src/main/res/drawable/ic_baseline_remove_circle_24.xml" value="0.5708333333333333" />
         <entry key="..\:/Users/mirsk/AndroidStudioProjects/Travel_Guide/Travel_Guide/app/src/main/res/drawable/ic_baseline_saved.xml" value="0.5708333333333333" />
@@ -46,7 +47,7 @@
         <entry key="..\:/Users/mirsk/AndroidStudioProjects/Travel_Guide/Travel_Guide/app/src/main/res/layout/activity_main.xml" value="0.540625" />
         <entry key="..\:/Users/mirsk/AndroidStudioProjects/Travel_Guide/Travel_Guide/app/src/main/res/layout/app_bar_main.xml" value="0.4466666666666667" />
         <entry key="..\:/Users/mirsk/AndroidStudioProjects/Travel_Guide/Travel_Guide/app/src/main/res/layout/bottom_navigation.xml" value="0.4484375" />
-        <entry key="..\:/Users/mirsk/AndroidStudioProjects/Travel_Guide/Travel_Guide/app/src/main/res/layout/content_main.xml" value="0.4466666666666667" />
+        <entry key="..\:/Users/mirsk/AndroidStudioProjects/Travel_Guide/Travel_Guide/app/src/main/res/layout/content_main.xml" value="0.3333333333333333" />
         <entry key="..\:/Users/mirsk/AndroidStudioProjects/Travel_Guide/Travel_Guide/app/src/main/res/layout/fragment_account.xml" value="0.33177083333333335" />
         <entry key="..\:/Users/mirsk/AndroidStudioProjects/Travel_Guide/Travel_Guide/app/src/main/res/layout/fragment_edit_post_page.xml" value="0.33177083333333335" />
         <entry key="..\:/Users/mirsk/AndroidStudioProjects/Travel_Guide/Travel_Guide/app/src/main/res/layout/fragment_edit_user.xml" value="0.3333333333333333" />

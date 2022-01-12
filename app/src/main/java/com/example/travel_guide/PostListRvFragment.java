@@ -130,8 +130,8 @@ public class PostListRvFragment extends Fragment {
                         User u = viewModel.userLiveData.getValue();
                         Model.instance.updateUser(u, () -> likeImg.setImageResource(R.drawable.ic_baseline_remove_circle_24));
                     }
-                    else { //remove save post
-//                        likeImg.setVisibility(v.GONE);// maybe to write that is exist
+                    else {
+//                      likeImg.setVisibility(v.GONE);// maybe to write that is exist
                         viewModel.getUserLiveData().getValue().getLstSaved().remove(postId);
                         User u = viewModel.userLiveData.getValue();
                         Model.instance.updateUser(u, () -> likeImg.setImageResource(R.drawable.ic_baseline_saved));
