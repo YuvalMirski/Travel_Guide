@@ -28,7 +28,7 @@ public class PostListRvFragment extends Fragment {
     PostListRvViewModel viewModel;
     MyAdapter adapter;
     SwipeRefreshLayout swipeRefresh;
-    String categoryName,userId;
+    String categoryName,userId,locationName;
 
     @Override
     public void onAttach(@NonNull Context context) {
@@ -44,13 +44,14 @@ public class PostListRvFragment extends Fragment {
 
         userId = PostListRvFragmentArgs.fromBundle(getArguments()).getUserId();
         categoryName = PostListRvFragmentArgs.fromBundle(getArguments()).getCategoryName();
+        locationName = PostListRvFragmentArgs.fromBundle(getArguments()).getLocationName();
 
-        viewModel.demoCtor(categoryName,userId);
+        viewModel.demoCtor(categoryName,userId,locationName);
 
-        Model.instance.refreshCategoryPage(categoryName,userId);
+        Model.instance.refreshCategoryPage(categoryName,userId,locationName);
         swipeRefresh = view.findViewById(R.id.post_list_swiperefresh);
 
-        swipeRefresh.setOnRefreshListener(() -> Model.instance.refreshCategoryPage(categoryName,userId));
+        swipeRefresh.setOnRefreshListener(() -> Model.instance.refreshCategoryPage(categoryName,userId,locationName));
         //swipeRefresh.setOnRefreshListener(() -> Model.instance.refreshPostList());
 
         RecyclerView list = view.findViewById(R.id.post_list_rv);

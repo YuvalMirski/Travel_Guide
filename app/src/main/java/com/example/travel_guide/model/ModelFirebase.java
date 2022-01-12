@@ -69,7 +69,7 @@ public class ModelFirebase {
                     listener.onComplete(list);
                 });
     }
-    public void getCategoryPosts(String userId,String categoryName,GetAllPostsListener listener){
+    public void getCategoryPosts(String userId,String categoryName,String location,GetAllPostsListener listener){
         //DocumentReference a = db.collection(UserPost.COLLECTION_NAME).document();
         String fieldKey,fieldVal;
         CollectionReference categoryReference = db.collection(UserPost.COLLECTION_NAME);
@@ -82,26 +82,47 @@ public class ModelFirebase {
             fieldKey = "category";
             fieldVal = categoryName;//.whereEqualTo("location","NYC")
         }
-        Task<QuerySnapshot> q = categoryReference.whereEqualTo(fieldKey,fieldVal)
-                .get()
-                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                                     List<UserPost> list = new LinkedList<UserPost>();
-                                     Long aLong = new Long(0);
-                    @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        if (task.isSuccessful()) {
-                            for (QueryDocumentSnapshot document : task.getResult()) {
+        if(!location.equals("")){
+            Task<QuerySnapshot> q = categoryReference.whereEqualTo(fieldKey,fieldVal).whereEqualTo("location",location)
+                    .get()
+                    .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                        List<UserPost> list = new LinkedList<UserPost>();
+                        Long aLong = new Long(0);
+                        @Override
+                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                            if (task.isSuccessful()) {
+                                for (QueryDocumentSnapshot document : task.getResult()) {
 
-                                Log.d("TAG", document.getId() + " => " + document.getData());
-                                UserPost userPost = UserPost.create(document.getData()); //convert from json to Post
-                                updateId(aLong, document.getId(), userPost);
-                                list.add(userPost);
-                            }
-                        } else {
-                            Log.d("TAG", "Error getting documents: ", task.getException());
-                        }listener.onComplete(list);
-                    }
-                });
+                                    UserPost userPost = UserPost.create(document.getData()); //convert from json to Post
+                                    updateId(aLong, document.getId(), userPost);
+                                    list.add(userPost);
+                                }
+                            } else {
+                                Log.d("TAG", "Error getting documents: ", task.getException());
+                            }listener.onComplete(list);
+                        }
+                    });
+        }
+        else{// for all user
+            Task<QuerySnapshot> q = categoryReference.whereEqualTo(fieldKey,fieldVal)
+                    .get()
+                    .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                        List<UserPost> list = new LinkedList<UserPost>();
+                        Long aLong = new Long(0);
+                        @Override
+                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                            if (task.isSuccessful()) {
+                                for (QueryDocumentSnapshot document : task.getResult()) {
+                                    UserPost userPost = UserPost.create(document.getData()); //convert from json to Post
+                                    updateId(aLong, document.getId(), userPost);
+                                    list.add(userPost);
+                                }
+                            } else {
+                                Log.d("TAG", "Error getting documents: ", task.getException());
+                            }listener.onComplete(list);
+                        }
+                    });
+        }
     }
 
     public void getUserSavedPost(String userId,List<String>userSavedPostLst,GetAllPostsListener listener){

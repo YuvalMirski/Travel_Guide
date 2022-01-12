@@ -120,7 +120,7 @@ public class EditPostPage extends Fragment {
             @Override
             public void onClick(View v) {
                 Model.instance.deletePostById(postId,()->{
-                    Navigation.findNavController(v).navigate(EditPostPageDirections.actionEditPostPageToPostListRvFragment("",""));
+                    Navigation.findNavController(v).navigate(EditPostPageDirections.actionEditPostPageToPostListRvFragment("","",""));
                 });
             }
         });

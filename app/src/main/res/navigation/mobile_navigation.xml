@@ -67,6 +67,9 @@
         <argument
             android:name="userId"
             app:argType="string" />
+        <argument
+            android:name="locationName"
+            app:argType="string" />
     </fragment>
     <fragment
         android:id="@+id/postPage"

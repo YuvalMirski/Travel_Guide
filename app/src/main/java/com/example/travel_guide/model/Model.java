@@ -44,21 +44,21 @@ public class Model {
     MutableLiveData<User>LiveDataUser = new MutableLiveData<User>();
     //------------------------------------POST------------------------------------//
 
-    public LiveData<List<UserPost>>getCategoryPosts(String categoryName,String userId){
+    public LiveData<List<UserPost>>getCategoryPosts(String categoryName,String userId,String location){
         if(listLiveDataPost.getValue() == null){
-            refreshCategoryPage(categoryName,userId);
+            refreshCategoryPage(categoryName,userId,location);
         }
         return listLiveDataPost;
     }
 
 
-    public void refreshCategoryPage(String category,String userId){
+    public void refreshCategoryPage(String category,String userId,String location){
 
         if(category.equals("userSavedPost"))
             refreshPageSaved(userId);
 
       else if(!category.equals("allCategories"))
-            refreshPageCategory(userId,category);
+            refreshPageCategory(userId,category,location);
 
         else
             refreshPostList();
@@ -77,10 +77,10 @@ public class Model {
             }
         });
     }
-    public void refreshPageCategory(String userId,String category){
+    public void refreshPageCategory(String userId,String category,String location){
 
         postListLoadingState.setValue(PostListLoadingState.loading);
-        modelFirebase.getCategoryPosts(userId,category, new ModelFirebase.GetAllPostsListener() {
+        modelFirebase.getCategoryPosts(userId,category,location, new ModelFirebase.GetAllPostsListener() {
             @Override
             public void onComplete(List<UserPost> list) {
                 listLiveDataPost.setValue(list);
