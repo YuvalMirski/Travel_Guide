@@ -22,20 +22,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <EditText
-        android:id="@+id/location_post_page_new_et"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="16dp"
-        android:hint="location"
-        android:textSize="24sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/picture_post_page_new_" />
-
     <ImageView
         android:id="@+id/picture_post_page_new_"
         android:layout_width="0dp"
@@ -53,11 +39,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="24dp"
         android:text="Category:"
         android:textSize="24sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/location_post_page_new_et" />
+        app:layout_constraintTop_toBottomOf="@+id/location_newPost_et" />
 
     <EditText
         android:id="@+id/about_post_page_new_et"
@@ -112,6 +98,31 @@
         app:layout_constraintBottom_toBottomOf="@+id/type_post_new_tv"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.472"
-        app:layout_constraintStart_toEndOf="@+id/type_post_new_tv" />
+        app:layout_constraintStart_toEndOf="@+id/type_post_new_tv"
+        app:layout_constraintTop_toTopOf="@+id/type_post_new_tv" />
+
+    <Spinner
+        android:id="@+id/spinner_city_newPage"
+        android:layout_width="241dp"
+        android:layout_height="37dp"
+        android:layout_marginEnd="28dp"
+        app:layout_constraintBottom_toBottomOf="@+id/location_newPost_et"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/location_newPost_et"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <TextView
+        android:id="@+id/location_newPost_et"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="16dp"
+        android:text="Location:"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toStartOf="@+id/spinner_city_newPage"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/picture_post_page_new_" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

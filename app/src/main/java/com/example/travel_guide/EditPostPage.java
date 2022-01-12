@@ -39,8 +39,8 @@ public class EditPostPage extends Fragment {
     ImageView postImg;
     Bitmap imageBitmap;
     String new_name,new_location, new_about, new_id, new_category,userId, imageUrl;
-    Spinner categorySpinner;
-    String[] categoryArr;
+    Spinner categorySpinner, citySpinner;
+    String[] categoryArr, cityArr;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -54,13 +54,15 @@ public class EditPostPage extends Fragment {
             @Override
             public void onComplete(UserPost userPost) {
                 postName.setText(userPost.getName());
-                location.setText(userPost.getLocation());
+                new_location = userPost.getLocation();
                 new_category = userPost.getCategory();
                 about.setText(userPost.getAbout());
                 imageUrl = userPost.getPostImgUrl();
 
                 int categoryIndex = Arrays.asList(categoryArr).indexOf(new_category);
                 categorySpinner.setSelection(categoryIndex);
+                int cityIndex = Arrays.asList(cityArr).indexOf(new_location);
+                citySpinner.setSelection(cityIndex);
 
                 if(userPost.getPostImgUrl()!=null) {
                     Picasso.get()
@@ -73,15 +75,9 @@ public class EditPostPage extends Fragment {
         Model.instance.getUserIdFromFB(id -> userId = id);
 
         postName = view.findViewById(R.id.post_name_post_page_edit_et);
-        location = view.findViewById(R.id.location_post_page_edit_et);
         about = view.findViewById(R.id.about_post_page_edit_et);
         postImg = view.findViewById(R.id.picture_post_page_edit_);
-        categorySpinner = (Spinner) view.findViewById(R.id.spinner_category_editPostPage);
-
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getContext(), R.array.CategoryList, R.layout.spinner_item);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        categorySpinner.setAdapter(adapter);
-        categoryArr = getResources().getStringArray(R.array.CategoryList);
+        initSpinners(view);
 
         Button saveBtn = view.findViewById(R.id.save_post_page_edit_delete_btn);
         Button deleteBtn = view.findViewById(R.id.delete_post_page_edit_btn);
@@ -92,7 +88,7 @@ public class EditPostPage extends Fragment {
             @Override
             public void onClick(View v) {
                 new_name = postName.getText().toString();
-                new_location = location.getText().toString();
+                new_location = citySpinner.getSelectedItem().toString();
                 new_category = categorySpinner.getSelectedItem().toString();
                 new_about = about.getText().toString();
 
@@ -156,6 +152,21 @@ public class EditPostPage extends Fragment {
                 }
             }
         }
+    }
+
+    public void initSpinners(View view)
+    {
+        categorySpinner = (Spinner) view.findViewById(R.id.spinner_category_editPostPage);
+        ArrayAdapter<CharSequence> adapterCategory = ArrayAdapter.createFromResource(getContext(), R.array.CategoryList, R.layout.spinner_item);
+        adapterCategory.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        categorySpinner.setAdapter(adapterCategory);
+        categoryArr = getResources().getStringArray(R.array.CategoryList);
+
+        citySpinner = (Spinner) view.findViewById(R.id.spinner_location_editPost);
+        ArrayAdapter<CharSequence> adapterCity = ArrayAdapter.createFromResource(getContext(), R.array.CityList, R.layout.spinner_item);
+        adapterCity.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        citySpinner.setAdapter(adapterCity);
+        cityArr = getResources().getStringArray(R.array.CityList);
     }
 
 }

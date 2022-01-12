@@ -39,6 +39,8 @@ public class NewPostPage extends Fragment {
     EditText postName, location, about;
     ImageView postPic;
     Bitmap imageBitmap;
+    Spinner categorySpinner, citySpinner;
+    String[] categoryArr, cityArr;
 
     NewPostPageViewModel viewModel;
 
@@ -54,14 +56,9 @@ public class NewPostPage extends Fragment {
         View view = inflater.inflate(R.layout.fragment_new_post_page, container, false);
 
         postName = view.findViewById(R.id.post_name_post_page_new_et);
-        location = view.findViewById(R.id.location_post_page_new_et);
         about = view.findViewById(R.id.about_post_page_new_et);
         postPic = view.findViewById(R.id.picture_post_page_new_);
-        Spinner categorySpinner = (Spinner) view.findViewById(R.id.spinner_category_postPage);
-
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getContext(), R.array.CategoryList, R.layout.spinner_item);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        categorySpinner.setAdapter(adapter);
+        initSpinners(view);
 
         Model.instance.getUserIdFromFB(id -> userId = id);
         viewModel.updateUser(userId);
@@ -74,7 +71,7 @@ public class NewPostPage extends Fragment {
             @Override
             public void onClick(View v) {
                 new_name = postName.getText().toString();
-                new_location = location.getText().toString();
+                new_location = citySpinner.getSelectedItem().toString();
                 new_category = categorySpinner.getSelectedItem().toString();
                 new_about = about.getText().toString();
                 UserPost userPost = new UserPost(new_name,new_location,new_about,new_category,userId);
@@ -144,6 +141,21 @@ public class NewPostPage extends Fragment {
                 }
             }
         }
+    }
+
+    public void initSpinners(View view)
+    {
+        categorySpinner = (Spinner) view.findViewById(R.id.spinner_category_postPage);
+        ArrayAdapter<CharSequence> adapterCategory = ArrayAdapter.createFromResource(getContext(), R.array.CategoryList, R.layout.spinner_item);
+        adapterCategory.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        categorySpinner.setAdapter(adapterCategory);
+        categoryArr = getResources().getStringArray(R.array.CategoryList);
+
+        citySpinner = (Spinner) view.findViewById(R.id.spinner_city_newPage);
+        ArrayAdapter<CharSequence> adapterCity = ArrayAdapter.createFromResource(getContext(), R.array.CityList, R.layout.spinner_item);
+        adapterCity.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        citySpinner.setAdapter(adapterCity);
+        cityArr = getResources().getStringArray(R.array.CityList);
     }
 
 }
