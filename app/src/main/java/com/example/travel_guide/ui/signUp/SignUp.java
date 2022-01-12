@@ -33,7 +33,7 @@ import java.util.List;
 
 public class SignUp extends Fragment {
 
-    EditText email, sex, country, userName, password;
+    EditText email, country, userName, password;
     ImageView avatarPic;
     Bitmap imageBitmap;
     String new_userName, new_email, new_sex, new_country, new_password, new_id;

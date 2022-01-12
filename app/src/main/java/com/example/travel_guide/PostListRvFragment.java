@@ -104,12 +104,8 @@ public class PostListRvFragment extends Fragment {
 
 
     class MyViewHolder extends RecyclerView.ViewHolder {
-        TextView postName;
-        TextView category;
-        TextView location;
-        TextView userName;
-        ImageView userAvatar;
-        ImageView postImg;
+        TextView postName, category, location, userName;
+        ImageView userAvatar, postImg;
         ImageButton likeImg;
 
         public MyViewHolder(@NonNull View itemView, OnItemClickListener listener) {

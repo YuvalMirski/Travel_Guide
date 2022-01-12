@@ -147,21 +147,4 @@ public class NewPostPage extends Fragment {
         }
     }
 
-
-
-
-
-
-
-
-
-
-
-
-
-    public String getRand(int n1, int n2) {
-        Random rand = new Random();
-        int min = n1, max = n2;
-        return String.valueOf(rand.nextInt(max - min + 1) + min);
-    }
 }
