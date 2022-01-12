@@ -74,12 +74,7 @@ public class EditUserPage extends Fragment {
 
         Button deleteBtn = view.findViewById(R.id.delete_account_edit_btn);
         Button saveBtn = view.findViewById(R.id.save_account_edit_btn);
-        deleteBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Model.instance.deleteUserById(userId,()-> Navigation.findNavController(userName).navigateUp());
-            }
-        });
+        deleteBtn.setOnClickListener(v -> Model.instance.deleteUserById(userId,()-> Navigation.findNavController(userName).navigateUp()));
 
         saveBtn.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -18,6 +18,7 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
@@ -33,13 +34,13 @@ import java.util.List;
 //Create User Page
 
 public class SignUp extends Fragment {
-
     EditText email, country, userName, password;
     ImageView avatarPic;
     Bitmap imageBitmap;
-    String new_userName, new_email, new_sex, new_country, new_password, new_id;
+    String new_userName, new_email, new_sex, new_country, new_password;
     List<String> lstSaved, lstUserPosts;
     RadioGroup sexRG;
+    Button submitBtn;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -55,50 +56,79 @@ public class SignUp extends Fragment {
         ImageButton uploadPicBtn = view.findViewById(R.id.gallery_signup_imb);
         uploadPicBtn.setOnClickListener(v -> openGallery());
 
-        Button submitBtn = view.findViewById(R.id.submit_signup_btn);
+        submitBtn = view.findViewById(R.id.submit_signup_btn);
         submitBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //TODO:: verify if user not exist in DB --> if not update DB with user and navigate to sign in page
-                //                                      --> if exist then write proper msg
 
                 submitBtn.setEnabled(false);
                 RadioButton checkedSexRB = sexRG.findViewById(sexRG.getCheckedRadioButtonId());
 
                 new_userName = userName.getText().toString();
                 new_email = email.getText().toString();
-                new_sex = (String) checkedSexRB.getText(); //sex.getText().toString();
                 new_country = country.getText().toString();
                 new_password = password.getText().toString();
                 lstSaved = new ArrayList<>();
                 lstUserPosts = new ArrayList<>();
-                User user = new User(new_userName, new_email, new_sex, new_country, new_password, lstSaved, lstUserPosts);
 
-                if (imageBitmap != null) {
-                    Model.instance.saveImage(imageBitmap, new_userName + ".jpg", "user_avatars", url -> {
-                        user.setAvatarUrl(url);
-                        Model.instance.createUserWithEmail(user, new Model.AddUserToFBListener() {
-                            @Override
-                            public void onComplete(String isSuccess) {
-                                if (isSuccess.equals("true")) {
-                                    Navigation.findNavController(v).navigate(SignUpDirections.actionSignUpNavToLogInNav());
-                                } else {
-                                    Toast.makeText(getContext(), isSuccess, Toast.LENGTH_LONG).show();
-                                }
-                            }
-                        });
-                    });
-                } else {
-                    //TODO:: alert "you have to add image"
+                if(checkedSexRB!= null) {
+                    new_sex = (String) checkedSexRB.getText();
+                }
+                else {
+                    Toast.makeText(getContext(), "You must choose sex", Toast.LENGTH_LONG).show();
+                    submitBtn.setEnabled(true);
+                }
+
+                String checkRes = checkSignUp(new_email,new_password,new_userName, new_country);
+                if(!checkRes.equals("true")){
+                    Toast.makeText(getContext(), checkRes, Toast.LENGTH_LONG).show();
+                    submitBtn.setEnabled(true);
+                }
+                else {
+                    User user = new User(new_userName, new_email, new_sex, new_country, new_password, lstSaved, lstUserPosts);
+                    checkImg(v, user, imageBitmap);
                 }
             }
         });
         return view;
     }
 
+    private String checkSignUp(String new_email, String new_password, String new_userName, String new_country)
+    {
+        if(new_userName.equals(""))
+            return "You must enter username";
+        if(new_email.equals("") || !(android.util.Patterns.EMAIL_ADDRESS.matcher(new_email).matches()))
+            return  "You must enter correct email";
+        if(new_country.equals(""))
+            return "You must enter country";
+        if(new_password.equals("") || new_password.length()<6)
+            return "You must correct password";
+        return "true";
+    }
+
+    private void checkImg(View v, User user, Bitmap imageBitmap) {
+        if (imageBitmap != null) {
+            Model.instance.saveImage(imageBitmap, new_userName + ".jpg", "user_avatars", url -> {
+                user.setAvatarUrl(url);
+                Model.instance.createUserWithEmail(user, new Model.AddUserToFBListener() {
+                    @Override
+                    public void onComplete(String isSuccess) {
+                        if (isSuccess.equals("true")) {
+                            Navigation.findNavController(v).navigate(SignUpDirections.actionSignUpNavToLogInNav());
+                        } else {
+                            String msg = isSuccess.split(": ")[1];
+                            Toast.makeText(getContext(), msg, Toast.LENGTH_LONG).show();
+                        }
+                    }
+                });
+            });
+        } else {
+            Toast.makeText(getContext(), "You must add profile image", Toast.LENGTH_LONG).show();
+            submitBtn.setEnabled(true);
+        }
+    }
 
     final static int SELECT_PICTURE = 200;
-
     private void openGallery() {
         // Create intent for picking a photo from the gallery
         Intent intent = new Intent();
@@ -128,4 +158,5 @@ public class SignUp extends Fragment {
             }
         }
     }
+
 }
