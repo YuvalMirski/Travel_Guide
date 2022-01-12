@@ -85,6 +85,7 @@ public class MainActivity extends AppCompatActivity  {//implements NavigationVie
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
 
+
             Fragment selectedFragment = null;
             Bundle bundle = new Bundle();
             Model.instance.getUserIdFromFB(new Model.GetUserId() {
@@ -93,6 +94,7 @@ public class MainActivity extends AppCompatActivity  {//implements NavigationVie
                     userId = id;
                 }
             });
+
             switch (item.getItemId()){
                 case R.id.homePage_nav:
                     selectedFragment = new HomePage();
@@ -106,6 +108,7 @@ public class MainActivity extends AppCompatActivity  {//implements NavigationVie
                     selectedFragment = new PostListRvFragment(); //TODO: to change for saved only posts
                     bundle.putString("userId",userId);
                     bundle.putString("categoryName","userSavedPost");
+                    bundle.putString("locationName","");
                     selectedFragment.setArguments(bundle);
                     break;
             }
