@@ -64,8 +64,8 @@ public class Model {
         List<String> lstSaved = getUser(userid).getValue().getLstSaved();
 
         postListLoadingState.setValue(PostListLoadingState.loading);
-        Long a = new Long(0);
-        modelFirebase.getUserSavedPost(userid, lstSaved,a, new ModelFirebase.GetAllPostsListener() {
+        Long lastUpdateDate = MyApplication.getContext().getSharedPreferences("TAG", Context.MODE_PRIVATE).getLong("PostsLastUpdateDate",0);
+        modelFirebase.getUserSavedPost(userid, lstSaved,lastUpdateDate, new ModelFirebase.GetAllPostsListener() {
             @Override
             public void onComplete(List<UserPost> list) {
                 listLiveDataPost.setValue(list);
@@ -90,7 +90,6 @@ public class Model {
 
         //get last local update date
         //TODO:: need to be at UserPost obj
-        Long lastUpdateDate = MyApplication.getContext().getSharedPreferences("TAG", Context.MODE_PRIVATE).getLong("PostsLastUpdateDate",0);
 
         // get from firebase all updated since last update date
 
@@ -128,7 +127,7 @@ public class Model {
 //            }
 //        });
 
-        modelFirebase.getAllPosts(lastUpdateDate, new ModelFirebase.GetAllPostsListener() {
+        modelFirebase.getAllPosts( new ModelFirebase.GetAllPostsListener() {
             @Override
             public void onComplete(List<UserPost> list) {
                 listLiveDataPost.setValue(list);

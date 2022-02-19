@@ -51,7 +51,7 @@ public class ModelFirebase {
     }
 
     //TODO::getAllPosts can use for the saved post in the device
-    public void getAllPosts(Long lastUpdateDate, GetAllPostsListener listener) {
+    public void getAllPosts( GetAllPostsListener listener) {
 //TODO:: we dont need lastUpdataDate here, we
         db.collection(UserPost.COLLECTION_NAME)
                 //.whereGreaterThanOrEqualTo("updateDate", new Timestamp(lastUpdateDate, 0))
@@ -61,7 +61,7 @@ public class ModelFirebase {
                     if (task.isSuccessful()) {
                         for (QueryDocumentSnapshot doc : task.getResult()) {
                              UserPost userPost = UserPost.create(doc.getData()); //convert from json to Post
-                             updateId(lastUpdateDate, doc.getId(), userPost);
+                             updateId(doc.getId(), userPost);
                             if (userPost != null) {
                                 list.add(userPost);
                             }
@@ -95,7 +95,7 @@ public class ModelFirebase {
                                 for (QueryDocumentSnapshot document : task.getResult()) {
 
                                     UserPost userPost = UserPost.create(document.getData()); //convert from json to Post
-                                    updateId(aLong, document.getId(), userPost);
+                                    updateId(document.getId(), userPost);
                                     list.add(userPost);
                                 }
                             } else {
@@ -115,7 +115,7 @@ public class ModelFirebase {
                             if (task.isSuccessful()) {
                                 for (QueryDocumentSnapshot document : task.getResult()) {
                                     UserPost userPost = UserPost.create(document.getData()); //convert from json to Post
-                                    updateId(aLong, document.getId(), userPost);
+                                    updateId(document.getId(), userPost);
                                     list.add(userPost);
                                 }
                             } else {
@@ -145,7 +145,7 @@ public class ModelFirebase {
                         if (task.isSuccessful()) {
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 UserPost userPost = UserPost.create(document.getData()); //convert from json to Post
-                                updateId(aLong, document.getId(), userPost);
+                                updateId(document.getId(), userPost);
                                 list.add(userPost);
                             }
                         }listener.onComplete(list);
@@ -186,7 +186,7 @@ public class ModelFirebase {
 
     }
 
-    public void updateId(Long lastUpdateDate, String id, UserPost userPost) {
+    public void updateId(String id, UserPost userPost) {
         DocumentReference a = db.collection(UserPost.COLLECTION_NAME).document(id);
         userPost.setId(a.getId());
         a.set(userPost);
@@ -201,8 +201,7 @@ public class ModelFirebase {
                 .addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
                     @Override
                     public void onComplete(@NonNull Task<DocumentReference> task) {
-                        Long a = new Long(0);
-                        updateId(a, task.getResult().getId(), userPost);
+                        updateId(task.getResult().getId(), userPost);
                         listener.onComplete();
                     }
                 })
