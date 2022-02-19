@@ -9,6 +9,7 @@ import androidx.annotation.NonNull;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.Timestamp;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -41,6 +42,7 @@ public class ModelFirebase {
     }
 
 
+
     public interface GetAllPostsListener {
         void onComplete(List<UserPost> list);
     }
@@ -50,7 +52,7 @@ public class ModelFirebase {
 
     //TODO::getAllPosts can use for the saved post in the device
     public void getAllPosts(Long lastUpdateDate, GetAllPostsListener listener) {
-
+//TODO:: we dont need lastUpdataDate here, we
         db.collection(UserPost.COLLECTION_NAME)
                 //.whereGreaterThanOrEqualTo("updateDate", new Timestamp(lastUpdateDate, 0))
                 .get()
@@ -124,57 +126,63 @@ public class ModelFirebase {
         }
     }
 
-    public void getUserSavedPost(String userId,List<String>userSavedPostLst,GetAllPostsListener listener){
-       // CollectionReference postReference = db.collection(UserPost.COLLECTION_NAME);
+    public void getUserSavedPost(String userId,List<String>userSavedPostLst,Long lastUpdateDate,GetAllPostsListener listener) {
+        // CollectionReference postReference = db.collection(UserPost.COLLECTION_NAME);
 
         List<UserPost> list = new LinkedList<UserPost>();
         Long aLong = new Long(0);
-//                    CollectionReference categoryReference = db.collection(UserPost.COLLECTION_NAME);
-//
-//                    Task<QuerySnapshot> q = categoryReference.whereEqualTo("id",userSavedPostLst.get(0))
-//                            .get()
-//                            .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-//
-//                                @Override
-//                                public void onComplete(@NonNull Task<QuerySnapshot> task) {
-//
-//                                    if (task.isSuccessful()) {
-//                                        for (QueryDocumentSnapshot document : task.getResult()) {
-//
-//                                            Log.d("TAG", document.getId() + " => " + document.getData());
-//                                            UserPost userPost = UserPost.create(document.getData()); //convert from json to Post
-//                                            updateId(aLong, document.getId(), userPost);
-//                                            list.add(userPost);
-//                                        }
-//                                    }
-//                                    listener.onComplete(list);
-//                                }
-//                            });
 
-            for (String s : userSavedPostLst)
+        for (String s : userSavedPostLst)
             {
-                db.collection(UserPost.COLLECTION_NAME)
-                        .document(s)
-                        .get()
-                        .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-                            @Override
-                            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                                UserPost userPost = null;
-                                if (task.isSuccessful() & task.getResult() != null) {
-                                    DocumentSnapshot document = task.getResult();
-                                    userPost = UserPost.create(task.getResult().getData());
-                                    updateId(aLong, document.getId(), userPost);
+            CollectionReference categoryReference = db.collection(UserPost.COLLECTION_NAME);
+            Task<QuerySnapshot> q = categoryReference.whereEqualTo("id", s) .whereGreaterThanOrEqualTo("updateDate",new Timestamp(lastUpdateDate,0))
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
 
-                                    System.out.println("work to fetch");
-                                    System.out.println(userPost.getId());
-                                    list.add(userPost);
-                                }listener.onComplete(list);
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+
+                        if (task.isSuccessful()) {
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                UserPost userPost = UserPost.create(document.getData()); //convert from json to Post
+                                updateId(aLong, document.getId(), userPost);
+                                list.add(userPost);
                             }
-                        });
-            }
-            if(userSavedPostLst.size()==0)
+                        }listener.onComplete(list);
+
+                    }
+                });
+             }
+                if(userSavedPostLst.size()==0)
                 listener.onComplete(list);
-               // System.out.println("list size "+list.size());
+
+
+//toDO:: ----------------------------------------------------------
+
+//            for (String s : userSavedPostLst)
+//            {
+//                db.collection(UserPost.COLLECTION_NAME)
+//                        .document(s)
+//                        .get()
+//                        .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+//                            @Override
+//                            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+//                                UserPost userPost = null;
+//                                if (task.isSuccessful() & task.getResult() != null) {
+//                                    DocumentSnapshot document = task.getResult();
+//                                    userPost = UserPost.create(task.getResult().getData());
+//                                    updateId(aLong, document.getId(), userPost);
+//
+//                                    System.out.println("work to fetch");
+//                                    System.out.println(userPost.getId());
+//                                    list.add(userPost);
+//                                }listener.onComplete(list);
+//                            }
+//                        });
+//            }
+//            if(userSavedPostLst.size()==0)
+//                listener.onComplete(list);
+//toDO:: ----------------------------------------------------------
 
     }
 

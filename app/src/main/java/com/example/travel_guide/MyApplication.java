@@ -3,7 +3,7 @@ package com.example.travel_guide;
 import android.app.Application;
 import android.content.Context;
 
-public class MyApplication extends Application {
+public class  MyApplication extends Application {
     static Context context;
 
     @Override

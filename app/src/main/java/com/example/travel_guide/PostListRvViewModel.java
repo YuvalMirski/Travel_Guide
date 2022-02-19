@@ -11,7 +11,7 @@ import java.util.List;
 
 public class PostListRvViewModel extends ViewModel {
 
-    LiveData<List<UserPost>> postList;
+    LiveData<List<UserPost>> postListSaved;
     LiveData<List<UserPost>> categoryPostList;
     LiveData<User> userLiveData;
     String categoryName;

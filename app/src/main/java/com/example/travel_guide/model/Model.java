@@ -64,7 +64,8 @@ public class Model {
         List<String> lstSaved = getUser(userid).getValue().getLstSaved();
 
         postListLoadingState.setValue(PostListLoadingState.loading);
-        modelFirebase.getUserSavedPost(userid, lstSaved, new ModelFirebase.GetAllPostsListener() {
+        Long a = new Long(0);
+        modelFirebase.getUserSavedPost(userid, lstSaved,a, new ModelFirebase.GetAllPostsListener() {
             @Override
             public void onComplete(List<UserPost> list) {
                 listLiveDataPost.setValue(list);
