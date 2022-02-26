@@ -29,7 +29,7 @@ public class UserPost {
         this.updateDate = updateDate;
     }
 
-    Long updateDate = new Long(0);
+    long updateDate = new Long(0);
 
     //ImageView userProfile;
     final public static String COLLECTION_NAME = "UserPost";
@@ -53,12 +53,16 @@ public class UserPost {
         String category = (String)json.get("category");
         String userId = (String)json.get("userId");
         String postImgUrl = (String) json.get("postImgUrl");
-        //convert from Time to long
-        Timestamp ts = (Timestamp)json.get("updateDate");
-//        Long updateDate = ts.getSeconds();
         UserPost userPost = new UserPost(name,location,about,category,userId);
         userPost.setPostImgUrl(postImgUrl);
-        //userPost.setUpdateDate(updateDate);
+        //convert from Time to long
+
+        //TODO:: need to check why it is not working here - the program crash because its 0 and not json of Timestamp        System.out.println("print Json");
+        System.out.println(json.get("updateDate"));
+//            Timestamp ts = (Timestamp)json.get("updateDate");
+//            Long updateDate = ts.getSeconds();
+//            userPost.setUpdateDate(updateDate);
+
 
        // userPost.setId(docId);
         return  userPost;
@@ -130,7 +134,7 @@ public class UserPost {
         return category;
     }
 
-    public long getUpdateData() {
+    public long getUpdateDate() {
         return updateDate;
     }
 

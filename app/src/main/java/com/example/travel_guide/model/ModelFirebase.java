@@ -43,6 +43,7 @@ public class ModelFirebase {
 
 
 
+
     public interface GetAllPostsListener {
         void onComplete(List<UserPost> list);
     }
@@ -88,7 +89,7 @@ public class ModelFirebase {
                     .get()
                     .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                         List<UserPost> list = new LinkedList<UserPost>();
-                        Long aLong = new Long(0);
+
                         @Override
                         public void onComplete(@NonNull Task<QuerySnapshot> task) {
                             if (task.isSuccessful()) {
@@ -109,7 +110,7 @@ public class ModelFirebase {
                     .get()
                     .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                         List<UserPost> list = new LinkedList<UserPost>();
-                        Long aLong = new Long(0);
+
                         @Override
                         public void onComplete(@NonNull Task<QuerySnapshot> task) {
                             if (task.isSuccessful()) {
@@ -130,12 +131,13 @@ public class ModelFirebase {
         // CollectionReference postReference = db.collection(UserPost.COLLECTION_NAME);
 
         List<UserPost> list = new LinkedList<UserPost>();
-        Long aLong = new Long(0);
+
 
         for (String s : userSavedPostLst)
             {
             CollectionReference categoryReference = db.collection(UserPost.COLLECTION_NAME);
-            Task<QuerySnapshot> q = categoryReference.whereEqualTo("id", s) .whereGreaterThanOrEqualTo("updateDate",new Timestamp(lastUpdateDate,0))
+            //Task<QuerySnapshot> q = categoryReference.whereEqualTo("id", s) .whereGreaterThanOrEqualTo("updateDate",new Timestamp(lastUpdateDate,0))
+            Task<QuerySnapshot> q = categoryReference.whereEqualTo("id", s)
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
 
@@ -337,14 +339,22 @@ public class ModelFirebase {
                     }
                 });
     }
+    public void isUserIn(Model.OnCompleteGeneralListener listener) {
+        FirebaseUser user = mAuth.getCurrentUser();
+        if (user != null) {
+            getUserById(user.getUid(), new Model.GetUserById() {
+                @Override
+                public void onComplete(User usr) {
+
+                    usr.setId(user.getUid());
+                    listener.onComplete(usr);
+                }
+            });
+        }
+    }
 
     public void userSignIn(String email, String password,Model.OnCompleteGeneralListener listener){
-//        FirebaseUser currentUser = mAuth.getCurrentUser();
-//        if(currentUser != null){
-//           // reload
-//            System.out.println("kdfj");
-//            //listener.onComplete();
-//        }
+
         mAuth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
@@ -356,6 +366,7 @@ public class ModelFirebase {
                             getUserById(user.getUid(), new Model.GetUserById() {
                                 @Override
                                 public void onComplete(User usr) {
+
                                     usr.setId(user.getUid());
                                     listener.onComplete(usr);
                                 }

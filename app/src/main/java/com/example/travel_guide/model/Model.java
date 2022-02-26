@@ -2,6 +2,7 @@ package com.example.travel_guide.model;
 
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.util.Log;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
@@ -16,6 +17,8 @@ public class Model {
     public static final Model instance = new Model();
     ModelFirebase modelFirebase = new ModelFirebase();
     Executor executor = Executors.newFixedThreadPool(1);
+
+
 
     public enum PostListLoadingState{ //indicate the possible states
         loading,
@@ -65,11 +68,38 @@ public class Model {
 
         postListLoadingState.setValue(PostListLoadingState.loading);
         Long lastUpdateDate = MyApplication.getContext().getSharedPreferences("TAG", Context.MODE_PRIVATE).getLong("PostsLastUpdateDate",0);
-        modelFirebase.getUserSavedPost(userid, lstSaved,lastUpdateDate, new ModelFirebase.GetAllPostsListener() {
+
+//        modelFirebase.getUserSavedPost(userid, lstSaved,lastUpdateDate, new ModelFirebase.GetAllPostsListener() {
+//            @Override
+//            public void onComplete(List<UserPost> list) {
+//                listLiveDataPost.setValue(list);
+//                postListLoadingState.setValue(PostListLoadingState.loaded);
+//            }
+//        });
+        modelFirebase.getUserSavedPost(userid, lstSaved, lastUpdateDate, new ModelFirebase.GetAllPostsListener() {
             @Override
             public void onComplete(List<UserPost> list) {
-                listLiveDataPost.setValue(list);
-                postListLoadingState.setValue(PostListLoadingState.loaded);
+                executor.execute(new Runnable() {
+                    @Override
+                    public void run() {
+                        Long lud = new Long(0);
+                        //add all record to local db
+                            AppLocalDB.db.userPostDao().getAll();
+                             int size = AppLocalDB.db.userPostDao().getAll().size();
+
+                        for(UserPost us :  list){
+                            AppLocalDB.db.userPostDao().insertAll(us);
+
+                        }
+                        //update last local update date
+                        MyApplication.getContext()
+                                .getSharedPreferences("TAG",Context.MODE_PRIVATE)
+                                .edit().putLong("PostsLastUpdateDate",lud).commit();
+                        List<UserPost>userPostList = AppLocalDB.db.userPostDao().getAll(); // get all data from local db
+                        listLiveDataPost.postValue(userPostList);// post will pass it to main thread
+                        postListLoadingState.postValue(PostListLoadingState.loaded);
+                    }
+                });
             }
         });
     }
@@ -212,6 +242,9 @@ public class Model {
 
     public void createUserWithEmail(User user,AddUserToFBListener listener) {
         modelFirebase.createUserWithEmail(user,listener);
+    }
+    public void isUserIn(Model.OnCompleteGeneralListener listener) {
+        modelFirebase.isUserIn(listener);
     }
     public void userSignIn(String email, String password,Model.OnCompleteGeneralListener listener){
         modelFirebase.userSignIn(email,password,listener);

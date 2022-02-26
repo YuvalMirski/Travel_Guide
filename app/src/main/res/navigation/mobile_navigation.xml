@@ -33,11 +33,7 @@
         android:id="@+id/logIn_nav"
         android:name="com.example.travel_guide.ui.login.LogIn"
         android:label="Log In"
-        tools:layout="@layout/fragment_log_in" >
-        <action
-            android:id="@+id/action_logIn_nav_to_signUp_nav"
-            app:destination="@id/signUp_nav" />
-    </fragment>
+        tools:layout="@layout/fragment_log_in" />
     <fragment
         android:id="@+id/signUp_nav"
         android:name="com.example.travel_guide.ui.signUp.SignUp"
@@ -118,4 +114,5 @@
             app:argType="string" />
     </fragment><action android:id="@+id/action_global_editUserFragment" app:destination="@id/editUserFragment"/><action android:id="@+id/action_global_postListRvFragment" app:destination="@id/postListRvFragment"/><action android:id="@+id/action_global_postPage" app:destination="@id/postPage"/>
     <action android:id="@+id/action_global_homePage_nav" app:destination="@id/homePage_nav" />
+    <action android:id="@+id/action_global_signUp_nav" app:destination="@id/signUp_nav" />
 </navigation>
