@@ -9,6 +9,7 @@ import androidx.lifecycle.MutableLiveData;
 
 import com.example.travel_guide.MyApplication;
 
+import java.util.Iterator;
 import java.util.List;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
@@ -67,7 +68,9 @@ public class Model {
         List<String> lstSaved = getUser(userid).getValue().getLstSaved();
 
         postListLoadingState.setValue(PostListLoadingState.loading);
-        Long lastUpdateDate = MyApplication.getContext().getSharedPreferences("TAG", Context.MODE_PRIVATE).getLong("PostsLastUpdateDate",0);
+        Long lastUpdateDate = MyApplication.getContext()
+                .getSharedPreferences("TAG", Context.MODE_PRIVATE)
+                .getLong(UserPost.LAST_UPDATE,0);
 
 //        modelFirebase.getUserSavedPost(userid, lstSaved,lastUpdateDate, new ModelFirebase.GetAllPostsListener() {
 //            @Override
@@ -79,27 +82,32 @@ public class Model {
         modelFirebase.getUserSavedPost(userid, lstSaved, lastUpdateDate, new ModelFirebase.GetAllPostsListener() {
             @Override
             public void onComplete(List<UserPost> list) {
+
                 executor.execute(new Runnable() {
                     @Override
                     public void run() {
                         Long lud = new Long(0);
-                        //add all record to local db
-                            AppLocalDB.db.userPostDao().getAll();
-                             int size = AppLocalDB.db.userPostDao().getAll().size();
-
-                        for(UserPost us :  list){
+                        System.out.println("before loop");
+                    for(UserPost us :  list){
+                        if(us.getIsDeleted().equals("delete"))
+                            AppLocalDB.db.userPostDao().delete(us);
+                        else
                             AppLocalDB.db.userPostDao().insertAll(us);
+                    }
 
-                        }
-                        //update last local update date
-                        MyApplication.getContext()
-                                .getSharedPreferences("TAG",Context.MODE_PRIVATE)
-                                .edit().putLong("PostsLastUpdateDate",lud).commit();
-                        List<UserPost>userPostList = AppLocalDB.db.userPostDao().getAll(); // get all data from local db
-                        listLiveDataPost.postValue(userPostList);// post will pass it to main thread
-                        postListLoadingState.postValue(PostListLoadingState.loaded);
+                //TODO:: when we unmark post as saved, we need to delete it from room
+
+                    //update last local update date
+                    MyApplication.getContext()
+                            .getSharedPreferences("TAG",Context.MODE_PRIVATE)
+                            .edit().putLong(UserPost.LAST_UPDATE,lud).commit();
+                    List<UserPost>userPostList = AppLocalDB.db.userPostDao().getAll(); // get all data from local db
+                    listLiveDataPost.postValue(userPostList);// post will pass it to main thread
+                    postListLoadingState.postValue(PostListLoadingState.loaded);
+
                     }
                 });
+
             }
         });
     }
@@ -194,8 +202,9 @@ public class Model {
     public interface DeletePostById{
         void onComplete();
     }
-    public void deletePostById(String postId, DeletePostById listener){
-        modelFirebase.deletePostById(postId,listener);
+    public void deletePostById(UserPost userPost, AddPostListener listener){
+        //modelFirebase.deletePostById(postId,listener);
+        modelFirebase.updateUserPost(userPost,listener);
     }
     //------------------------------------END POST------------------------------------//
     //--------------------------------------------------------------------------------//
@@ -249,11 +258,17 @@ public class Model {
     public void userSignIn(String email, String password,Model.OnCompleteGeneralListener listener){
         modelFirebase.userSignIn(email,password,listener);
     }
-    public void signOut(){
+    public void signOut(String userid){
+        //TODO:: delete info from Room
+//        List<String> lstSaved = getUser(userid).getValue().getLstSaved();
+
+
+//        MyApplication.getContext().deleteDatabase();
         modelFirebase.signOut();
     }
 
     public void updateUser (User user,AddUserListener listener){
+
         modelFirebase.updateUser(user,listener);
     }
 

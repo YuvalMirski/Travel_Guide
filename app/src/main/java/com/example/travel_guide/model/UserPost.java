@@ -19,11 +19,15 @@ import java.util.Map;
 public class UserPost {
     @PrimaryKey
     @NonNull
-    String id;
+    String id = "";
 
-    String userId; // the creator (user) of the post// TODO:: the user pass id to post
-    boolean isChecked; // for deleting data from firebase
-    String name,location, about, category, postImgUrl;
+    String userId = "";
+    String name = "";
+    String location = "";
+    String about = "";
+    String category = "";
+    String postImgUrl = "";
+    String isDeleted = "false";
 
     public void setUpdateDate(Long updateDate) {
         this.updateDate = updateDate;
@@ -33,12 +37,13 @@ public class UserPost {
 
     //ImageView userProfile;
     final public static String COLLECTION_NAME = "UserPost";
+    final public static String LAST_UPDATE = "PostsLastUpdateDate";
 
     public UserPost() { // this C'tor for ROOM
-        this.isChecked = false;
+
     }
 
-    public UserPost(String name, String location, String about, String category,String userId) {
+    public UserPost(String name, String location, String about, String category, String userId) {
         this.name = name;
         this.location = location;
         this.about = about;
@@ -47,13 +52,15 @@ public class UserPost {
     }
 
     public static UserPost create(Map<String, Object> json) {
-        String name = (String)json.get("name");
-        String location = (String)json.get("location");
-        String about = (String)json.get("about");
-        String category = (String)json.get("category");
-        String userId = (String)json.get("userId");
+        String name = (String) json.get("name");
+        String location = (String) json.get("location");
+        String about = (String) json.get("about");
+        String category = (String) json.get("category");
+        String userId = (String) json.get("userId");
         String postImgUrl = (String) json.get("postImgUrl");
-        UserPost userPost = new UserPost(name,location,about,category,userId);
+        String delete = (String) json.get("isDeleted");
+        //Timestamp ts = (Timestamp)json.get("updateDate");
+        UserPost userPost = new UserPost(name, location, about, category, userId);
         userPost.setPostImgUrl(postImgUrl);
         //convert from Time to long
 
@@ -62,22 +69,23 @@ public class UserPost {
 //            Timestamp ts = (Timestamp)json.get("updateDate");
 //            Long updateDate = ts.getSeconds();
 //            userPost.setUpdateDate(updateDate);
+        userPost.setIsDeleted(delete);
 
-
-       // userPost.setId(docId);
-        return  userPost;
+        // userPost.setId(docId);
+        return userPost;
     }
 
     public Map<String, Object> toJson() {
-      Map<String,Object>json = new HashMap<String,Object>();
-        json.put("name",name);
-        json.put("location",location);
-        json.put("about",about);
-        json.put("id",id);
-        json.put("category",category);
-        json.put("userId",userId);
+        Map<String, Object> json = new HashMap<String, Object>();
+        json.put("name", name);
+        json.put("location", location);
+        json.put("about", about);
+        json.put("id", id);
+        json.put("category", category);
+        json.put("userId", userId);
         json.put("updateDate", FieldValue.serverTimestamp());// get time stamp from firebase
         json.put("postImgUrl", postImgUrl);
+        json.put("isDeleted", isDeleted);
         return json;
 
     }
@@ -138,7 +146,19 @@ public class UserPost {
         return updateDate;
     }
 
-    public String getPostImgUrl() { return postImgUrl; }
+    public String getPostImgUrl() {
+        return postImgUrl;
+    }
 
-    public void setPostImgUrl(String postImg) { this.postImgUrl = postImg; }
+    public void setPostImgUrl(String postImg) {
+        this.postImgUrl = postImg;
+    }
+
+    public void setIsDeleted(String isDeleted) {
+        this.isDeleted = isDeleted;
+    }
+
+    public String getIsDeleted() {
+        return isDeleted;
+    }
 }

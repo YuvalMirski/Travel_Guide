@@ -41,18 +41,22 @@ public class EditPostPage extends Fragment {
     String new_name,new_location, new_about, new_id, new_category,userId, imageUrl;
     Spinner categorySpinner, citySpinner;
     String[] categoryArr, cityArr;
-
+    UserPost currentPost;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_edit_post_page, container, false);
 
+
+
         String postId = EditPostPageArgs.fromBundle(getArguments()).getPostId();
         new_id = postId;
         Model.instance.getPostById(postId, new Model.GetPostById() {
             @Override
             public void onComplete(UserPost userPost) {
+                currentPost = userPost;
+                currentPost.setId(postId);
                 postName.setText(userPost.getName());
                 new_location = userPost.getLocation();
                 new_category = userPost.getCategory();
@@ -115,8 +119,10 @@ public class EditPostPage extends Fragment {
         deleteBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Model.instance.deletePostById(postId,()->{
-                    Navigation.findNavController(v).navigate(EditPostPageDirections.actionEditPostPageToPostListRvFragment("","",""));
+                currentPost.setIsDeleted("delete");
+                Model.instance.deletePostById(currentPost,()->{
+                    Navigation.findNavController(postName).navigateUp();
+                    //Navigation.findNavController(v).navigate(EditPostPageDirections.actionEditPostPageToPostListRvFragment("","",""));
                 });
             }
         });
