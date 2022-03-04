@@ -59,8 +59,6 @@ public class Model {
 
     public void refreshCategoryPage(String category,String userId,String location){
 
-
-
         if(category.equals("userSavedPost"))
             refreshPageSaved(userId);
 

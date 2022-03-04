@@ -124,7 +124,7 @@ public class ModelFirebase {
                     });
         }
         else{// for all user
-            Task<QuerySnapshot> q = categoryReference.whereEqualTo(fieldKey,fieldVal).whereEqualTo("isDeleted","false").whereGreaterThanOrEqualTo("updateDate", new Timestamp(lastUpdateDate, 0))
+            Task<QuerySnapshot> q = categoryReference.whereEqualTo(fieldKey,fieldVal).whereEqualTo("isDeleted","false")
                     .get()
                     .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                         List<UserPost> list = new LinkedList<UserPost>();
