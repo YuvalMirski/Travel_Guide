@@ -66,7 +66,7 @@ public class MainActivity extends AppCompatActivity  {//implements NavigationVie
             @Override
             public boolean onMenuItemClick(MenuItem item) {
 
-                Model.instance.signOut();
+                Model.instance.signOut(userId);
                 Fragment logInFragment = new LogIn();
 
 //                getSupportFragmentManager().beginTransaction().replace(R.id.nav_host_fragment_content_main,logInFragment).commit();

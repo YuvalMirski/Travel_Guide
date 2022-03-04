@@ -14,7 +14,7 @@ public class PostListRvViewModel extends ViewModel {
     LiveData<List<UserPost>> postListSaved;
     LiveData<List<UserPost>> categoryPostList;
     LiveData<User> userLiveData;
-    String categoryName;
+
 
    public PostListRvViewModel(){
         //postList = Model.instance.getAllPosts();

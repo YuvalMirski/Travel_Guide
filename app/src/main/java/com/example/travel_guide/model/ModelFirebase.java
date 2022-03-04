@@ -6,6 +6,7 @@ import android.util.Log;
 
 import androidx.annotation.NonNull;
 
+import com.example.travel_guide.MyApplication;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
@@ -57,7 +58,7 @@ public class ModelFirebase {
     //TODO::getAllPosts can use for the saved post in the device
     public void getAllPosts( GetAllPostsListener listener) {
 //TODO:: we dont need lastUpdataDate here, we
-        db.collection(UserPost.COLLECTION_NAME)
+        db.collection(UserPost.COLLECTION_NAME).whereEqualTo("isDeleted","false")
                 //.whereGreaterThanOrEqualTo("updateDate", new Timestamp(lastUpdateDate, 0))
                 .get()
                 .addOnCompleteListener(task -> {
@@ -88,7 +89,7 @@ public class ModelFirebase {
             fieldVal = categoryName;//.whereEqualTo("location","NYC")
         }
         if(!location.equals("")){
-            Task<QuerySnapshot> q = categoryReference.whereEqualTo(fieldKey,fieldVal).whereEqualTo("location",location)
+            Task<QuerySnapshot> q = categoryReference.whereEqualTo(fieldKey,fieldVal).whereEqualTo("location",location).whereEqualTo("isDeleted","false")
                     .get()
                     .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                         List<UserPost> list = new LinkedList<UserPost>();
@@ -109,7 +110,7 @@ public class ModelFirebase {
                     });
         }
         else{// for all user
-            Task<QuerySnapshot> q = categoryReference.whereEqualTo(fieldKey,fieldVal)
+            Task<QuerySnapshot> q = categoryReference.whereEqualTo(fieldKey,fieldVal).whereEqualTo("isDeleted","false")
                     .get()
                     .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                         List<UserPost> list = new LinkedList<UserPost>();
@@ -187,7 +188,6 @@ public class ModelFirebase {
 //            }
 //            if(userSavedPostLst.size()==0)
 //                listener.onComplete(list);
-//toDO:: ----------------------------------------------------------
 
     }
 
@@ -198,6 +198,7 @@ public class ModelFirebase {
     }
 
     public void addUserPost(UserPost userPost, Model.AddPostListener listener) {
+        //TODO:: need to update Room
         System.out.println("userPost in add: " + userPost.getId());
 
         Map<String, Object> json = userPost.toJson();
@@ -215,6 +216,7 @@ public class ModelFirebase {
     }
 
     public void updateUserPost(UserPost userPost, Model.AddPostListener listener) {
+        //TODO:: need to update Room
         Map<String, Object> json = userPost.toJson();
         db.collection(UserPost.COLLECTION_NAME)
                 .document(userPost.getId())
@@ -224,11 +226,19 @@ public class ModelFirebase {
     }
 
     public void deletePostById(String postId, Model.DeletePostById listener) {
-        db.collection(UserPost.COLLECTION_NAME)
-                .document(postId)
-                .delete()
-                .addOnSuccessListener(unused -> listener.onComplete())
-                .addOnFailureListener(e -> listener.onComplete());
+
+//        Map<String, Object> json = userPost.toJson();
+//        db.collection(UserPost.COLLECTION_NAME)
+//                .document(userPost.getId())
+//                .set(json)
+//                .addOnSuccessListener(unused -> listener.onComplete())
+//                .addOnFailureListener(e -> listener.onComplete());
+
+//        db.collection(UserPost.COLLECTION_NAME)
+//                .document(postId)
+//                .delete()
+//                .addOnSuccessListener(unused -> listener.onComplete())
+//                .addOnFailureListener(e -> listener.onComplete());
     }
 
     public void getPostById(String postId, Model.GetPostById listener) {
@@ -267,6 +277,7 @@ public class ModelFirebase {
     }
 
     public void updateUser(User user, Model.AddUserListener listener) {
+
         Map<String, Object> json = user.toJson();
         db.collection(User.COLLECTION_NAME)
                 .document(user.getId())
@@ -386,6 +397,7 @@ public class ModelFirebase {
                 });
     }
     public void signOut(){
+
         mAuth.signOut();
     }
     public void deleteUser(Model.OnCompleteGeneralListener listener){
