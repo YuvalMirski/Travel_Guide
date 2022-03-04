@@ -68,10 +68,13 @@ public class LogIn extends Fragment {
                         @Override
                         public void onComplete(User user) {
                             if (user != null) {
-//                                NavigationView navigationView = (NavigationView) getActivity().findViewById(R.id.nav_view); //gets  null!!! TODO:: to check WHY??
+                                View inflatedView = getLayoutInflater().inflate(R.layout.activity_main, null);
+
+//                                NavigationView navigationView = (NavigationView) inflatedView.findViewById(R.id.nav_view); //gets  null!!! TODO:: to check WHY??
 //                                TextView userName = navigationView.getHeaderView(0).findViewById(R.id.userName_tv);
 //                                TextView userEmail = navigationView.getHeaderView(0).findViewById(R.id.userEmail_tv);
-//
+//                                System.out.println(user.getUserName()+"!!!!!!!!!!!");
+//                                System.out.println(user.getEmail()+"!!!!!!!!!!!!!!!");
 //                                userName.setText(user.getUserName());
 //                                userEmail.setText(user.getEmail());
 //
@@ -105,7 +108,7 @@ public class LogIn extends Fragment {
         });
 
         Button signUpBtn = (Button) view.findViewById(R.id.signup_login_btn);
-        signUpBtn.setOnClickListener(v -> Navigation.findNavController(v).navigate(LogInDirections.actionLogInNavToSignUpNav()));
+//        signUpBtn.setOnClickListener(v -> Navigation.findNavController(v).navigate(LogInDirections.actionLogInNavToSignUpNav()));
 
         //TODO:: add button for user without account
 
