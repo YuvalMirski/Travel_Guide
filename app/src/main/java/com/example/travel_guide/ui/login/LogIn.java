@@ -1,6 +1,7 @@
 package com.example.travel_guide.ui.login;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -13,9 +14,11 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
+import com.example.travel_guide.MainActivity;
 import com.example.travel_guide.R;
 import com.example.travel_guide.model.Model;
 import com.example.travel_guide.model.User;
@@ -40,6 +43,13 @@ public class LogIn extends Fragment {
 //        //loginViewModel = new ViewModelProvider(this).get(LoginViewModel.class);
 //    }
 
+
+    @Override
+    public void onPrepareOptionsMenu(@NonNull Menu menu) {
+        menu.findItem(R.id.action_account).setVisible(false);
+        super.onPrepareOptionsMenu(menu);
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -54,8 +64,7 @@ public class LogIn extends Fragment {
 
 
         //try
-        checkUserLogIn(view);
-
+//        checkUserLogIn(view);
 
 
 
@@ -71,27 +80,30 @@ public class LogIn extends Fragment {
                         @Override
                         public void onComplete(User user) {
                             if (user != null) {
-                                NavigationView navigationView = (NavigationView) getActivity().findViewById(R.id.nav_view);
-                                TextView userName = navigationView.getHeaderView(0).findViewById(R.id.userName_tv);
-                                TextView userEmail = navigationView.getHeaderView(0).findViewById(R.id.userEmail_tv);
-
-                                userName.setText(user.getUserName());
-                                userEmail.setText(user.getEmail());
-
-                                Menu menu = navigationView.getMenu();
-                                MenuItem nav_Login = menu.findItem(R.id.logIn_nav);
-                                MenuItem nav_signUp = menu.findItem(R.id.signUp_nav);
-                                MenuItem nav_Logout = menu.findItem(R.id.logOut_nav);
-                                nav_Login.setVisible(false);
-                                nav_signUp.setVisible(false);
-                                nav_Logout.setVisible(true);
+//                                NavigationView navigationView = (NavigationView) getActivity().findViewById(R.id.nav_view); //gets  null!!! TODO:: to check WHY??
+//                                TextView userName = navigationView.getHeaderView(0).findViewById(R.id.userName_tv);
+//                                TextView userEmail = navigationView.getHeaderView(0).findViewById(R.id.userEmail_tv);
+//
+//                                userName.setText(user.getUserName());
+//                                userEmail.setText(user.getEmail());
+//
+//                                Menu menu = navigationView.getMenu();
+//                                MenuItem nav_Login = menu.findItem(R.id.logIn_nav);
+//                                MenuItem nav_signUp = menu.findItem(R.id.signUp_nav);
+//                                MenuItem nav_Logout = menu.findItem(R.id.logOut_nav);
+//                                nav_Login.setVisible(false);
+//                                nav_signUp.setVisible(false);
+//                                nav_Logout.setVisible(true);
 
                                 //TODO:: to change unabled to press
                                 //navigationView.setNavigationItemSelectedListener(this);
 
-                                Navigation.findNavController(v).navigate(LogInDirections.actionGlobalHomePageNav(user.getId()));
-                                InputMethodManager imm = (InputMethodManager) getContext().getSystemService(Activity.INPUT_METHOD_SERVICE);
+                                InputMethodManager imm = (InputMethodManager) getContext().getSystemService(Activity.INPUT_METHOD_SERVICE); //hide the keyboard input
                                 imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+
+                                toFeedActivity();
+//                              Navigation.findNavController(v).navigate(LogInDirections.actionGlobalHomePageNav(user.getId()));
+
                             } else {
                                 wrongLogin(v,"Wrong email or password!");
                             }
@@ -105,12 +117,19 @@ public class LogIn extends Fragment {
         });
 
         Button signUpBtn = (Button) view.findViewById(R.id.signup_login_btn);
-        signUpBtn.setOnClickListener(v -> Navigation.findNavController(v).navigate(LogInDirections.actionGlobalSignUpNav()));
+//        signUpBtn.setOnClickListener(v -> Navigation.findNavController(v).navigate(LogInDirections.actionLogInNavToSignUpNav()));
 
         //TODO:: add button for user without account
 
         return view;
     }
+
+    private void toFeedActivity() {
+        Intent intent = new Intent(getContext(), MainActivity.class);
+        startActivity(intent);
+        getActivity().finish();
+    }
+
 
     private void checkUserLogIn(View v) {
         Model.instance.isUserIn(new Model.OnCompleteGeneralListener() {
@@ -135,7 +154,8 @@ public class LogIn extends Fragment {
                     //TODO:: to change unabled to press
                     //navigationView.setNavigationItemSelectedListener(this);
 
-                    Navigation.findNavController(v).navigate(LogInDirections.actionGlobalHomePageNav(user.getId()));
+//                    Navigation.findNavController(v).navigate(LogInDirections.actionGlobalHomePageNav(user.getId()));
+                    toFeedActivity();
                     InputMethodManager imm = (InputMethodManager) getContext().getSystemService(Activity.INPUT_METHOD_SERVICE);
                     imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
 

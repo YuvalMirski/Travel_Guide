@@ -7,29 +7,31 @@
     android:background="@drawable/custom_border_listrow"
     android:clickable="true">
 
-    <ImageView
+    <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/post_picture_listrow_imv"
         android:layout_width="0dp"
-        android:layout_height="125dp"
-        android:layout_marginStart="4dp"
+        android:layout_height="150dp"
+        android:layout_marginStart="50dp"
         android:layout_marginTop="4dp"
-        android:layout_marginEnd="4dp"
+        android:layout_marginEnd="50dp"
+        android:scaleType="centerCrop"
         android:visibility="visible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:srcCompat="@drawable/avatar" />
+        app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.CornerSize8Percent"
+        tools:srcCompat="@drawable/default_img" />
 
     <TextView
         android:id="@+id/location_listrow_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginStart="3dp"
+        android:layout_marginTop="5dp"
         android:text="TextView"
         android:textColor="@android:color/black"
         android:textSize="20sp"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/imageView"
         app:layout_constraintTop_toBottomOf="@+id/postname_listrow_tv" />
 
     <TextView
@@ -49,7 +51,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="5dp"
         android:text="TextView"
         android:textSize="20sp"
         app:layout_constraintStart_toStartOf="parent"
@@ -80,15 +82,27 @@
         app:layout_constraintStart_toEndOf="@+id/userNameAvatar_listRow_imv"
         app:layout_constraintTop_toBottomOf="@+id/category_listrow_tv" />
 
-    <com.example.travel_guide.SquareImageView
+    <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/userNameAvatar_listRow_imv"
         android:layout_width="40dp"
         android:layout_height="40dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginBottom="8dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
+        android:scaleType="centerCrop"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/category_listrow_tv"
+        app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.CornerSize50Percent"
         app:srcCompat="@drawable/avatar" />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="26dp"
+        android:layout_height="26dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="5dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/postname_listrow_tv"
+        app:srcCompat="@drawable/ic_baseline_location_on_24" />
 </androidx.constraintlayout.widget.ConstraintLayout>

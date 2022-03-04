@@ -2,8 +2,11 @@ package com.example.travel_guide.model;
 
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.os.Handler;
+import android.os.Looper;
 import android.util.Log;
 
+import androidx.core.os.HandlerCompat;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
@@ -16,9 +19,8 @@ import java.util.concurrent.Executors;
 public class Model {
     public static final Model instance = new Model();
     ModelFirebase modelFirebase = new ModelFirebase();
-    Executor executor = Executors.newFixedThreadPool(1);
-
-
+    public Executor executor = Executors.newFixedThreadPool(1);
+    public Handler mainThread = HandlerCompat.createAsync(Looper.getMainLooper());
 
     public enum PostListLoadingState{ //indicate the possible states
         loading,
@@ -76,6 +78,12 @@ public class Model {
 //                postListLoadingState.setValue(PostListLoadingState.loaded);
 //            }
 //        });
+
+        executor.execute(()->{ //to get all data first from local db
+            List<UserPost>userPostList = AppLocalDB.db.userPostDao().getAll(); // get all data from local db
+            listLiveDataPost.postValue(userPostList);// post will pass it to main thread
+        });
+
         modelFirebase.getUserSavedPost(userid, lstSaved, lastUpdateDate, new ModelFirebase.GetAllPostsListener() {
             @Override
             public void onComplete(List<UserPost> list) {
@@ -293,6 +301,13 @@ public class Model {
 
 
     //------------------------------------END USER------------------------------------//
+
+    //------------------------------------Authentication------------------------------------//
+
+
+    public boolean isSignedIn(){
+        return modelFirebase.isSignedIn();
+    }
 
 
 }

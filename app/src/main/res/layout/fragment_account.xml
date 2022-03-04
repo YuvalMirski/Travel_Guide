@@ -158,7 +158,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/country_account_tv" />
 
-    <com.example.travel_guide.SquareImageView
+    <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/userAvatar_account_details_imv"
         android:layout_width="130dp"
         android:layout_height="130dp"
@@ -169,7 +169,8 @@
         app:layout_constraintDimensionRatio="H,1:1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/user_name_account_str_tv"
-        app:layout_constraintTop_toBottomOf="@+id/signup_account_tv" />
+        app:layout_constraintTop_toBottomOf="@+id/signup_account_tv"
+        app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.CornerSize50Percent" />
 
     <TextView
         android:id="@+id/password_account_str_tv"

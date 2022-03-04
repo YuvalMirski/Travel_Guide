@@ -1,5 +1,8 @@
 package com.example.travel_guide;
 
+import static com.example.travel_guide.MyApplication.getContext;
+
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.Menu;
@@ -65,7 +68,12 @@ public class MainActivity extends AppCompatActivity  {//implements NavigationVie
 
                 Model.instance.signOut();
                 Fragment logInFragment = new LogIn();
-                getSupportFragmentManager().beginTransaction().replace(R.id.nav_host_fragment_content_main,logInFragment).commit();
+
+//                getSupportFragmentManager().beginTransaction().replace(R.id.nav_host_fragment_content_main,logInFragment).commit();
+                Intent intent = new Intent(getContext(), LoginActivity.class);
+                startActivity(intent);
+                finish();
+
                 drawer.closeDrawers();
                 logOut.setVisible(false);
                 logIn.setVisible(true);
@@ -73,7 +81,9 @@ public class MainActivity extends AppCompatActivity  {//implements NavigationVie
                 return true;
             }
         });
-        logOut.setVisible(false);
+//        logOut.setVisible(false);
+        logIn.setVisible(false);
+        signUp.setVisible(false);
 
         BottomNavigationView bottomNav = (BottomNavigationView)findViewById(R.id.bottom_navigation);
         //bottomNav.animate(); TODO:animation
@@ -84,7 +94,6 @@ public class MainActivity extends AppCompatActivity  {//implements NavigationVie
     BottomNavigationView.OnNavigationItemSelectedListener navListener = new BottomNavigationView.OnNavigationItemSelectedListener() {
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-
 
             Fragment selectedFragment = null;
             Bundle bundle = new Bundle();

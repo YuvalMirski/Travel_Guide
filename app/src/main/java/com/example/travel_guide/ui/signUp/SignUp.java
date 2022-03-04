@@ -23,6 +23,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
+import com.example.travel_guide.MainActivity;
 import com.example.travel_guide.R;
 import com.example.travel_guide.model.Model;
 import com.example.travel_guide.model.User;
@@ -114,7 +115,8 @@ public class SignUp extends Fragment {
                     @Override
                     public void onComplete(String isSuccess) {
                         if (isSuccess.equals("true")) {
-                            Navigation.findNavController(v).navigate(SignUpDirections.actionSignUpNavToLogInNav());
+                            toFeedActivity();
+//                            Navigation.findNavController(v).navigate(SignUpDirections.actionSignUpNavToLogInNav());
                         } else {
                             String msg = isSuccess.split(": ")[1];
                             Toast.makeText(getContext(), msg, Toast.LENGTH_LONG).show();
@@ -159,4 +161,9 @@ public class SignUp extends Fragment {
         }
     }
 
+    private void toFeedActivity() {
+        Intent intent = new Intent(getContext(), MainActivity.class);
+        startActivity(intent);
+        getActivity().finish();
+    }
 }

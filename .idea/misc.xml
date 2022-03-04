@@ -44,6 +44,10 @@
         <entry key="..\:/Users/mirsk/AndroidStudioProjects/Travel_Guide/Travel_Guide/app/src/main/res/drawable/ic_baseline_remove_circle_24.xml" value="0.5708333333333333" />
         <entry key="..\:/Users/mirsk/AndroidStudioProjects/Travel_Guide/Travel_Guide/app/src/main/res/drawable/ic_baseline_saved.xml" value="0.5708333333333333" />
         <entry key="..\:/Users/mirsk/AndroidStudioProjects/Travel_Guide/Travel_Guide/app/src/main/res/drawable/side_nav_bar.xml" value="0.34791666666666665" />
+        <entry key="..\:/Users/mirsk/AndroidStudioProjects/Travel_Guide/Travel_Guide/app/src/main/res/layout-w1240dp/activity_login.xml" value="0.21318607764390896" />
+        <entry key="..\:/Users/mirsk/AndroidStudioProjects/Travel_Guide/Travel_Guide/app/src/main/res/layout-w936dp/activity_login.xml" value="0.248828125" />
+        <entry key="..\:/Users/mirsk/AndroidStudioProjects/Travel_Guide/Travel_Guide/app/src/main/res/layout/activity_intro.xml" value="0.37864583333333335" />
+        <entry key="..\:/Users/mirsk/AndroidStudioProjects/Travel_Guide/Travel_Guide/app/src/main/res/layout/activity_login.xml" value="0.33177083333333335" />
         <entry key="..\:/Users/mirsk/AndroidStudioProjects/Travel_Guide/Travel_Guide/app/src/main/res/layout/activity_main.xml" value="0.540625" />
         <entry key="..\:/Users/mirsk/AndroidStudioProjects/Travel_Guide/Travel_Guide/app/src/main/res/layout/app_bar_main.xml" value="0.4466666666666667" />
         <entry key="..\:/Users/mirsk/AndroidStudioProjects/Travel_Guide/Travel_Guide/app/src/main/res/layout/bottom_navigation.xml" value="0.4484375" />
@@ -55,7 +59,7 @@
         <entry key="..\:/Users/mirsk/AndroidStudioProjects/Travel_Guide/Travel_Guide/app/src/main/res/layout/fragment_log_in.xml" value="0.33177083333333335" />
         <entry key="..\:/Users/mirsk/AndroidStudioProjects/Travel_Guide/Travel_Guide/app/src/main/res/layout/fragment_new_post_page.xml" value="0.33177083333333335" />
         <entry key="..\:/Users/mirsk/AndroidStudioProjects/Travel_Guide/Travel_Guide/app/src/main/res/layout/fragment_post_list_rv.xml" value="0.33177083333333335" />
-        <entry key="..\:/Users/mirsk/AndroidStudioProjects/Travel_Guide/Travel_Guide/app/src/main/res/layout/fragment_post_page.xml" value="0.5546875" />
+        <entry key="..\:/Users/mirsk/AndroidStudioProjects/Travel_Guide/Travel_Guide/app/src/main/res/layout/fragment_post_page.xml" value="0.4466666666666667" />
         <entry key="..\:/Users/mirsk/AndroidStudioProjects/Travel_Guide/Travel_Guide/app/src/main/res/layout/fragment_saved_activities.xml" value="0.5546875" />
         <entry key="..\:/Users/mirsk/AndroidStudioProjects/Travel_Guide/Travel_Guide/app/src/main/res/layout/fragment_search.xml" value="0.5546875" />
         <entry key="..\:/Users/mirsk/AndroidStudioProjects/Travel_Guide/Travel_Guide/app/src/main/res/layout/fragment_sign_up.xml" value="0.4466666666666667" />
@@ -64,6 +68,7 @@
         <entry key="..\:/Users/mirsk/AndroidStudioProjects/Travel_Guide/Travel_Guide/app/src/main/res/layout/spinner_item.xml" value="0.5546875" />
         <entry key="..\:/Users/mirsk/AndroidStudioProjects/Travel_Guide/Travel_Guide/app/src/main/res/menu/activity_main_drawer.xml" value="0.540625" />
         <entry key="..\:/Users/mirsk/AndroidStudioProjects/Travel_Guide/Travel_Guide/app/src/main/res/menu/bottom_navigation.xml" value="0.4484375" />
+        <entry key="..\:/Users/mirsk/AndroidStudioProjects/Travel_Guide/Travel_Guide/app/src/main/res/menu/login_menu.xml" value="0.33177083333333335" />
         <entry key="..\:/Users/mirsk/AndroidStudioProjects/Travel_Guide/Travel_Guide/app/src/main/res/menu/main.xml" value="0.540625" />
         <entry key="..\:/Users/mirsk/AppData/Local/Android/Sdk/platforms/android-31/data/res/layout/simple_spinner_item.xml" value="0.5546875" />
       </map>

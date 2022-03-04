@@ -32,7 +32,7 @@ import java.util.Map;
 public class ModelFirebase {
 
     FirebaseFirestore db = FirebaseFirestore.getInstance();
-    private FirebaseAuth mAuth;// = FirebaseAuth.getInstance();
+    private FirebaseAuth mAuth= FirebaseAuth.getInstance();
 
     public ModelFirebase() {
         FirebaseFirestoreSettings settings = new FirebaseFirestoreSettings.Builder()
@@ -41,7 +41,10 @@ public class ModelFirebase {
         db.setFirestoreSettings(settings);
     }
 
-
+    public boolean isSignedIn(){
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+        return (currentUser != null);
+    }
 
 
     public interface GetAllPostsListener {

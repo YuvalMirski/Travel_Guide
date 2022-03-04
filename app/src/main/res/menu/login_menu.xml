@@ -11,5 +11,4 @@
         android:title="@string/Account"
         android:visible="true"
         app:showAsAction="always" />
-
 </menu>

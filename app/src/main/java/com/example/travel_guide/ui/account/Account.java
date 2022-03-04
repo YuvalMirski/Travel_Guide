@@ -1,7 +1,6 @@
 package com.example.travel_guide.ui.account;
 
 import android.os.Bundle;
-import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,9 +10,9 @@ import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
+import androidx.navigation.fragment.NavHostFragment;
 
 import com.example.travel_guide.R;
-import com.example.travel_guide.SquareImageView;
 import com.example.travel_guide.model.Model;
 import com.example.travel_guide.model.User;
 import com.squareup.picasso.Picasso;
@@ -22,7 +21,7 @@ import com.squareup.picasso.Picasso;
 public class Account extends Fragment {
 
     TextView userName, email, sex, country, password;
-    SquareImageView userAvatar;
+    ImageView userAvatar;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -67,7 +66,8 @@ public class Account extends Fragment {
         editBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Navigation.findNavController(v).navigate(AccountDirections.actionGlobalEditUserFragment(userId));
+                Navigation.findNavController(v).navigate(AccountDirections.actionAccountNavToEditUserFragment(userId));
+//                NavHostFragment.findNavController(this).navigate(AccountDirections.actionAccountNavToEditUserFragment(userId));
             }
         });
         userPostBtn.setOnClickListener(new View.OnClickListener() {
