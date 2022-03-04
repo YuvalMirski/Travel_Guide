@@ -113,7 +113,7 @@ public class LogIn extends Fragment {
         });
 
         Button signUpBtn = (Button) view.findViewById(R.id.signup_login_btn);
-//        signUpBtn.setOnClickListener(v -> Navigation.findNavController(v).navigate(LogInDirections.actionLogInNavToSignUpNav()));
+        signUpBtn.setOnClickListener(v -> Navigation.findNavController(v).navigate(LogInDirections.actionLogInNavToSignUpNav()));
 
         //TODO:: add button for user without account
 
