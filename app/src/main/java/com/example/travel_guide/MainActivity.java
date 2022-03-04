@@ -45,10 +45,6 @@ public class MainActivity extends AppCompatActivity  {//implements NavigationVie
         drawer = binding.drawerLayout;
         NavigationView navigationView = binding.navView;
 
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
-        getSupportActionBar().setLogo(R.drawable.login_logo);
-        getSupportActionBar().setDisplayUseLogoEnabled(true);
-
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         // menu should be considered as top level destinations.

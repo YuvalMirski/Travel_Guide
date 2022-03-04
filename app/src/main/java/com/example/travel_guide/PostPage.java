@@ -1,6 +1,5 @@
 package com.example.travel_guide;
 
-import android.media.Image;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -58,8 +57,11 @@ public class PostPage extends Fragment {
         postName = view.findViewById(R.id.post_name_post_page_details_tv);
         location = view.findViewById(R.id.location_post_page_details_tv);
         category = view.findViewById(R.id.type_post_page_details_tv);
-        about = view.findViewById(R.id.about_post_page_details_);
+        about = view.findViewById(R.id.about_post_page_details_tv);
         postImg = view.findViewById(R.id.picture_post_page_details_);
+
+        category.setEnabled(false);
+        about.setEnabled(false);
 
         editBtn = view.findViewById(R.id.edit_post_page_details_btn);
         editBtn.setOnClickListener(new View.OnClickListener() {

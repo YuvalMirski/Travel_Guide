@@ -23,9 +23,10 @@ public class LoginActivity extends AppCompatActivity {
         NavHost navHost = (NavHost) getSupportFragmentManager().findFragmentById(R.id.login_navhost);
         navCtl = navHost.getNavController();
 
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
-        getSupportActionBar().setLogo(R.drawable.login_logo);
-        getSupportActionBar().setDisplayUseLogoEnabled(true);
+        //logo in action bar
+//        getSupportActionBar().setDisplayShowHomeEnabled(true);
+//        getSupportActionBar().setLogo(R.drawable.login_logo);
+//        getSupportActionBar().setDisplayUseLogoEnabled(true);
 
         NavigationUI.setupActionBarWithNavController(this, navCtl);
     }

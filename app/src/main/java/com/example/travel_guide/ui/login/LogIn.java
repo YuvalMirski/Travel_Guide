@@ -63,10 +63,6 @@ public class LogIn extends Fragment {
         EditText password = view.findViewById(R.id.password_login_et);
 
 
-        //try
-//        checkUserLogIn(view);
-
-
 
         loginBtn = (Button) view.findViewById(R.id.login_login_btn);
         loginBtn.setOnClickListener(new View.OnClickListener() {
@@ -128,40 +124,6 @@ public class LogIn extends Fragment {
         Intent intent = new Intent(getContext(), MainActivity.class);
         startActivity(intent);
         getActivity().finish();
-    }
-
-
-    private void checkUserLogIn(View v) {
-        Model.instance.isUserIn(new Model.OnCompleteGeneralListener() {
-            @Override
-            public void onComplete(User user) {
-                if (user != null) {
-                    NavigationView navigationView = (NavigationView) getActivity().findViewById(R.id.nav_view);
-                    TextView userName = navigationView.getHeaderView(0).findViewById(R.id.userName_tv);
-                    TextView userEmail = navigationView.getHeaderView(0).findViewById(R.id.userEmail_tv);
-
-                    userName.setText(user.getUserName());
-                    userEmail.setText(user.getEmail());
-
-                    Menu menu = navigationView.getMenu();
-                    MenuItem nav_Login = menu.findItem(R.id.logIn_nav);
-                    MenuItem nav_signUp = menu.findItem(R.id.signUp_nav);
-                    MenuItem nav_Logout = menu.findItem(R.id.logOut_nav);
-                    nav_Login.setVisible(false);
-                    nav_signUp.setVisible(false);
-                    nav_Logout.setVisible(true);
-
-                    //TODO:: to change unabled to press
-                    //navigationView.setNavigationItemSelectedListener(this);
-
-//                    Navigation.findNavController(v).navigate(LogInDirections.actionGlobalHomePageNav(user.getId()));
-                    toFeedActivity();
-                    InputMethodManager imm = (InputMethodManager) getContext().getSystemService(Activity.INPUT_METHOD_SERVICE);
-                    imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
-
-                }
-            }
-        });
     }
 
 

@@ -60,23 +60,17 @@ public class Account extends Fragment {
         password = view.findViewById(R.id.password_account_str_tv);
         userAvatar = view.findViewById(R.id.userAvatar_account_details_imv);
 
+        userName.setEnabled(false);
+        email.setEnabled(false);
+        sex.setEnabled(false);
+        country.setEnabled(false);
+        password.setEnabled(false);
+
         Button editBtn = view.findViewById(R.id.edit_accoutn_btn);
+        editBtn.setOnClickListener(v -> Navigation.findNavController(v).navigate(AccountDirections.actionGlobalEditUserFragment(userId)));
+
         Button userPostBtn = view.findViewById(R.id.post_account_btn); //list of posts that the user has created
-
-        editBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Navigation.findNavController(v).navigate(AccountDirections.actionGlobalEditUserFragment(userId));
-//                NavHostFragment.findNavController(this).navigate(AccountDirections.actionAccountNavToEditUserFragment(userId));
-            }
-        });
-        userPostBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                Navigation.findNavController(v).navigate(AccountDirections.actionGlobalPostListRvFragment("userCreatePosts",userId,""));
-            }
-        });
+        userPostBtn.setOnClickListener(v -> Navigation.findNavController(v).navigate(AccountDirections.actionGlobalPostListRvFragment("userCreatePosts",userId,"")));
 
         return view;
     }
