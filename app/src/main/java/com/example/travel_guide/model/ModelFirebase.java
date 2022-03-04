@@ -60,7 +60,7 @@ public class ModelFirebase {
     public void getAllPosts( Long lastUpdateDate, GetAllPostsListener listener) {
 
         db.collection(UserPost.COLLECTION_NAME).whereEqualTo("isDeleted","false")
-//                .whereGreaterThanOrEqualTo("updateDate", new Timestamp(lastUpdateDate, 0))
+//              .whereGreaterThanOrEqualTo("updateDate", new Timestamp(lastUpdateDate, 0))
                 .get()
                 .addOnCompleteListener(task -> {
                     List<UserPost> list = new LinkedList<UserPost>();
@@ -74,10 +74,10 @@ public class ModelFirebase {
                         for (QueryDocumentSnapshot doc : task.getResult()) {
 
                            // String postId = doc.getId();
-                            System.out.println("----------"+UserPost.create(doc.getData()));
+                           // System.out.println("----------"+UserPost.create(doc.getData()));
 
                             userPost = UserPost.create(doc.getData()); //convert from json to Post
-                            System.out.println(userPost);
+                            //System.out.println(userPost);
 
                             updateId(ids.get(i), userPost);
                             if (userPost != null) {

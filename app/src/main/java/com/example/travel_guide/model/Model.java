@@ -97,23 +97,23 @@ public class Model {
                     public void run() {
                         Long lud = new Long(0);
                         System.out.println("before loop");
-                    for(UserPost us :  list){
-                        if(us.getIsDeleted().equals("delete"))
-                            AppLocalDB.db.userPostDao().delete(us);
-                        else
-                            AppLocalDB.db.userPostDao().insertAll(us);
+                        for (UserPost us : list) {
+                            if (us.getIsDeleted().equals("delete"))
+                                AppLocalDB.db.userPostDao().delete(us);
+                            else
+                                AppLocalDB.db.userPostDao().insertAll(us);
 
-                        if (lud < us.getUpdateDate()) {
-                            lud = us.getUpdateDate();
+                            if (lud < us.getUpdateDate()) {
+                                lud = us.getUpdateDate();
+                            }
                         }
-                    }
                         //update last local update date
-                    MyApplication.getContext()
-                            .getSharedPreferences("TAG",Context.MODE_PRIVATE)
-                            .edit().putLong(UserPost.LAST_UPDATE,lud).commit();
-                    List<UserPost>userPostList = AppLocalDB.db.userPostDao().getAll(); // get all data from local db
-                    listLiveDataPost.postValue(userPostList);// post will pass it to main thread
-                    postListLoadingState.postValue(PostListLoadingState.loaded);
+                        MyApplication.getContext()
+                                .getSharedPreferences("TAG", Context.MODE_PRIVATE)
+                                .edit().putLong(UserPost.LAST_UPDATE, lud).commit();
+                        List<UserPost> userPostList = AppLocalDB.db.userPostDao().getAll(); // get all data from local db
+                        listLiveDataPost.postValue(userPostList);// post will pass it to main thread
+                        postListLoadingState.postValue(PostListLoadingState.loaded);
 
                     }
                 });
