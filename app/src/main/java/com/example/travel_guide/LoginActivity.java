@@ -10,6 +10,8 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.example.travel_guide.databinding.ActivityMainBinding;
+
 public class LoginActivity extends AppCompatActivity {
     NavController navCtl;
 
@@ -20,6 +22,10 @@ public class LoginActivity extends AppCompatActivity {
 
         NavHost navHost = (NavHost) getSupportFragmentManager().findFragmentById(R.id.login_navhost);
         navCtl = navHost.getNavController();
+
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        getSupportActionBar().setLogo(R.drawable.login_logo);
+        getSupportActionBar().setDisplayUseLogoEnabled(true);
 
         NavigationUI.setupActionBarWithNavController(this, navCtl);
     }
