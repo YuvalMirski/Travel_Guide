@@ -17,6 +17,10 @@ import java.util.Map;
 
 @Entity
 public class UserPost {
+    final public static String COLLECTION_NAME = "UserPost";
+    final public static String LAST_UPDATE = "PostsLastUpdateDate";
+
+
     @PrimaryKey
     @NonNull
     String id = "";
@@ -29,15 +33,9 @@ public class UserPost {
     String postImgUrl = "";
     String isDeleted = "false";
 
-    public void setUpdateDate(Long updateDate) {
-        this.updateDate = updateDate;
-    }
-
     long updateDate = new Long(0);
 
     //ImageView userProfile;
-    final public static String COLLECTION_NAME = "UserPost";
-    final public static String LAST_UPDATE = "PostsLastUpdateDate";
 
     public UserPost() { // this C'tor for ROOM
 
@@ -59,19 +57,19 @@ public class UserPost {
         String userId = (String) json.get("userId");
         String postImgUrl = (String) json.get("postImgUrl");
         String delete = (String) json.get("isDeleted");
-        //Timestamp ts = (Timestamp)json.get("updateDate");
+
+
+//        System.out.println(json.get("updateDate"));
+//        Timestamp ts = (Timestamp) json.get("updateDate");
+//        Long updateDate = ts.getSeconds();
+
+
         UserPost userPost = new UserPost(name, location, about, category, userId);
         userPost.setPostImgUrl(postImgUrl);
-        //convert from Time to long
 
-        //TODO:: need to check why it is not working here - the program crash because its 0 and not json of Timestamp        System.out.println("print Json");
-        System.out.println(json.get("updateDate"));
-//            Timestamp ts = (Timestamp)json.get("updateDate");
-//            Long updateDate = ts.getSeconds();
-//            userPost.setUpdateDate(updateDate);
+//        userPost.setUpdateDate(updateDate);
         userPost.setIsDeleted(delete);
 
-        // userPost.setId(docId);
         return userPost;
     }
 
@@ -83,9 +81,10 @@ public class UserPost {
         json.put("id", id);
         json.put("category", category);
         json.put("userId", userId);
-        json.put("updateDate", FieldValue.serverTimestamp());// get time stamp from firebase
         json.put("postImgUrl", postImgUrl);
         json.put("isDeleted", isDeleted);
+
+        json.put("updateDate", FieldValue.serverTimestamp());// get time stamp from firebase
         return json;
 
     }
@@ -146,6 +145,10 @@ public class UserPost {
         return updateDate;
     }
 
+    public void setUpdateDate(Long updateDate) {
+        this.updateDate = updateDate;
+    }
+
     public String getPostImgUrl() {
         return postImgUrl;
     }
@@ -161,4 +164,6 @@ public class UserPost {
     public String getIsDeleted() {
         return isDeleted;
     }
+
+
 }
