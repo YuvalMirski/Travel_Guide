@@ -23,6 +23,10 @@ public class Model {
     public Executor executor = Executors.newFixedThreadPool(1);
     public Handler mainThread = HandlerCompat.createAsync(Looper.getMainLooper());
 
+    Long lastUpdateDate = MyApplication.getContext()
+            .getSharedPreferences("TAG", Context.MODE_PRIVATE)
+            .getLong(UserPost.LAST_UPDATE,0);
+
     public enum PostListLoadingState{ //indicate the possible states
         loading,
         loaded
@@ -55,6 +59,8 @@ public class Model {
 
     public void refreshCategoryPage(String category,String userId,String location){
 
+
+
         if(category.equals("userSavedPost"))
             refreshPageSaved(userId);
 
@@ -70,9 +76,6 @@ public class Model {
         List<String> lstSaved = getUser(userid).getValue().getLstSaved();
 
         postListLoadingState.setValue(PostListLoadingState.loading);
-        Long lastUpdateDate = MyApplication.getContext()
-                .getSharedPreferences("TAG", Context.MODE_PRIVATE)
-                .getLong(UserPost.LAST_UPDATE,0);
 
 //        modelFirebase.getUserSavedPost(userid, lstSaved,lastUpdateDate, new ModelFirebase.GetAllPostsListener() {
 //            @Override
@@ -101,11 +104,12 @@ public class Model {
                             AppLocalDB.db.userPostDao().delete(us);
                         else
                             AppLocalDB.db.userPostDao().insertAll(us);
+
+                        if (lud < us.getUpdateDate()) {
+                            lud = us.getUpdateDate();
+                        }
                     }
-
-                //TODO:: when we unmark post as saved, we need to delete it from room
-
-                    //update last local update date
+                        //update last local update date
                     MyApplication.getContext()
                             .getSharedPreferences("TAG",Context.MODE_PRIVATE)
                             .edit().putLong(UserPost.LAST_UPDATE,lud).commit();
@@ -122,7 +126,10 @@ public class Model {
     public void refreshPageCategory(String userId,String category,String location){
 
         postListLoadingState.setValue(PostListLoadingState.loading);
-        modelFirebase.getCategoryPosts(userId,category,location, new ModelFirebase.GetAllPostsListener() {
+
+
+        postListLoadingState.setValue(PostListLoadingState.loading);
+        modelFirebase.getCategoryPosts(lastUpdateDate, userId,category,location, new ModelFirebase.GetAllPostsListener() {
             @Override
             public void onComplete(List<UserPost> list) {
                 listLiveDataPost.setValue(list);
@@ -134,46 +141,8 @@ public class Model {
     public void refreshPostList(){
         postListLoadingState.setValue(PostListLoadingState.loading);
 
-        //get last local update date
-        //TODO:: need to be at UserPost obj
 
-        // get from firebase all updated since last update date
-
-//        modelFirebase.getAllPosts(lastUpdateDate,new ModelFirebase.GetAllPostsListener() {
-//            @Override
-//            public void onComplete(List<UserPost> list) {
-//                executor.execute(new Runnable() {
-//                    @Override
-//                    public void run() {
-//                        Long lud = new Long(0); // local update date
-//                        Log.d("TAG","fb returned "+list.size());
-//                        // add all record to local db
-//                        for(UserPost us : list){
-//                            AppLocalDB.db.userPostDao().insertAll(us);
-//                            //AppLocalDB.db.userPostDao().delete(us);
-//
-//                            // update last local update date
-//                            if(lud < us.getUpdateData()){
-//                                lud = us.getUpdateData();
-//                            }
-//                        }
-//
-//                        // update last local update date
-//                        MyApplication.getContext()
-//                                .getSharedPreferences("TAG",Context.MODE_PRIVATE)
-//                                .edit().putLong("PostsLastUpdateDate",lud).commit();
-//                        // return all data to the caller
-//                        List<UserPost>userPostList = AppLocalDB.db.userPostDao().getAll(); // get all date from local db
-//
-//                        listLiveDataPost.postValue(userPostList);// post will pass it to main thread
-//                        postListLoadingState.postValue(PostListLoadingState.loaded);
-//                    }
-//                });
-//
-//            }
-//        });
-
-        modelFirebase.getAllPosts( new ModelFirebase.GetAllPostsListener() {
+        modelFirebase.getAllPosts( lastUpdateDate ,new ModelFirebase.GetAllPostsListener() {
             @Override
             public void onComplete(List<UserPost> list) {
                 listLiveDataPost.setValue(list);

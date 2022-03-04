@@ -26,6 +26,7 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
 import java.io.ByteArrayOutputStream;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -56,26 +57,39 @@ public class ModelFirebase {
     }
 
     //TODO::getAllPosts can use for the saved post in the device
-    public void getAllPosts( GetAllPostsListener listener) {
-//TODO:: we dont need lastUpdataDate here, we
+    public void getAllPosts( Long lastUpdateDate, GetAllPostsListener listener) {
+
         db.collection(UserPost.COLLECTION_NAME).whereEqualTo("isDeleted","false")
-                //.whereGreaterThanOrEqualTo("updateDate", new Timestamp(lastUpdateDate, 0))
+//                .whereGreaterThanOrEqualTo("updateDate", new Timestamp(lastUpdateDate, 0))
                 .get()
                 .addOnCompleteListener(task -> {
                     List<UserPost> list = new LinkedList<UserPost>();
                     if (task.isSuccessful()) {
+                        UserPost userPost;
+                        List<String>ids = new ArrayList<>();
+                        for (QueryDocumentSnapshot doc : task.getResult())
+                            ids.add(doc.getId());
+
+                        int i = 0;
                         for (QueryDocumentSnapshot doc : task.getResult()) {
-                             UserPost userPost = UserPost.create(doc.getData()); //convert from json to Post
-                             updateId(doc.getId(), userPost);
+
+                           // String postId = doc.getId();
+                            System.out.println("----------"+UserPost.create(doc.getData()));
+
+                            userPost = UserPost.create(doc.getData()); //convert from json to Post
+                            System.out.println(userPost);
+
+                            updateId(ids.get(i), userPost);
                             if (userPost != null) {
                                 list.add(userPost);
                             }
+                            i++;
                         }
                     }
                     listener.onComplete(list);
                 });
     }
-    public void getCategoryPosts(String userId,String categoryName,String location,GetAllPostsListener listener){
+    public void getCategoryPosts(Long lastUpdateDate,String userId,String categoryName,String location,GetAllPostsListener listener){
         //DocumentReference a = db.collection(UserPost.COLLECTION_NAME).document();
         String fieldKey,fieldVal;
         CollectionReference categoryReference = db.collection(UserPost.COLLECTION_NAME);
@@ -110,7 +124,7 @@ public class ModelFirebase {
                     });
         }
         else{// for all user
-            Task<QuerySnapshot> q = categoryReference.whereEqualTo(fieldKey,fieldVal).whereEqualTo("isDeleted","false")
+            Task<QuerySnapshot> q = categoryReference.whereEqualTo(fieldKey,fieldVal).whereEqualTo("isDeleted","false").whereGreaterThanOrEqualTo("updateDate", new Timestamp(lastUpdateDate, 0))
                     .get()
                     .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                         List<UserPost> list = new LinkedList<UserPost>();
@@ -141,7 +155,7 @@ public class ModelFirebase {
             {
             CollectionReference categoryReference = db.collection(UserPost.COLLECTION_NAME);
             //Task<QuerySnapshot> q = categoryReference.whereEqualTo("id", s) .whereGreaterThanOrEqualTo("updateDate",new Timestamp(lastUpdateDate,0))
-            Task<QuerySnapshot> q = categoryReference.whereEqualTo("id", s)
+            Task<QuerySnapshot> q = categoryReference.whereEqualTo("id", s).whereGreaterThanOrEqualTo("updateDate",new Timestamp(lastUpdateDate,0))
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
 
@@ -192,9 +206,10 @@ public class ModelFirebase {
     }
 
     public void updateId(String id, UserPost userPost) {
-        DocumentReference a = db.collection(UserPost.COLLECTION_NAME).document(id);
-        userPost.setId(a.getId());
-        a.set(userPost);
+//        DocumentReference a = db.collection(UserPost.COLLECTION_NAME).document(id);
+       // userPost.setId(a.getId());
+          userPost.setId(id);
+//        a.set(userPost);
     }
 
     public void addUserPost(UserPost userPost, Model.AddPostListener listener) {
