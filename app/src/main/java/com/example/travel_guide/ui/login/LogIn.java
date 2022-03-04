@@ -45,12 +45,6 @@ public class LogIn extends Fragment {
 
 
     @Override
-    public void onPrepareOptionsMenu(@NonNull Menu menu) {
-        menu.findItem(R.id.action_account).setVisible(false);
-        super.onPrepareOptionsMenu(menu);
-    }
-
-    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
@@ -61,8 +55,6 @@ public class LogIn extends Fragment {
 
         EditText email = view.findViewById(R.id.email_login_et);
         EditText password = view.findViewById(R.id.password_login_et);
-
-
 
         loginBtn = (Button) view.findViewById(R.id.login_login_btn);
         loginBtn.setOnClickListener(new View.OnClickListener() {
@@ -113,7 +105,7 @@ public class LogIn extends Fragment {
         });
 
         Button signUpBtn = (Button) view.findViewById(R.id.signup_login_btn);
-//        signUpBtn.setOnClickListener(v -> Navigation.findNavController(v).navigate(LogInDirections.actionLogInNavToSignUpNav()));
+        signUpBtn.setOnClickListener(v -> Navigation.findNavController(v).navigate(LogInDirections.actionLogInNavToSignUpNav()));
 
         //TODO:: add button for user without account
 

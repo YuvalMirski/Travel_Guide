@@ -35,6 +35,71 @@
         app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.CornerSize8Percent"
         tools:srcCompat="@drawable/default_img" />
 
+    <ImageButton
+        android:id="@+id/editPost_gallery_imb"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_menu_gallery"
+        app:layout_constraintBottom_toBottomOf="@+id/picture_post_page_edit_"
+        app:layout_constraintEnd_toEndOf="@+id/picture_post_page_edit_" />
+
+<!--    <com.google.android.material.textfield.TextInputLayout-->
+<!--        android:id="@+id/city_editPost_et"-->
+<!--        android:layout_width="0dp"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginStart="16dp"-->
+<!--        android:layout_marginTop="32dp"-->
+<!--        android:layout_marginEnd="16dp"-->
+<!--        android:hint="@string/hint_editPostPage_city"-->
+<!--        app:boxCornerRadiusBottomEnd="100dp"-->
+<!--        app:boxCornerRadiusBottomStart="100dp"-->
+<!--        app:boxCornerRadiusTopEnd="100dp"-->
+<!--        app:boxCornerRadiusTopStart="100dp"-->
+<!--        app:boxStrokeWidth="0dp"-->
+<!--        app:boxStrokeWidthFocused="0dp"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/picture_post_page_edit_">-->
+
+<!--        <com.google.android.material.textfield.TextInputEditText-->
+<!--            android:id="@+id/spinner_location_editPost"-->
+<!--            style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginStart="16dp"-->
+<!--            android:layout_marginEnd="16dp"-->
+<!--            android:inputType="text"-->
+<!--            android:maxLines="1"-->
+<!--            app:layout_constraintBottom_toBottomOf="@+id/city_editPost_et"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            app:layout_constraintStart_toEndOf="@+id/city_editPost_et"-->
+<!--            app:layout_constraintTop_toTopOf="@+id/city_editPost_et" />-->
+<!--    </com.google.android.material.textfield.TextInputLayout>-->
+
+
+
+    <TextView
+        android:id="@+id/city_editPost_et"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="32dp"
+        android:text="TextView"
+        android:textSize="24dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/picture_post_page_edit_" />
+
+    <Spinner
+        android:id="@+id/spinner_location_editPost"
+        android:layout_width="270dp"
+        android:layout_height="42dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintBottom_toBottomOf="@+id/city_editPost_et"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/city_editPost_et"
+        app:layout_constraintTop_toTopOf="@+id/city_editPost_et" />
+
     <TextView
         android:id="@+id/type_post_edit_tv"
         android:layout_width="wrap_content"
@@ -46,28 +111,71 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/city_editPost_et" />
 
-    <TextView
-        android:id="@+id/about_post_edit_tv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+    <Spinner
+        android:id="@+id/spinner_category_editPostPage"
+        android:layout_width="275dp"
+        android:layout_height="41dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="50dp"
-        android:text="About:"
-        android:textSize="24sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/type_post_edit_tv" />
-
-    <EditText
-        android:id="@+id/about_post_page_edit_et"
-        android:layout_width="0dp"
-        android:layout_height="110dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        android:text="TextView"
-        android:textSize="24sp"
-        app:layout_constraintBaseline_toBaselineOf="@+id/about_post_edit_tv"
+        android:layout_marginEnd="24dp"
+        app:layout_constraintBottom_toBottomOf="@+id/type_post_edit_tv"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/about_post_edit_tv" />
+        app:layout_constraintStart_toEndOf="@+id/type_post_edit_tv" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/about_post_edit_tv"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="32dp"
+        android:hint="@string/hint_editPostPage_about"
+        app:boxCornerRadiusBottomEnd="100dp"
+        app:boxCornerRadiusBottomStart="100dp"
+        app:boxCornerRadiusTopEnd="100dp"
+        app:boxCornerRadiusTopStart="100dp"
+        app:boxStrokeWidth="0dp"
+        app:boxStrokeWidthFocused="0dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/type_post_edit_tv">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/about_post_page_edit_et"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:inputType="text"
+            android:maxLines="1"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            app:layout_constraintBaseline_toBaselineOf="@+id/about_post_edit_tv"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/about_post_edit_tv" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+
+
+<!--    <TextView-->
+<!--        android:id="@+id/about_post_edit_tv"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginStart="16dp"-->
+<!--        android:layout_marginTop="50dp"-->
+<!--        android:text="About:"-->
+<!--        android:textSize="24sp"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/type_post_edit_tv" />-->
+
+<!--    <EditText-->
+<!--        android:id="@+id/about_post_page_edit_et"-->
+<!--        android:layout_width="0dp"-->
+<!--        android:layout_height="110dp"-->
+<!--        android:layout_marginStart="16dp"-->
+<!--        android:layout_marginEnd="16dp"-->
+<!--        android:text="TextView"-->
+<!--        android:textSize="24sp"-->
+<!--        app:layout_constraintBaseline_toBaselineOf="@+id/about_post_edit_tv"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toEndOf="@+id/about_post_edit_tv" />-->
 
     <Button
         android:id="@+id/delete_post_page_edit_btn"
@@ -96,44 +204,5 @@
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/delete_post_page_edit_btn" />
 
-    <ImageButton
-        android:id="@+id/editPost_gallery_imb"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/ic_menu_gallery"
-        app:layout_constraintBottom_toBottomOf="@+id/picture_post_page_edit_"
-        app:layout_constraintEnd_toEndOf="@+id/picture_post_page_edit_" />
-
-    <Spinner
-        android:id="@+id/spinner_category_editPostPage"
-        android:layout_width="275dp"
-        android:layout_height="41dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="24dp"
-        app:layout_constraintBottom_toBottomOf="@+id/type_post_edit_tv"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/type_post_edit_tv" />
-
-    <Spinner
-        android:id="@+id/spinner_location_editPost"
-        android:layout_width="270dp"
-        android:layout_height="42dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        app:layout_constraintBottom_toBottomOf="@+id/city_editPost_et"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/city_editPost_et"
-        app:layout_constraintTop_toTopOf="@+id/city_editPost_et" />
-
-    <TextView
-        android:id="@+id/city_editPost_et"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="32dp"
-        android:text="TextView"
-        android:textSize="24dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/picture_post_page_edit_" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
