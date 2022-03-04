@@ -17,14 +17,13 @@ import java.util.Map;
 
 @Entity
 public class UserPost {
+
     final public static String COLLECTION_NAME = "UserPost";
     final public static String LAST_UPDATE = "PostsLastUpdateDate";
-
 
     @PrimaryKey
     @NonNull
     String id = "";
-
     String userId = "";
     String name = "";
     String location = "";
@@ -54,21 +53,22 @@ public class UserPost {
         String location = (String) json.get("location");
         String about = (String) json.get("about");
         String category = (String) json.get("category");
-        String userId = (String) json.get("userId");
         String postImgUrl = (String) json.get("postImgUrl");
+        String userId = (String) json.get("userId");
         String delete = (String) json.get("isDeleted");
 
 
-//        System.out.println(json.get("updateDate"));
-//        Timestamp ts = (Timestamp) json.get("updateDate");
-//        Long updateDate = ts.getSeconds();
+        System.out.println(json.get("updateDate"));
+        Timestamp ts = (Timestamp) json.get("updateDate");
+        Long updateDate = ts.getSeconds();
 
 
         UserPost userPost = new UserPost(name, location, about, category, userId);
-        userPost.setPostImgUrl(postImgUrl);
 
-//        userPost.setUpdateDate(updateDate);
+        userPost.setUpdateDate(updateDate);
         userPost.setIsDeleted(delete);
+
+        userPost.setPostImgUrl(postImgUrl);
 
         return userPost;
     }
@@ -164,6 +164,5 @@ public class UserPost {
     public String getIsDeleted() {
         return isDeleted;
     }
-
 
 }
