@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -34,7 +35,6 @@ public class Account extends Fragment {
 
          String userId = AccountArgs.fromBundle(getArguments()).getUserId();
         // String userId = AccountArgs.fromBundle(getArguments().getBundle());
-        //  String userId = String.valueOf(1000);
 
         Model.instance.getUserById(userId, new Model.GetUserById() {
             @Override
@@ -66,7 +66,7 @@ public class Account extends Fragment {
         country.setEnabled(false);
         password.setEnabled(false);
 
-        Button editBtn = view.findViewById(R.id.edit_accoutn_btn);
+        ImageButton editBtn = view.findViewById(R.id.edit_accoutn_btn);
         editBtn.setOnClickListener(v -> Navigation.findNavController(v).navigate(AccountDirections.actionGlobalEditUserFragment(userId)));
 
         Button userPostBtn = view.findViewById(R.id.post_account_btn); //list of posts that the user has created

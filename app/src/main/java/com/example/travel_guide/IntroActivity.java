@@ -22,9 +22,14 @@ public class IntroActivity extends AppCompatActivity {
                 e.printStackTrace();
             }
             if(Model.instance.isSignedIn()){
-                Model.instance.getConnectedUser(user -> Model.instance.setCurrentUser(user));
-                Model.instance.mainThread.post(() -> {
-                    toFeedActivity();
+                Model.instance.getConnectedUser(new Model.GetConnectedUser() {
+                    @Override
+                    public void onComplete(User user) {
+                        Model.instance.setCurrentUser(user);
+                        Model.instance.mainThread.post(() -> {
+                            toFeedActivity();
+                        });
+                    }
                 });
             }
             else{

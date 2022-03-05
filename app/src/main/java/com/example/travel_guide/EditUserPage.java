@@ -50,7 +50,6 @@ public class EditUserPage extends Fragment {
                 userName.setText(user.getUserName());
                 email.setText(user.getEmail());
                 new_sex = user.getSex();
-                //sex.setText(user.getSex());
                 country.setText(user.getCountry());
                 password.setText(user.getPassword());
                 lstSaved = user.getLstSaved();
@@ -65,7 +64,6 @@ public class EditUserPage extends Fragment {
         });
         userName = view.findViewById(R.id.user_name_account_edit_et);
         email = view.findViewById(R.id.email_account_edit_et);
-//        sex = view.findViewById(R.id.sex_account_edit_et);
         country = view.findViewById(R.id.country_account_edit_et);
         password = view.findViewById(R.id.password_account_edit_et);
         userAvatar = view.findViewById(R.id.userAvater_edit_acount_imv);
@@ -82,7 +80,6 @@ public class EditUserPage extends Fragment {
             public void onClick(View v) {
                 new_userName = userName.getText().toString();
                 new_email = email.getText().toString();
-//                new_sex = sex.getText().toString();
                 new_country = country.getText().toString();
                 new_password = password.getText().toString();
 

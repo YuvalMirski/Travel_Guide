@@ -6,9 +6,13 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.Menu;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toolbar;
 
 import com.example.travel_guide.model.Model;
+import com.example.travel_guide.model.User;
 import com.example.travel_guide.ui.account.Account;
 import com.example.travel_guide.ui.home.HomePage;
 import com.example.travel_guide.ui.login.LogIn;
@@ -25,6 +29,7 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.travel_guide.databinding.ActivityMainBinding;
+import com.squareup.picasso.Picasso;
 
 public class MainActivity extends AppCompatActivity  {//implements NavigationView.OnNavigationItemSelectedListener
 
@@ -88,6 +93,34 @@ public class MainActivity extends AppCompatActivity  {//implements NavigationVie
         BottomNavigationView bottomNav = (BottomNavigationView)findViewById(R.id.bottom_navigation);
         //bottomNav.animate(); TODO:animation
         bottomNav.setOnNavigationItemSelectedListener(navListener);
+
+        NavigationView navigationViewDrawer = (NavigationView) findViewById(R.id.nav_view); //gets  null!!! TODO:: to check WHY??
+        TextView userName = navigationViewDrawer.getHeaderView(0).findViewById(R.id.userName_tv);
+        TextView userEmail = navigationViewDrawer.getHeaderView(0).findViewById(R.id.userEmail_tv);
+        ImageView userAvatar =navigationViewDrawer.getHeaderView(0).findViewById(R.id.userPic_imv);
+
+        User currentUser = Model.instance.getCurrentUser();
+        userName.setText("Hello "+ currentUser.getUserName());
+        userEmail.setText(currentUser.getEmail());
+        Picasso.get()
+                .load(currentUser.getAvatarUrl())
+                .into(userAvatar);
+
+
+//        Model.instance.getUserById(userId, new Model.GetUserById() {
+//            @Override
+//            public void onComplete(User user) {
+//                userName.setText(user.getUserName());
+//                userEmail.setText(user.getEmail());
+//            }
+//        });
+//        Menu menu = navigationView.getMenu();
+//        MenuItem nav_Login = menu.findItem(R.id.logIn_nav);
+//        MenuItem nav_signUp = menu.findItem(R.id.signUp_nav);
+//        MenuItem nav_Logout = menu.findItem(R.id.logOut_nav);
+//        nav_Login.setVisible(false);
+//        nav_signUp.setVisible(false);
+//        nav_Logout.setVisible(true);
     }
 
 

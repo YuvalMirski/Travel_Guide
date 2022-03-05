@@ -119,8 +119,8 @@ public class EditPostPage extends Fragment {
             public void onClick(View v) {
                 currentPost.setIsDeleted("delete");
                 Model.instance.deletePostById(currentPost,()->{
-                    Navigation.findNavController(postName).navigateUp();
-                    //Navigation.findNavController(v).navigate(EditPostPageDirections.actionEditPostPageToPostListRvFragment("","",""));
+//                    Navigation.findNavController(postName).navigateUp();
+                    Navigation.findNavController(v).navigate(EditPostPageDirections.actionGlobalHomePageNav(userId));
                 });
             }
         });

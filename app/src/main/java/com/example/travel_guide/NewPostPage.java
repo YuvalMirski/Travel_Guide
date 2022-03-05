@@ -87,8 +87,7 @@ public class NewPostPage extends Fragment {
                                 Model.instance.updateUser(u, new Model.AddUserListener() {
                                     @Override
                                     public void onComplete() {
-
-                                        Navigation.findNavController(v).navigateUp();
+                                        Navigation.findNavController(v).navigate(NewPostPageDirections.actionGlobalHomePageNav(userId));
                                     }
                                 });
                             }
@@ -96,8 +95,6 @@ public class NewPostPage extends Fragment {
 
                                 Navigation.findNavController(v).navigateUp();
                             }
-                            //Navigation.findNavController(v).navigate(NewPostPageDirections.actionNewPostPageToPostListRvFragment());
-                             //Navigation.findNavController(v).navigate(NewPostPageDirections.actionNewPostPageToPostListRvFragment());
                         });
                     });
                 }
