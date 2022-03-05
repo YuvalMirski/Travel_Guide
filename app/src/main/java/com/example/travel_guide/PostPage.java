@@ -64,12 +64,7 @@ public class PostPage extends Fragment {
         about.setEnabled(false);
 
         editBtn = view.findViewById(R.id.edit_post_page_details_btn);
-        editBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Navigation.findNavController(v).navigate(PostPageDirections.actionPostPageToEditPostPage(postId));
-            }
-        });
+        editBtn.setOnClickListener(v -> Navigation.findNavController(v).navigate(PostPageDirections.actionPostPageToEditPostPage(postId)));
 
         return view;
     }

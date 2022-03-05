@@ -3,11 +3,14 @@ package com.example.travel_guide.ui.home;
 import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -15,6 +18,9 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 
 import com.example.travel_guide.R;
+import com.example.travel_guide.model.Model;
+import com.example.travel_guide.model.User;
+import com.google.android.material.navigation.NavigationView;
 
 
 public class HomePage extends Fragment {
@@ -58,6 +64,26 @@ public class HomePage extends Fragment {
         restaurantsBtn.setOnClickListener(v -> Navigation.findNavController(v).navigate(HomePageDirections.actionGlobalPostListRvFragment("restaurants",userId,citySpinner.getSelectedItem().toString())));
         museumsBtn.setOnClickListener(v -> Navigation.findNavController(v).navigate(HomePageDirections.actionGlobalPostListRvFragment("museums",userId,citySpinner.getSelectedItem().toString())));
         allCategoriesBtn.setOnClickListener(v -> Navigation.findNavController(v).navigate(HomePageDirections.actionGlobalPostListRvFragment("allCategories",userId,citySpinner.getSelectedItem().toString())));
+
+//        NavigationView navigationView = (NavigationView) getActivity().findViewById(R.id.nav_view); //gets  null!!! TODO:: to check WHY??
+//        TextView userName = navigationView.getHeaderView(0).findViewById(R.id.userName_tv);
+//        TextView userEmail = navigationView.getHeaderView(0).findViewById(R.id.userEmail_tv);
+//        System.out.println("!!!!!!!!!!!");
+//        System.out.println("!!!!!!!!!!!!!!!");
+//        Model.instance.getUserById(userId, new Model.GetUserById() {
+//            @Override
+//            public void onComplete(User user) {
+//                userName.setText(user.getUserName());
+//                userEmail.setText(user.getEmail());
+//            }
+//        });
+//        Menu menu = navigationView.getMenu();
+//        MenuItem nav_Login = menu.findItem(R.id.logIn_nav);
+//        MenuItem nav_signUp = menu.findItem(R.id.signUp_nav);
+//        MenuItem nav_Logout = menu.findItem(R.id.logOut_nav);
+//        nav_Login.setVisible(false);
+//        nav_signUp.setVisible(false);
+//        nav_Logout.setVisible(true);
 
         return view;
     }

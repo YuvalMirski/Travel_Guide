@@ -68,8 +68,7 @@ public class LogIn extends Fragment {
                         @Override
                         public void onComplete(User user) {
                             if (user != null) {
-                                View inflatedView = getLayoutInflater().inflate(R.layout.activity_main, null);
-
+//                                View inflatedView = getLayoutInflater().inflate(R.layout.activity_main, null);
 //                                NavigationView navigationView = (NavigationView) inflatedView.findViewById(R.id.nav_view); //gets  null!!! TODO:: to check WHY??
 //                                TextView userName = navigationView.getHeaderView(0).findViewById(R.id.userName_tv);
 //                                TextView userEmail = navigationView.getHeaderView(0).findViewById(R.id.userEmail_tv);

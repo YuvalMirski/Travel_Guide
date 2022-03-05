@@ -37,52 +37,6 @@
         app:srcCompat="@drawable/default_img"
         tools:srcCompat="@drawable/default_img" />
 
-    <TextView
-        android:id="@+id/type_post_new_tv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="24dp"
-        android:text="Category:"
-        android:textSize="24sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/location_newPost_et" />
-
-    <EditText
-        android:id="@+id/about_post_page_new_et"
-        android:layout_width="0dp"
-        android:layout_height="110dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        android:textSize="24sp"
-        app:layout_constraintBaseline_toBaselineOf="@+id/about_post_new_tv"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/about_post_new_tv" />
-
-    <TextView
-        android:id="@+id/about_post_new_tv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="12dp"
-        android:layout_marginTop="64dp"
-        android:text="About:"
-        android:textSize="24sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/type_post_new_tv" />
-
-    <Button
-        android:id="@+id/add_post_page_new_btn"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="100dp"
-        android:layout_marginEnd="100dp"
-        android:layout_marginBottom="84dp"
-        android:text="Post"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
     <ImageButton
         android:id="@+id/addPost_gallery_imb"
         android:layout_width="wrap_content"
@@ -90,29 +44,6 @@
         android:src="@drawable/ic_menu_gallery"
         app:layout_constraintBottom_toBottomOf="@+id/picture_post_page_new_"
         app:layout_constraintEnd_toEndOf="@+id/picture_post_page_new_" />
-
-    <Spinner
-        android:id="@+id/spinner_category_postPage"
-        android:layout_width="238dp"
-        android:layout_height="36dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        android:spinnerMode="dropdown"
-        app:layout_constraintBottom_toBottomOf="@+id/type_post_new_tv"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.472"
-        app:layout_constraintStart_toEndOf="@+id/type_post_new_tv"
-        app:layout_constraintTop_toTopOf="@+id/type_post_new_tv" />
-
-    <Spinner
-        android:id="@+id/spinner_city_newPage"
-        android:layout_width="241dp"
-        android:layout_height="37dp"
-        android:layout_marginEnd="28dp"
-        app:layout_constraintBottom_toBottomOf="@+id/location_newPost_et"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/location_newPost_et"
-        app:layout_constraintVertical_bias="0.0" />
 
     <TextView
         android:id="@+id/location_newPost_et"
@@ -127,5 +58,83 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/picture_post_page_new_" />
+
+    <Spinner
+        android:id="@+id/spinner_city_newPage"
+        android:layout_width="241dp"
+        android:layout_height="37dp"
+        android:layout_marginEnd="28dp"
+        app:layout_constraintBottom_toBottomOf="@+id/location_newPost_et"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/location_newPost_et"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <TextView
+        android:id="@+id/type_post_new_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="24dp"
+        android:text="Category:"
+        android:textSize="24sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/location_newPost_et" />
+    <Spinner
+        android:id="@+id/spinner_category_postPage"
+        android:layout_width="238dp"
+        android:layout_height="36dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:spinnerMode="dropdown"
+        app:layout_constraintBottom_toBottomOf="@+id/type_post_new_tv"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.472"
+        app:layout_constraintStart_toEndOf="@+id/type_post_new_tv"
+        app:layout_constraintTop_toTopOf="@+id/type_post_new_tv" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/about_post_new_tv"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="24dp"
+        android:hint="@string/hint_new_post_about"
+        app:boxCornerRadiusBottomEnd="100dp"
+        app:boxCornerRadiusBottomStart="100dp"
+        app:boxCornerRadiusTopEnd="100dp"
+        app:boxCornerRadiusTopStart="100dp"
+        app:boxStrokeWidth="0dp"
+        app:boxStrokeWidthFocused="0dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/type_post_new_tv">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/about_post_page_new_et"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="text"
+            android:maxLines="1"
+            android:textColor="@color/black"
+            android:textSize="20dp"
+            app:layout_constraintStart_toEndOf="@+id/about_post_new_tv" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <Button
+        android:id="@+id/add_post_page_new_btn"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="100dp"
+        android:layout_marginTop="50dp"
+        android:layout_marginEnd="100dp"
+        android:layout_marginBottom="100dp"
+        android:text="Post"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/about_post_new_tv" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
