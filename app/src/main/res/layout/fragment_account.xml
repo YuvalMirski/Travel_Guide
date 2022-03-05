@@ -45,6 +45,8 @@
             android:layout_height="wrap_content"
             android:inputType="text"
             android:maxLines="1"
+            android:textSize="20dp"
+            android:textColor="@color/black"
             app:layout_constraintBottom_toBottomOf="@+id/username_account_tv"
             app:layout_constraintStart_toEndOf="@+id/username_account_tv" />
     </com.google.android.material.textfield.TextInputLayout>
