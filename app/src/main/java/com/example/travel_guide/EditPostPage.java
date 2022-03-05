@@ -24,6 +24,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.example.travel_guide.model.Model;
+import com.example.travel_guide.model.User;
 import com.example.travel_guide.model.UserPost;
 import com.squareup.picasso.Picasso;
 
@@ -118,9 +119,14 @@ public class EditPostPage extends Fragment {
             @Override
             public void onClick(View v) {
                 currentPost.setIsDeleted("delete");
-                Model.instance.deletePostById(currentPost,()->{
-//                    Navigation.findNavController(postName).navigateUp();
-                    Navigation.findNavController(v).navigate(EditPostPageDirections.actionGlobalHomePageNav(userId));
+                User u = Model.instance.getUser(userId).getValue();
+                u.getLstSaved().remove(postId);
+                u.getLstUserPosts().remove(postId);
+                Model.instance.updateUser(u,()-> System.out.println(""));
+
+                Model.instance.deletePostById(currentPost, () -> {
+                    Navigation.findNavController(postName).navigateUp();
+                    //Navigation.findNavController(v).navigate(EditPostPageDirections.actionEditPostPageToPostListRvFragment("","",""));
                 });
             }
         });
@@ -129,7 +135,8 @@ public class EditPostPage extends Fragment {
     }
 
     final static int SELECT_PICTURE = 200;
-    private void openGallery(){
+
+    private void openGallery() {
         // Create intent for picking a photo from the gallery
         Intent intent = new Intent();
         intent.setType("image/*");
