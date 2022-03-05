@@ -24,6 +24,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.example.travel_guide.model.Model;
+import com.example.travel_guide.model.User;
 import com.example.travel_guide.model.UserPost;
 import com.squareup.picasso.Picasso;
 
@@ -38,10 +39,11 @@ public class EditPostPage extends Fragment {
     EditText postName, location, about;
     ImageView postImg;
     Bitmap imageBitmap;
-    String new_name,new_location, new_about, new_id, new_category,userId, imageUrl;
+    String new_name, new_location, new_about, new_id, new_category, userId, imageUrl;
     Spinner categorySpinner, citySpinner;
     String[] categoryArr, cityArr;
     UserPost currentPost;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -66,7 +68,7 @@ public class EditPostPage extends Fragment {
                 int cityIndex = Arrays.asList(cityArr).indexOf(new_location);
                 citySpinner.setSelection(cityIndex);
 
-                if(userPost.getPostImgUrl()!=null) {
+                if (userPost.getPostImgUrl() != null) {
                     Picasso.get()
                             .load(imageUrl)
                             .into(postImg);
@@ -94,18 +96,17 @@ public class EditPostPage extends Fragment {
                 new_category = categorySpinner.getSelectedItem().toString();
                 new_about = about.getText().toString();
 
-                UserPost userPost = new UserPost(new_name,new_location,new_about,new_category,userId);
+                UserPost userPost = new UserPost(new_name, new_location, new_about, new_category, userId);
                 userPost.setId(postId);
 
-                if(imageBitmap!=null) {
-                    Model.instance.saveImage(imageBitmap, new_name+ ".jpg", "post_pics",url -> {
+                if (imageBitmap != null) {
+                    Model.instance.saveImage(imageBitmap, new_name + ".jpg", "post_pics", url -> {
                         userPost.setPostImgUrl(url);
-                        Model.instance.updateUserPost(userPost,()->{
+                        Model.instance.updateUserPost(userPost, () -> {
                             Navigation.findNavController(postName).navigateUp();
                         });
                     });
-                }
-                else {
+                } else {
                     userPost.setPostImgUrl(imageUrl);
                     Model.instance.updateUserPost(userPost, () -> {
                         Navigation.findNavController(postName).navigateUp();
@@ -118,7 +119,12 @@ public class EditPostPage extends Fragment {
             @Override
             public void onClick(View v) {
                 currentPost.setIsDeleted("delete");
-                Model.instance.deletePostById(currentPost,()->{
+                User u = Model.instance.getUser(userId).getValue();
+                u.getLstSaved().remove(postId);
+                u.getLstUserPosts().remove(postId);
+                Model.instance.updateUser(u,()-> System.out.println(""));
+
+                Model.instance.deletePostById(currentPost, () -> {
                     Navigation.findNavController(postName).navigateUp();
                     //Navigation.findNavController(v).navigate(EditPostPageDirections.actionEditPostPageToPostListRvFragment("","",""));
                 });
@@ -129,7 +135,8 @@ public class EditPostPage extends Fragment {
     }
 
     final static int SELECT_PICTURE = 200;
-    private void openGallery(){
+
+    private void openGallery() {
         // Create intent for picking a photo from the gallery
         Intent intent = new Intent();
         intent.setType("image/*");
@@ -147,8 +154,10 @@ public class EditPostPage extends Fragment {
                 Uri selectedImageUri = data.getData();
                 imageBitmap = null;
                 try {
-                    imageBitmap = MediaStore.Images.Media.getBitmap(getContext().getContentResolver(),selectedImageUri);
-                } catch (IOException e) { e.printStackTrace(); }
+                    imageBitmap = MediaStore.Images.Media.getBitmap(getContext().getContentResolver(), selectedImageUri);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
 
                 if (imageBitmap != null) {
                     postImg.setImageBitmap(imageBitmap);
@@ -157,8 +166,7 @@ public class EditPostPage extends Fragment {
         }
     }
 
-    public void initSpinners(View view)
-    {
+    public void initSpinners(View view) {
         categorySpinner = (Spinner) view.findViewById(R.id.spinner_category_editPostPage);
         ArrayAdapter<CharSequence> adapterCategory = ArrayAdapter.createFromResource(getContext(), R.array.CategoryList, R.layout.spinner_item);
         adapterCategory.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
