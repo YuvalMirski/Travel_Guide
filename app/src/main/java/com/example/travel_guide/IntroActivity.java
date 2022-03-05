@@ -6,6 +6,7 @@ import androidx.navigation.Navigation;
 import android.content.Intent;
 import android.os.Bundle;
 import com.example.travel_guide.model.Model;
+import com.example.travel_guide.model.User;
 
 public class IntroActivity extends AppCompatActivity {
 
@@ -21,6 +22,7 @@ public class IntroActivity extends AppCompatActivity {
                 e.printStackTrace();
             }
             if(Model.instance.isSignedIn()){
+                Model.instance.getConnectedUser(user -> Model.instance.setCurrentUser(user));
                 Model.instance.mainThread.post(() -> {
                     toFeedActivity();
                 });

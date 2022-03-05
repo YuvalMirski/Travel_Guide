@@ -24,6 +24,19 @@ public class Model {
     public Executor executor = Executors.newFixedThreadPool(1);
     public Handler mainThread = HandlerCompat.createAsync(Looper.getMainLooper());
 
+    User currentUser;
+    MutableLiveData<User> LiveDataUser = new MutableLiveData<User>();
+
+    public User getCurrentUser() {
+        //return LiveDataUser.getValue();
+       return currentUser;
+    }
+
+    public void setCurrentUser(User currentUser) {
+        //this.LiveDataUser.setValue(currentUser);
+        this.currentUser = currentUser;
+    }
+
     Long lastUpdateDate = MyApplication.getContext()
             .getSharedPreferences("TAG", Context.MODE_PRIVATE)
             .getLong(UserPost.LAST_UPDATE, 0);
@@ -47,7 +60,6 @@ public class Model {
 
     MutableLiveData<List<UserPost>> listLiveDataPost = new MutableLiveData<List<UserPost>>();
 
-    MutableLiveData<User> LiveDataUser = new MutableLiveData<User>();
     //------------------------------------POST------------------------------------//
 
     public LiveData<List<UserPost>> getCategoryPosts(String categoryName, String userId, String location) {
@@ -111,8 +123,13 @@ public class Model {
                             System.out.println("list size : " + list.size());
                             // AppLocalDB.db.userPostDao().insertAll(us);
 
-                            if (lstSaved.contains(us.id))
-                                AppLocalDB.db.userPostDao().insertAll(us);
+                            if (lstSaved.contains(us.id)){
+                                if(us.isDeleted.equals("delete"))
+                                    AppLocalDB.db.userPostDao().delete(us);
+                                else
+                                    AppLocalDB.db.userPostDao().insertAll(us);
+                            }
+
 //                            else
 //                                AppLocalDB.db.userPostDao().delete(us);
 
@@ -284,8 +301,21 @@ public class Model {
         void onComplete(User user);
     }
 
+    public interface GetConnectedUser {
+        void onComplete(User user);
+    }
+    public void getConnectedUser(GetConnectedUser listener){
+        modelFirebase.getConnectedUser(listener);
+    }
+
+
     public void getUserById(String userId, GetUserById listener) {
-        modelFirebase.getUserById(userId, listener);
+//        if (LiveDataUser.getValue().getId().equals(userId))
+////            listener.onComplete(LiveDataUser.getValue());
+//        if(currentUser.getId().equals(userId))
+//            listener.onComplete(currentUser);
+//        else
+            modelFirebase.getUserById(userId, listener);
     }
 
     public interface DeleteUserById {
@@ -325,6 +355,7 @@ public class Model {
     public boolean isSignedIn() {
         return modelFirebase.isSignedIn();
     }
+
 
 
 }

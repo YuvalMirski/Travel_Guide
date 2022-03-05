@@ -443,6 +443,18 @@ public class ModelFirebase {
         listener.onComplete(id);
     }
 
+    public void getConnectedUser(Model.GetConnectedUser listener) {
+       // FirebaseUser userRB = FirebaseAuth.getInstance().getCurrentUser();
+        FirebaseUser userRB = mAuth.getCurrentUser();
+        getUserById(userRB.getUid(), new Model.GetUserById() {
+            @Override
+            public void onComplete(User user) {
+                listener.onComplete(user);
+            }
+        });
+
+    }
+
     /**
      * Storage implementation
      */
