@@ -176,7 +176,6 @@ public class PostListRvFragment extends Fragment {
                             .into(userAvatar);
                 }
             });
-
         }
     }
 

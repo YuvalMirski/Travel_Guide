@@ -48,8 +48,6 @@ public class EditPostPage extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_edit_post_page, container, false);
 
-
-
         String postId = EditPostPageArgs.fromBundle(getArguments()).getPostId();
         new_id = postId;
         Model.instance.getPostById(postId, new Model.GetPostById() {
@@ -128,7 +126,6 @@ public class EditPostPage extends Fragment {
         });
 
         return view;
-
     }
 
     final static int SELECT_PICTURE = 200;
@@ -174,5 +171,4 @@ public class EditPostPage extends Fragment {
         citySpinner.setAdapter(adapterCity);
         cityArr = getResources().getStringArray(R.array.CityList);
     }
-
 }

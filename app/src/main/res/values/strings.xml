@@ -40,10 +40,18 @@
     <string name="hint_editPostPage_category">Category:</string>
     <string name="hint_editPostPage_about">About:</string>
 
+    <!-- Edit account Page -->
+    <string name="hint_account_edit_username">Username:</string>
+    <string name="hint_account_edit_email">Email:</string>
+    <string name="hint_account_edit_country">Country:</string>
+    <string name="hint_account_edit_password">Password:</string>
+
+    <!-- New post Page -->
+    <string name="hint_new_post_about">About:</string>
 
 
 
-    <!-- Page -->
+    <!-- Post Spinners -->
     <string-array name="CategoryList">
         <item>attractions</item>
         <item>tours</item>
@@ -64,11 +72,11 @@
         <item>Chicago</item>
     </string-array>
 
+    <!-- Message outputs -->
     <string name="title_activity_login">LoginActivity</string>
     <string name="welcome">"Welcome !"</string>
     <string name="invalid_username">Not a valid username</string>
     <string name="invalid_password">Password must be >5 characters</string>
     <string name="login_failed">"Login failed"</string>
-
 
 </resources>

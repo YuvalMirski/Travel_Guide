@@ -21,6 +21,19 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/userAvatar_account_details_imv"
+        android:layout_width="130dp"
+        android:layout_height="130dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="24dp"
+        android:src="@drawable/avatar"
+        app:layout_constraintBottom_toBottomOf="@+id/username_account_tv"
+        app:layout_constraintDimensionRatio="H,1:1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/username_account_tv"
+        app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.CornerSize50Percent" />
+
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/username_account_tv"
         android:layout_width="0dp"
@@ -29,6 +42,7 @@
         android:layout_marginTop="100dp"
         android:layout_marginEnd="16dp"
         android:hint="@string/hint_account_username"
+
         app:boxCornerRadiusBottomEnd="100dp"
         app:boxCornerRadiusBottomStart="100dp"
         app:boxCornerRadiusTopEnd="100dp"
@@ -46,6 +60,7 @@
             android:inputType="text"
             android:maxLines="1"
             android:textSize="20dp"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:textColor="@color/black"
             app:layout_constraintBottom_toBottomOf="@+id/username_account_tv"
             app:layout_constraintStart_toEndOf="@+id/username_account_tv" />
@@ -227,20 +242,5 @@
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/edit_accoutn_btn"
         app:layout_constraintTop_toBottomOf="@+id/password_account_tv" />
-
-
-    <com.google.android.material.imageview.ShapeableImageView
-        android:id="@+id/userAvatar_account_details_imv"
-        android:layout_width="130dp"
-        android:layout_height="130dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="24dp"
-        android:src="@drawable/avatar"
-        app:layout_constraintBottom_toBottomOf="@+id/username_account_tv"
-        app:layout_constraintDimensionRatio="H,1:1"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/user_name_account_str_tv"
-        app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.CornerSize50Percent" />
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>
