@@ -71,10 +71,10 @@ public class EditUserPage extends Fragment {
         ImageButton galleryBtn = view.findViewById(R.id.gallery_editAccount_imb);
         galleryBtn.setOnClickListener(v -> openGallery());
 
-        Button deleteBtn = view.findViewById(R.id.delete_account_edit_btn);
-        Button saveBtn = view.findViewById(R.id.save_account_edit_btn);
-        deleteBtn.setOnClickListener(v -> Model.instance.deleteUserById(userId,()-> Navigation.findNavController(userName).navigateUp()));
+//        Button deleteBtn = view.findViewById(R.id.delete_account_edit_btn);
+//        deleteBtn.setOnClickListener(v -> Model.instance.deleteUserById(userId,()-> Navigation.findNavController(userName).navigateUp()));
 
+        Button saveBtn = view.findViewById(R.id.save_account_edit_btn);
         saveBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
