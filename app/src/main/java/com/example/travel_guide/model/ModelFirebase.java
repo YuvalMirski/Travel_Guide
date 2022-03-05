@@ -34,7 +34,7 @@ import java.util.Map;
 public class ModelFirebase {
 
     FirebaseFirestore db = FirebaseFirestore.getInstance();
-    private FirebaseAuth mAuth= FirebaseAuth.getInstance();
+    private FirebaseAuth mAuth = FirebaseAuth.getInstance();
 
     public ModelFirebase() {
         FirebaseFirestoreSettings settings = new FirebaseFirestoreSettings.Builder()
@@ -43,7 +43,7 @@ public class ModelFirebase {
         db.setFirestoreSettings(settings);
     }
 
-    public boolean isSignedIn(){
+    public boolean isSignedIn() {
         FirebaseUser currentUser = mAuth.getCurrentUser();
         return (currentUser != null);
     }
@@ -52,29 +52,30 @@ public class ModelFirebase {
     public interface GetAllPostsListener {
         void onComplete(List<UserPost> list);
     }
-    public void initFireBaseAuto(){
+
+    public void initFireBaseAuto() {
         mAuth = FirebaseAuth.getInstance();
     }
 
     //TODO::getAllPosts can use for the saved post in the device
-    public void getAllPosts( Long lastUpdateDate, GetAllPostsListener listener) {
+    public void getAllPosts(Long lastUpdateDate, GetAllPostsListener listener) {
 
-        db.collection(UserPost.COLLECTION_NAME).whereEqualTo("isDeleted","false")
+        db.collection(UserPost.COLLECTION_NAME).whereEqualTo("isDeleted", "false")
 //              .whereGreaterThanOrEqualTo("updateDate", new Timestamp(lastUpdateDate, 0))
                 .get()
                 .addOnCompleteListener(task -> {
                     List<UserPost> list = new LinkedList<UserPost>();
                     if (task.isSuccessful()) {
                         UserPost userPost;
-                        List<String>ids = new ArrayList<>();
+                        List<String> ids = new ArrayList<>();
                         for (QueryDocumentSnapshot doc : task.getResult())
                             ids.add(doc.getId());
 
                         int i = 0;
                         for (QueryDocumentSnapshot doc : task.getResult()) {
 
-                           // String postId = doc.getId();
-                           // System.out.println("----------"+UserPost.create(doc.getData()));
+                            // String postId = doc.getId();
+                            // System.out.println("----------"+UserPost.create(doc.getData()));
 
                             userPost = UserPost.create(doc.getData()); //convert from json to Post
                             //System.out.println(userPost);
@@ -89,21 +90,20 @@ public class ModelFirebase {
                     listener.onComplete(list);
                 });
     }
-    public void getCategoryPosts(Long lastUpdateDate,String userId,String categoryName,String location,GetAllPostsListener listener){
+
+    public void getCategoryPosts(Long lastUpdateDate, String userId, String categoryName, String location, GetAllPostsListener listener) {
         //DocumentReference a = db.collection(UserPost.COLLECTION_NAME).document();
-        String fieldKey,fieldVal;
+        String fieldKey, fieldVal;
         CollectionReference categoryReference = db.collection(UserPost.COLLECTION_NAME);
-        if(categoryName.equals("userCreatePosts"))
-        {
+        if (categoryName.equals("userCreatePosts")) {
             fieldKey = "userId";
             fieldVal = userId;
-        }
-        else{
+        } else {
             fieldKey = "category";
             fieldVal = categoryName;//.whereEqualTo("location","NYC")
         }
-        if(!location.equals("")){
-            Task<QuerySnapshot> q = categoryReference.whereEqualTo(fieldKey,fieldVal).whereEqualTo("location",location).whereEqualTo("isDeleted","false")
+        if (!location.equals("")) {
+            Task<QuerySnapshot> q = categoryReference.whereEqualTo(fieldKey, fieldVal).whereEqualTo("location", location).whereEqualTo("isDeleted", "false")
                     .get()
                     .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                         List<UserPost> list = new LinkedList<UserPost>();
@@ -119,12 +119,12 @@ public class ModelFirebase {
                                 }
                             } else {
                                 Log.d("TAG", "Error getting documents: ", task.getException());
-                            }listener.onComplete(list);
+                            }
+                            listener.onComplete(list);
                         }
                     });
-        }
-        else{// for all user
-            Task<QuerySnapshot> q = categoryReference.whereEqualTo(fieldKey,fieldVal).whereEqualTo("isDeleted","false")
+        } else {// for all user
+            Task<QuerySnapshot> q = categoryReference.whereEqualTo(fieldKey, fieldVal).whereEqualTo("isDeleted", "false")
                     .get()
                     .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                         List<UserPost> list = new LinkedList<UserPost>();
@@ -139,76 +139,77 @@ public class ModelFirebase {
                                 }
                             } else {
                                 Log.d("TAG", "Error getting documents: ", task.getException());
-                            }listener.onComplete(list);
+                            }
+                            listener.onComplete(list);
                         }
                     });
         }
     }
 
-    public void getUserSavedPost(String userId,List<String>userSavedPostLst,Long lastUpdateDate,GetAllPostsListener listener) {
+    public void getUserSavedPost(String userId, List<String> userSavedPostLst, Long lastUpdateDate, GetAllPostsListener listener) {
         // CollectionReference postReference = db.collection(UserPost.COLLECTION_NAME);
 
         List<UserPost> list = new LinkedList<UserPost>();
 
 
-        for (String s : userSavedPostLst)
-            {
-            CollectionReference categoryReference = db.collection(UserPost.COLLECTION_NAME);
-            //Task<QuerySnapshot> q = categoryReference.whereEqualTo("id", s) .whereGreaterThanOrEqualTo("updateDate",new Timestamp(lastUpdateDate,0))
-            Task<QuerySnapshot> q = categoryReference.whereEqualTo("id", s).whereGreaterThanOrEqualTo("updateDate",new Timestamp(lastUpdateDate,0))
-                .get()
-                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-
-                    @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-
-                        if (task.isSuccessful()) {
-                            for (QueryDocumentSnapshot document : task.getResult()) {
-                                UserPost userPost = UserPost.create(document.getData()); //convert from json to Post
-                                updateId(document.getId(), userPost);
-                                list.add(userPost);
-                            }
-                        }listener.onComplete(list);
-
-                    }
-                });
-             }
-                if(userSavedPostLst.size()==0)
-                listener.onComplete(list);
+//        for (String s : userSavedPostLst) {
+//            CollectionReference categoryReference = db.collection(UserPost.COLLECTION_NAME);
+//            //Task<QuerySnapshot> q = categoryReference.whereEqualTo("id", s) .whereGreaterThanOrEqualTo("updateDate",new Timestamp(lastUpdateDate,0))
+//            Task<QuerySnapshot> q = categoryReference.whereEqualTo("id", s)
+//                    .get()
+//                    .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+//
+//                        @Override
+//                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
+//
+//                            if (task.isSuccessful()) {
+//                                for (QueryDocumentSnapshot document : task.getResult()) {
+//                                    System.out.println("inside +++++++++++++++++++++++++++");
+//                                    UserPost userPost = UserPost.create(document.getData()); //convert from json to Post
+//                                    updateId(document.getId(), userPost);
+//                                    list.add(userPost);
+//                                }
+//                            }
+//                            //listener.onComplete(list);
+//                        }
+//                    });listener.onComplete(list);
+//        }
+//        if (userSavedPostLst.size() == 0)
+//            listener.onComplete(list);
 
 
 //toDO:: ----------------------------------------------------------
 
-//            for (String s : userSavedPostLst)
-//            {
-//                db.collection(UserPost.COLLECTION_NAME)
-//                        .document(s)
-//                        .get()
-//                        .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-//                            @Override
-//                            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-//                                UserPost userPost = null;
-//                                if (task.isSuccessful() & task.getResult() != null) {
-//                                    DocumentSnapshot document = task.getResult();
-//                                    userPost = UserPost.create(task.getResult().getData());
-//                                    updateId(aLong, document.getId(), userPost);
-//
-//                                    System.out.println("work to fetch");
-//                                    System.out.println(userPost.getId());
-//                                    list.add(userPost);
-//                                }listener.onComplete(list);
-//                            }
-//                        });
-//            }
-//            if(userSavedPostLst.size()==0)
-//                listener.onComplete(list);
+            for (String s : userSavedPostLst)
+            {
+                db.collection(UserPost.COLLECTION_NAME)
+                        .document(s)
+                        .get()
+                        .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                            @Override
+                            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                UserPost userPost = null;
+                                if (task.isSuccessful() & task.getResult() != null) {
+                                    DocumentSnapshot document = task.getResult();
+                                    userPost = UserPost.create(task.getResult().getData());
+                                    updateId(document.getId(), userPost);
+
+                                    System.out.println("work to fetch");
+                                    System.out.println(userPost.getId());
+                                    list.add(userPost);
+                                }listener.onComplete(list);
+                            }
+                        });
+            }
+            if(userSavedPostLst.size()==0)
+                listener.onComplete(list);
 
     }
 
     public void updateId(String id, UserPost userPost) {
 //        DocumentReference a = db.collection(UserPost.COLLECTION_NAME).document(id);
-       // userPost.setId(a.getId());
-          userPost.setId(id);
+        // userPost.setId(a.getId());
+        userPost.setId(id);
 //        a.set(userPost);
     }
 
@@ -327,7 +328,7 @@ public class ModelFirebase {
                         User user = null;
                         if (task.isSuccessful() & task.getResult() != null) {
                             user = User.create(task.getResult().getData());
-                            updateUserId(userId,user);
+                            updateUserId(userId, user);
                         }
                         listener.onComplete(user);
                     }
@@ -340,12 +341,12 @@ public class ModelFirebase {
         documentReference.set(user);
     }
 
-    public void createUserWithEmail(User userFromCode,Model.AddUserToFBListener listener){
+    public void createUserWithEmail(User userFromCode, Model.AddUserToFBListener listener) {
         String email = userFromCode.email;
         String password = userFromCode.password;
 
         mAuth.createUserWithEmailAndPassword(email, password)
-                .addOnCompleteListener( new OnCompleteListener<AuthResult>() {
+                .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
@@ -354,20 +355,21 @@ public class ModelFirebase {
                             FirebaseUser user = mAuth.getCurrentUser();
                             String userId = user.getUid();
                             userFromCode.setId(userId);
-                            addUser(userFromCode,listener);
+                            addUser(userFromCode, listener);
                             //updateUI(user);
 
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w("TAG", "createUserWithEmail:failure", task.getException());
                             listener.onComplete(task.getException().toString());
-                           // Toast.makeText(MyApplication.getContext().getApplicationContext(), "Registration Failed", Toast.LENGTH_LONG).show();
+                            // Toast.makeText(MyApplication.getContext().getApplicationContext(), "Registration Failed", Toast.LENGTH_LONG).show();
 
 //                            updateUI(null);
                         }
                     }
                 });
     }
+
     public void isUserIn(Model.OnCompleteGeneralListener listener) {
         FirebaseUser user = mAuth.getCurrentUser();
         if (user != null) {
@@ -382,7 +384,7 @@ public class ModelFirebase {
         }
     }
 
-    public void userSignIn(String email, String password,Model.OnCompleteGeneralListener listener){
+    public void userSignIn(String email, String password, Model.OnCompleteGeneralListener listener) {
 
         mAuth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
@@ -411,11 +413,13 @@ public class ModelFirebase {
                     }
                 });
     }
-    public void signOut(){
+
+    public void signOut() {
 
         mAuth.signOut();
     }
-    public void deleteUser(Model.OnCompleteGeneralListener listener){
+
+    public void deleteUser(Model.OnCompleteGeneralListener listener) {
 
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser(); // connected user can delete itself
         user.delete()
@@ -440,11 +444,11 @@ public class ModelFirebase {
     }
 
     /**
-     *  Storage implementation
+     * Storage implementation
      */
     FirebaseStorage storage = FirebaseStorage.getInstance();
 
-    public void saveImage(Bitmap imageBitmap, String imageName, String savePath ,Model.SaveImageListener listener) {
+    public void saveImage(Bitmap imageBitmap, String imageName, String savePath, Model.SaveImageListener listener) {
         // Create a storage reference from our app
         StorageReference storageRef = storage.getReference();
         StorageReference imageRef = storageRef.child("/" + savePath + "/" + imageName); //TODO::to catch 2 types of images - user or post
