@@ -4,9 +4,11 @@ import static com.example.travel_guide.MyApplication.getContext;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.Menu;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toolbar;
@@ -20,6 +22,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -27,6 +30,7 @@ import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.AppCompatActivity;
+
 
 import com.example.travel_guide.databinding.ActivityMainBinding;
 import com.squareup.picasso.Picasso;
@@ -42,6 +46,8 @@ public class MainActivity extends AppCompatActivity  {//implements NavigationVie
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
@@ -94,33 +100,18 @@ public class MainActivity extends AppCompatActivity  {//implements NavigationVie
         //bottomNav.animate(); TODO:animation
         bottomNav.setOnNavigationItemSelectedListener(navListener);
 
-        NavigationView navigationViewDrawer = (NavigationView) findViewById(R.id.nav_view); //gets  null!!! TODO:: to check WHY??
+        //Update drawer header
+        NavigationView navigationViewDrawer = (NavigationView) findViewById(R.id.nav_view);
         TextView userName = navigationViewDrawer.getHeaderView(0).findViewById(R.id.userName_tv);
         TextView userEmail = navigationViewDrawer.getHeaderView(0).findViewById(R.id.userEmail_tv);
         ImageView userAvatar =navigationViewDrawer.getHeaderView(0).findViewById(R.id.userPic_imv);
 
         User currentUser = Model.instance.getCurrentUser();
-        userName.setText("Hello "+ currentUser.getUserName());
+        userName.setText("Hello "+ currentUser.getUserName()+"!");
         userEmail.setText(currentUser.getEmail());
         Picasso.get()
                 .load(currentUser.getAvatarUrl())
                 .into(userAvatar);
-
-
-//        Model.instance.getUserById(userId, new Model.GetUserById() {
-//            @Override
-//            public void onComplete(User user) {
-//                userName.setText(user.getUserName());
-//                userEmail.setText(user.getEmail());
-//            }
-//        });
-//        Menu menu = navigationView.getMenu();
-//        MenuItem nav_Login = menu.findItem(R.id.logIn_nav);
-//        MenuItem nav_signUp = menu.findItem(R.id.signUp_nav);
-//        MenuItem nav_Logout = menu.findItem(R.id.logOut_nav);
-//        nav_Login.setVisible(false);
-//        nav_signUp.setVisible(false);
-//        nav_Logout.setVisible(true);
     }
 
 
@@ -142,6 +133,7 @@ public class MainActivity extends AppCompatActivity  {//implements NavigationVie
                     selectedFragment = new HomePage();
                     bundle.putString("userId", userId);
                     selectedFragment.setArguments(bundle);
+
                     break;
                 case R.id.newPostPage:
                     selectedFragment = new NewPostPage();
@@ -181,30 +173,21 @@ public class MainActivity extends AppCompatActivity  {//implements NavigationVie
         Bundle bundle = new Bundle();
         if (!super.onOptionsItemSelected(item)){
             switch (item.getItemId()){
-//                case android.R.id.home:
-//                    navController.navigateUp();
-//                    return true;
+                case android.R.id.home:
+                    navController.navigateUp();
+                    return true;
                 case R.id.action_account:
                     Fragment accountFragment = new Account();
                     bundle.putString("userId", userId);
                     accountFragment.setArguments(bundle);
                     getSupportFragmentManager().beginTransaction().replace(R.id.nav_host_fragment_content_main,accountFragment).commit();
                     return true;
+                default:
+                    NavigationUI.onNavDestinationSelected(item, navController);
             }
         }else{
             return true;
         }
         return false;
     }
-
-//    public static class SaveUserId {
-//        private static String id;
-//        public static String getId(){
-//            return id;
-//        }
-//        public static void setId(String id)
-//        {
-//            SaveUserId.id =id;
-//        }
-//    }
 }

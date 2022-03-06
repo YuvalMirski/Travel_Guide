@@ -9,6 +9,7 @@ import androidx.navigation.ui.NavigationUI;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.WindowManager;
 
 import com.example.travel_guide.databinding.ActivityMainBinding;
 
@@ -18,6 +19,9 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                WindowManager.LayoutParams.FLAG_FULLSCREEN);
+
         setContentView(R.layout.activity_login);
 
         NavHost navHost = (NavHost) getSupportFragmentManager().findFragmentById(R.id.login_navhost);
@@ -38,19 +42,19 @@ public class LoginActivity extends AppCompatActivity {
         return true;
     }
 
-    @Override
-    public boolean onOptionsItemSelected (@NonNull MenuItem item){
-        if (!super.onOptionsItemSelected(item)) {
-            switch (item.getItemId()) {
-                case android.R.id.home:
-                    navCtl.navigateUp();
-                    return true;
-                default:
-                    NavigationUI.onNavDestinationSelected(item, navCtl);
-            }
-        } else {
-            return true;
-        }
-        return false;
-    }
+//    @Override
+//    public boolean onOptionsItemSelected (@NonNull MenuItem item){
+//        if (!super.onOptionsItemSelected(item)) {
+//            switch (item.getItemId()) {
+//                case android.R.id.home:
+//                    navCtl.navigateUp();
+//                    return true;
+//                default:
+//                    NavigationUI.onNavDestinationSelected(item, navCtl);
+//            }
+//        } else {
+//            return true;
+//        }
+//        return false;
+//    }
 }
