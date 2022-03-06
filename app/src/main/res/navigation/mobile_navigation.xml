@@ -9,7 +9,7 @@
         android:id="@+id/homePage_nav"
         android:name="com.example.travel_guide.ui.home.HomePage"
         android:label="Home"
-        tools:layout="@layout/fragment_home_page" >
+        tools:layout="@layout/fragment_home_page">
         <action
             android:id="@+id/action_homePage_nav_to_postListRvFragment"
             app:destination="@id/postListRvFragment" />
@@ -114,7 +114,10 @@
             app:argType="string" />
     </fragment>
     <action android:id="@+id/action_global_postListRvFragment" app:destination="@id/postListRvFragment"/><action android:id="@+id/action_global_postPage" app:destination="@id/postPage"/>
-    <action android:id="@+id/action_global_homePage_nav" app:destination="@id/homePage_nav" />
+    <action
+        android:id="@+id/action_global_homePage_nav"
+        app:destination="@id/homePage_nav"
+        app:popUpTo="@id/homePage_nav" />
     <action android:id="@+id/action_global_newPostPage" app:destination="@id/newPostPage" />
     <action android:id="@+id/action_global_editUserFragment" app:destination="@id/editUserFragment" />
 <!--    <action android:id="@+id/action_global_signUp_nav" app:destination="@id/signUp_nav" />-->

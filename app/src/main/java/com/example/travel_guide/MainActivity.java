@@ -112,6 +112,7 @@ public class MainActivity extends AppCompatActivity  {//implements NavigationVie
         Picasso.get()
                 .load(currentUser.getAvatarUrl())
                 .into(userAvatar);
+
     }
 
 
@@ -133,13 +134,12 @@ public class MainActivity extends AppCompatActivity  {//implements NavigationVie
                     selectedFragment = new HomePage();
                     bundle.putString("userId", userId);
                     selectedFragment.setArguments(bundle);
-
                     break;
                 case R.id.newPostPage:
                     selectedFragment = new NewPostPage();
                     break;
                 case R.id.postListRvFragment:
-                    selectedFragment = new PostListRvFragment(); //TODO: to change for saved only posts
+                    selectedFragment = new PostListRvFragment();
                     bundle.putString("userId",userId);
                     bundle.putString("categoryName","userSavedPost");
                     bundle.putString("locationName","");
@@ -154,8 +154,8 @@ public class MainActivity extends AppCompatActivity  {//implements NavigationVie
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
+        super.onCreateOptionsMenu(menu);
         getMenuInflater().inflate(R.menu.main, menu);
-
         return true;
     }
 
@@ -182,8 +182,6 @@ public class MainActivity extends AppCompatActivity  {//implements NavigationVie
                     accountFragment.setArguments(bundle);
                     getSupportFragmentManager().beginTransaction().replace(R.id.nav_host_fragment_content_main,accountFragment).commit();
                     return true;
-                default:
-                    NavigationUI.onNavDestinationSelected(item, navController);
             }
         }else{
             return true;

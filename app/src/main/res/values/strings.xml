@@ -53,10 +53,10 @@
 
     <!-- Post Spinners -->
     <string-array name="CategoryList">
-        <item>attractions</item>
-        <item>tours</item>
-        <item>restaurants</item>
-        <item>museums</item>
+        <item>Attractions</item>
+        <item>Tours</item>
+        <item>Restaurants</item>
+        <item>Museums</item>
     </string-array>
 
     <string-array name="CityList">

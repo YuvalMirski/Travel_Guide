@@ -148,7 +148,8 @@ public class PostListRvFragment extends Fragment {
 
         public void bind(UserPost post){
             postName.setText(post.getName());
-            category.setText(post.getType());
+            String categoryUserPost = post.getCategory().substring(0,1).toUpperCase() + post.getCategory().substring(1);
+            category.setText(categoryUserPost);
             location.setText(post.getLocation());
             postImg.setImageResource(R.drawable.avatar);
 

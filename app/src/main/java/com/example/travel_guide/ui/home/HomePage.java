@@ -20,6 +20,7 @@ import androidx.navigation.Navigation;
 import com.example.travel_guide.R;
 import com.example.travel_guide.model.Model;
 import com.example.travel_guide.model.User;
+import com.example.travel_guide.ui.account.Account;
 import com.google.android.material.navigation.NavigationView;
 
 
@@ -27,6 +28,7 @@ public class HomePage extends Fragment {
 
     HomePageViewModel homeViewModel;
     String userId;
+    View view;
     public HomePage() {
         // Required empty public constructor
     }
@@ -41,7 +43,7 @@ public class HomePage extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_home_page, container, false);
+        view = inflater.inflate(R.layout.fragment_home_page, container, false);
 
         Button attractionBtn = (Button)view.findViewById(R.id.attractions_home_btn);
         Button toursBtn = (Button)view.findViewById(R.id.tours_home_btn);
@@ -64,26 +66,6 @@ public class HomePage extends Fragment {
         restaurantsBtn.setOnClickListener(v -> Navigation.findNavController(v).navigate(HomePageDirections.actionGlobalPostListRvFragment("restaurants",userId,citySpinner.getSelectedItem().toString())));
         museumsBtn.setOnClickListener(v -> Navigation.findNavController(v).navigate(HomePageDirections.actionGlobalPostListRvFragment("museums",userId,citySpinner.getSelectedItem().toString())));
         allCategoriesBtn.setOnClickListener(v -> Navigation.findNavController(v).navigate(HomePageDirections.actionGlobalPostListRvFragment("allCategories",userId,citySpinner.getSelectedItem().toString())));
-
-//        NavigationView navigationView = (NavigationView) getActivity().findViewById(R.id.nav_view); //gets  null!!! TODO:: to check WHY??
-//        TextView userName = navigationView.getHeaderView(0).findViewById(R.id.userName_tv);
-//        TextView userEmail = navigationView.getHeaderView(0).findViewById(R.id.userEmail_tv);
-//        System.out.println("!!!!!!!!!!!");
-//        System.out.println("!!!!!!!!!!!!!!!");
-//        Model.instance.getUserById(userId, new Model.GetUserById() {
-//            @Override
-//            public void onComplete(User user) {
-//                userName.setText(user.getUserName());
-//                userEmail.setText(user.getEmail());
-//            }
-//        });
-//        Menu menu = navigationView.getMenu();
-//        MenuItem nav_Login = menu.findItem(R.id.logIn_nav);
-//        MenuItem nav_signUp = menu.findItem(R.id.signUp_nav);
-//        MenuItem nav_Logout = menu.findItem(R.id.logOut_nav);
-//        nav_Login.setVisible(false);
-//        nav_signUp.setVisible(false);
-//        nav_Logout.setVisible(true);
 
         return view;
     }

@@ -28,8 +28,6 @@ public class PostPage extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_post_page, container, false);
 
-        ImageView img = (ImageView) (view.findViewById(R.id.picture_post_page_details_));
-
         String postId = PostPageArgs.fromBundle(getArguments()).getPostId();
         userLoggedId = PostPageArgs.fromBundle(getArguments()).getUserId();
 
@@ -38,7 +36,8 @@ public class PostPage extends Fragment {
             public void onComplete(UserPost userPost) {
               postName.setText(userPost.getName());
               location.setText(userPost.getLocation());
-              category.setText(userPost.getCategory());
+              String categoryUserPost = userPost.getCategory().substring(0,1).toUpperCase() + userPost.getCategory().substring(1);
+              category.setText(categoryUserPost);
               about.setText(userPost.getAbout());
               userNamePostId = userPost.getUserId();
 

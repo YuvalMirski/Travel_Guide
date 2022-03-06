@@ -69,22 +69,6 @@ public class LogIn extends Fragment {
                         public void onComplete(User user) {
                             if (user != null) {
                                 Model.instance.setCurrentUser(user);
-//                                View inflatedView = getLayoutInflater().inflate(R.layout.activity_main, null);
-//                                NavigationView navigationView = (NavigationView) inflatedView.findViewById(R.id.nav_view); //gets  null!!! TODO:: to check WHY??
-//                                TextView userName = navigationView.getHeaderView(0).findViewById(R.id.userName_tv);
-//                                TextView userEmail = navigationView.getHeaderView(0).findViewById(R.id.userEmail_tv);
-//                                System.out.println(user.getUserName()+"!!!!!!!!!!!");
-//                                System.out.println(user.getEmail()+"!!!!!!!!!!!!!!!");
-//                                userName.setText(user.getUserName());
-//                                userEmail.setText(user.getEmail());
-//
-//                                Menu menu = navigationView.getMenu();
-//                                MenuItem nav_Login = menu.findItem(R.id.logIn_nav);
-//                                MenuItem nav_signUp = menu.findItem(R.id.signUp_nav);
-//                                MenuItem nav_Logout = menu.findItem(R.id.logOut_nav);
-//                                nav_Login.setVisible(false);
-//                                nav_signUp.setVisible(false);
-//                                nav_Logout.setVisible(true);
 
                                 //TODO:: to change unabled to press
                                 //navigationView.setNavigationItemSelectedListener(this);
@@ -109,6 +93,7 @@ public class LogIn extends Fragment {
 
         Button signUpBtn = (Button) view.findViewById(R.id.signup_login_btn);
 //        signUpBtn.setOnClickListener(v -> Navigation.findNavController(v).navigate(LogInDirections.actionLogInNavToSignUpNav()));
+
 
         //TODO:: add button for user without account
 

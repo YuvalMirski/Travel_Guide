@@ -29,11 +29,7 @@ public class Account extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_account, container, false);
 
-
-        //TODO :: if no user id will be pass it'll be null here - add condition that check it
-        // now it goes to user id 1000 !!
-
-         String userId = AccountArgs.fromBundle(getArguments()).getUserId();
+        String userId = AccountArgs.fromBundle(getArguments()).getUserId();
         // String userId = AccountArgs.fromBundle(getArguments().getBundle());
 
         Model.instance.getUserById(userId, new Model.GetUserById() {

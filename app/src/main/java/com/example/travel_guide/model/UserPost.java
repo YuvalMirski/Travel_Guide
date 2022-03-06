@@ -137,10 +137,6 @@ public class UserPost {
         this.userId = userId;
     }
 
-    public String getType() {
-        return category;
-    }
-
     public long getUpdateDate() {
         return updateDate;
     }

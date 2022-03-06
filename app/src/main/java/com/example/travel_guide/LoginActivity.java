@@ -6,6 +6,7 @@ import androidx.navigation.NavController;
 import androidx.navigation.NavHost;
 import androidx.navigation.ui.NavigationUI;
 
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -23,14 +24,10 @@ public class LoginActivity extends AppCompatActivity {
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
         setContentView(R.layout.activity_login);
+        getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.navy)));
 
         NavHost navHost = (NavHost) getSupportFragmentManager().findFragmentById(R.id.login_navhost);
         navCtl = navHost.getNavController();
-
-        //logo in action bar
-//        getSupportActionBar().setDisplayShowHomeEnabled(true);
-//        getSupportActionBar().setLogo(R.drawable.login_logo);
-//        getSupportActionBar().setDisplayUseLogoEnabled(true);
 
         NavigationUI.setupActionBarWithNavController(this, navCtl);
     }
@@ -41,20 +38,4 @@ public class LoginActivity extends AppCompatActivity {
         getMenuInflater().inflate(R.menu.login_menu,menu);
         return true;
     }
-
-//    @Override
-//    public boolean onOptionsItemSelected (@NonNull MenuItem item){
-//        if (!super.onOptionsItemSelected(item)) {
-//            switch (item.getItemId()) {
-//                case android.R.id.home:
-//                    navCtl.navigateUp();
-//                    return true;
-//                default:
-//                    NavigationUI.onNavDestinationSelected(item, navCtl);
-//            }
-//        } else {
-//            return true;
-//        }
-//        return false;
-//    }
 }

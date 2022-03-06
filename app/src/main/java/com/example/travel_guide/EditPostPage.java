@@ -92,7 +92,7 @@ public class EditPostPage extends Fragment {
             public void onClick(View v) {
                 new_name = postName.getText().toString();
                 new_location = citySpinner.getSelectedItem().toString();
-                new_category = categorySpinner.getSelectedItem().toString();
+                new_category = categorySpinner.getSelectedItem().toString().toLowerCase();
                 new_about = about.getText().toString();
 
                 UserPost userPost = new UserPost(new_name,new_location,new_about,new_category,userId);
