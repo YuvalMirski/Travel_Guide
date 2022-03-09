@@ -51,7 +51,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:layout_marginEnd="40dp"
+        android:layout_marginEnd="50dp"
         android:layout_marginBottom="8dp"
         android:text="TextView"
         android:textSize="20sp"
@@ -61,8 +61,8 @@
 
     <ImageButton
         android:id="@+id/postRow_save_imb"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="50dp"
         android:background="?attr/selectableItemBackground"

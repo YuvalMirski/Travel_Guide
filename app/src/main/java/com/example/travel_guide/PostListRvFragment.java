@@ -129,7 +129,7 @@ public class PostListRvFragment extends Fragment {
                     {
                         viewModel.getUserLiveData().getValue().getLstSaved().add(postId);
                         User u = viewModel.userLiveData.getValue();
-                        Model.instance.updateUser(u, () -> likeImg.setImageResource(R.drawable.ic_baseline_undo_24));
+                        Model.instance.updateUser(u, () -> likeImg.setImageResource(R.drawable.ic_baseline_bookmark_remove_24));
                     }
                     else {
 //                      likeImg.setVisibility(v.GONE);// maybe to write that is exist
@@ -163,7 +163,7 @@ public class PostListRvFragment extends Fragment {
 
                 if(user.getLstSaved().contains(post.getId()))
                 {
-                    likeImg.setImageResource(R.drawable.ic_baseline_undo_24);
+                    likeImg.setImageResource(R.drawable.ic_baseline_bookmark_remove_24);
                 }
                 else
                 {

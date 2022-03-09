@@ -46,50 +46,52 @@
         app:layout_constraintEnd_toEndOf="@+id/picture_post_page_new_" />
 
     <TextView
-        android:id="@+id/location_newPost_et"
+        android:id="@+id/location_newPost_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
+        android:layout_marginStart="24dp"
         android:layout_marginTop="32dp"
-        android:layout_marginEnd="16dp"
         android:text="Location:"
         android:textSize="24sp"
-        app:layout_constraintEnd_toStartOf="@+id/spinner_city_newPage"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/picture_post_page_new_" />
 
     <Spinner
         android:id="@+id/spinner_city_newPage"
-        android:layout_width="241dp"
-        android:layout_height="37dp"
+        android:layout_width="0dp"
+        android:layout_height="45dp"
+        android:layout_marginStart="16dp"
         android:layout_marginEnd="28dp"
-        app:layout_constraintBottom_toBottomOf="@+id/location_newPost_et"
+        android:background="@drawable/spinner_style"
+        android:spinnerMode="dropdown"
+        app:layout_constraintBottom_toBottomOf="@+id/location_newPost_tv"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/location_newPost_et"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/location_newPost_tv"
+        app:layout_constraintTop_toTopOf="@+id/location_newPost_tv" />
 
     <TextView
         android:id="@+id/type_post_new_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="32dp"
         android:text="Category:"
         android:textSize="24sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/location_newPost_et" />
+        app:layout_constraintTop_toBottomOf="@+id/location_newPost_tv" />
 
     <Spinner
         android:id="@+id/spinner_category_postPage"
-        android:layout_width="238dp"
-        android:layout_height="36dp"
+        android:layout_width="0dp"
+        android:layout_height="45dp"
         android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
+        android:layout_marginEnd="28dp"
+        android:background="@drawable/spinner_style"
         android:spinnerMode="dropdown"
         app:layout_constraintBottom_toBottomOf="@+id/type_post_new_tv"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.472"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/type_post_new_tv"
         app:layout_constraintTop_toTopOf="@+id/type_post_new_tv" />
 
@@ -98,7 +100,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="32dp"
         android:layout_marginEnd="24dp"
         android:hint="@string/hint_new_post_about"
         app:boxCornerRadiusBottomEnd="100dp"
@@ -128,14 +130,33 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="100dp"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="32dp"
         android:layout_marginEnd="100dp"
         android:layout_marginBottom="100dp"
+        android:backgroundTint="#4e5f8f"
         android:text="Post"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/about_post_new_tv" />
+
+    <ImageView
+        android:id="@+id/imageView5"
+        android:layout_width="35dp"
+        android:layout_height="0dp"
+        android:src="@drawable/ic_baseline_arrow_drop_down_24"
+        app:layout_constraintBottom_toBottomOf="@+id/spinner_city_newPage"
+        app:layout_constraintEnd_toEndOf="@+id/spinner_city_newPage"
+        app:layout_constraintTop_toTopOf="@+id/spinner_city_newPage" />
+
+    <ImageView
+        android:id="@+id/imageView6"
+        android:layout_width="35dp"
+        android:layout_height="0dp"
+        android:src="@drawable/ic_baseline_arrow_drop_down_24"
+        app:layout_constraintBottom_toBottomOf="@+id/spinner_category_postPage"
+        app:layout_constraintEnd_toEndOf="@+id/spinner_category_postPage"
+        app:layout_constraintTop_toTopOf="@+id/spinner_category_postPage" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
