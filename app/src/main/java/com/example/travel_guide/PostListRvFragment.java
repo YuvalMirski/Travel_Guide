@@ -19,6 +19,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.travel_guide.model.AppLocalDB;
 import com.example.travel_guide.model.Model;
 import com.example.travel_guide.model.User;
 import com.example.travel_guide.model.UserPost;
@@ -163,6 +164,7 @@ public class PostListRvFragment extends Fragment {
 
                 if(user.getLstSaved().contains(post.getId()))
                 {
+                    Model.instance.deleteSaveFromRoom(post);
                     likeImg.setImageResource(R.drawable.ic_baseline_undo_24);
                 }
                 else
