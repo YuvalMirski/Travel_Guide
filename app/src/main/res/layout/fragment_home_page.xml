@@ -15,8 +15,8 @@
         android:layout_marginTop="50dp"
         android:layout_marginEnd="50dp"
         android:text="Explore"
-        android:textSize="34sp"
         android:textColor="#000066"
+        android:textSize="34sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -24,13 +24,13 @@
 
     <Spinner
         android:id="@+id/homePage_spinner"
-        android:layout_width="213dp"
+        android:layout_width="0dp"
         android:layout_height="47dp"
         android:layout_marginStart="100dp"
         android:layout_marginTop="40dp"
         android:layout_marginEnd="100dp"
-        android:backgroundTint="#00a6ff"
         android:background="@drawable/homepage_category_list"
+        android:backgroundTint="#00a6ff"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/explore_home_tv" />
