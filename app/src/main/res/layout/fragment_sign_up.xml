@@ -21,169 +21,97 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
+    <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/username_signup_tv"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="60dp"
-        android:text="User Name:"
-        android:textSize="24sp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="32dp"
+        android:hint="@string/hint_username_signUp"
+        app:boxCornerRadiusBottomEnd="100dp"
+        app:boxCornerRadiusBottomStart="100dp"
+        app:boxCornerRadiusTopEnd="100dp"
+        app:boxCornerRadiusTopStart="100dp"
+        app:boxStrokeWidth="0dp"
+        app:boxStrokeWidthFocused="0dp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/signup_signup_tv" />
+        app:layout_constraintTop_toBottomOf="@+id/signup_signup_tv">
 
-    <TextView
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/username_signup_et"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:inputType="text"
+            android:maxLines="1"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            app:layout_constraintBaseline_toBaselineOf="@+id/username_signup_tv"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/username_signup_tv" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/email_signup_tv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="20dp"
-        android:text="Email:"
-        android:textSize="24sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/username_signup_tv" />
-
-    <TextView
-        android:id="@+id/sex_signup_tv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="20dp"
-        android:text="Sex:"
-        android:textSize="24sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/email_signup_tv" />
-
-    <TextView
-        android:id="@+id/country_signup_tv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="20dp"
-        android:text="Country:"
-        android:textSize="24sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/sex_signup_tv" />
-
-    <TextView
-        android:id="@+id/textView9"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="20dp"
-        android:text="Password:"
-        android:textSize="24sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/country_signup_tv" />
-
-
-    <Button
-        android:id="@+id/submit_signup_btn"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="32dp"
-        android:layout_marginBottom="70dp"
-        android:text="Submit"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:hint="@string/hint_email_signUp"
+        app:boxCornerRadiusBottomEnd="100dp"
+        app:boxCornerRadiusBottomStart="100dp"
+        app:boxCornerRadiusTopEnd="100dp"
+        app:boxCornerRadiusTopStart="100dp"
+        app:boxStrokeWidth="0dp"
+        app:boxStrokeWidthFocused="0dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/avatar_signup_imv" />
+        app:layout_constraintTop_toBottomOf="@+id/username_signup_tv">
 
-    <EditText
-        android:id="@+id/username_signup_et"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:textSize="24sp"
-        app:layout_constraintBaseline_toBaselineOf="@+id/username_signup_tv"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/username_signup_tv" />
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/email_signup_et"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:inputType="text"
+            android:maxLines="1"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            app:layout_constraintBaseline_toBaselineOf="@+id/email_signup_tv"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/email_signup_tv" />
+    </com.google.android.material.textfield.TextInputLayout>
 
-    <EditText
-        android:id="@+id/email_signup_et"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:textSize="24sp"
-        app:layout_constraintBaseline_toBaselineOf="@+id/email_signup_tv"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/email_signup_tv" />
-
-    <EditText
-        android:id="@+id/country_signup_et"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:textSize="24sp"
-        app:layout_constraintBaseline_toBaselineOf="@+id/country_signup_tv"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/country_signup_tv" />
-
-    <EditText
-        android:id="@+id/password_signup_et"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        android:ems="10"
-        android:inputType="textPassword"
-        android:textSize="24sp"
-        app:layout_constraintBaseline_toBaselineOf="@+id/textView9"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/textView9" />
-
-    <com.google.android.material.imageview.ShapeableImageView
-        android:id="@+id/avatar_signup_imv"
-        android:layout_width="173dp"
-        android:layout_height="166dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        android:src="@drawable/avatar"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/password_signup_et"
-        app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.CornerSize50Percent" />
-
-    <ImageButton
-        android:id="@+id/gallery_signup_imb"
+    <TextView
+        android:id="@+id/sex_signup_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/ic_menu_gallery"
-        app:layout_constraintBottom_toBottomOf="@+id/avatar_signup_imv"
-        app:layout_constraintEnd_toEndOf="@+id/avatar_signup_imv" />
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="16dp"
+        android:text="Sex:"
+        android:textSize="24sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/email_signup_tv" />
 
     <RadioGroup
         android:id="@+id/sex_radioGroup"
-        android:layout_width="316dp"
-        android:layout_height="62dp"
-        android:layout_marginStart="16dp"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
         android:layout_marginTop="8dp"
-        android:layout_marginEnd="16dp"
+        android:layout_marginEnd="24dp"
         android:layout_marginBottom="8dp"
         android:orientation="horizontal"
-        app:layout_constraintBottom_toTopOf="@+id/country_signup_et"
+        app:layout_constraintBottom_toTopOf="@+id/country_signup_tv"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/sex_signup_tv"
-        app:layout_constraintTop_toBottomOf="@+id/email_signup_et">
+        app:layout_constraintTop_toBottomOf="@+id/email_signup_tv">
 
         <RadioButton
             android:id="@+id/sex_male_rb"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginEnd="10dp"
             android:text="Male"
             android:textSize="20dp"
             app:layout_constraintBottom_toBottomOf="@+id/sex_female_rb"
@@ -196,9 +124,6 @@
             android:id="@+id/sex_female_rb"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="16dp"
             android:text="Female"
             android:textSize="20dp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -207,5 +132,102 @@
             app:layout_constraintTop_toBottomOf="@+id/email_signup_et" />
     </RadioGroup>
 
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/country_signup_tv"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="32dp"
+        android:hint="@string/hint_email_signUp"
+        app:boxCornerRadiusBottomEnd="100dp"
+        app:boxCornerRadiusBottomStart="100dp"
+        app:boxCornerRadiusTopEnd="100dp"
+        app:boxCornerRadiusTopStart="100dp"
+        app:boxStrokeWidth="0dp"
+        app:boxStrokeWidthFocused="0dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/sex_signup_tv">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/country_signup_et"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:inputType="text"
+            android:maxLines="1"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            app:layout_constraintBaseline_toBaselineOf="@+id/country_signup_tv"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/country_signup_tv" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/password_signup_tv"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="32dp"
+        android:hint="@string/hint_email_signUp"
+        app:boxCornerRadiusBottomEnd="100dp"
+        app:boxCornerRadiusBottomStart="100dp"
+        app:boxCornerRadiusTopEnd="100dp"
+        app:boxCornerRadiusTopStart="100dp"
+        app:boxStrokeWidth="0dp"
+        app:boxStrokeWidthFocused="0dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/country_signup_tv">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/password_signup_et"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:inputType="text"
+            android:maxLines="1"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            app:layout_constraintBaseline_toBaselineOf="@+id/password_signup_tv"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/password_signup_tv" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/avatar_signup_imv"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:src="@drawable/avatar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/password_signup_tv"
+        app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.CornerSize50Percent" />
+
+    <ImageButton
+        android:id="@+id/gallery_signup_imb"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_menu_gallery"
+        app:layout_constraintBottom_toBottomOf="@+id/avatar_signup_imv"
+        app:layout_constraintEnd_toEndOf="@+id/avatar_signup_imv" />
+
+    <Button
+        android:id="@+id/submit_signup_btn"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="75dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="75dp"
+        android:layout_marginBottom="70dp"
+        android:backgroundTint="#4e5f8f"
+        android:text="Submit"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/avatar_signup_imv" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

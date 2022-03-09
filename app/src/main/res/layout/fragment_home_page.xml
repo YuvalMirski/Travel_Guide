@@ -15,18 +15,32 @@
         android:layout_marginTop="50dp"
         android:layout_marginEnd="50dp"
         android:text="Explore"
+        android:textColor="#000066"
         android:textSize="34sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <Spinner
+        android:id="@+id/homePage_spinner"
+        android:layout_width="0dp"
+        android:layout_height="47dp"
+        android:layout_marginStart="100dp"
+        android:layout_marginTop="40dp"
+        android:layout_marginEnd="100dp"
+        android:background="@drawable/homepage_category_list"
+        android:backgroundTint="#00a6ff"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/explore_home_tv" />
+
     <Button
         android:id="@+id/attractions_home_btn"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="75dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="40dp"
         android:layout_marginEnd="75dp"
         android:background="@drawable/homepage_category_list"
         android:text="Attractions"
@@ -97,7 +111,7 @@
         android:layout_marginTop="24dp"
         android:layout_marginEnd="75dp"
         android:background="@drawable/homepage_category_list"
-        android:text="All categories"
+        android:text="All posts"
         android:textColor="@color/black"
         android:textStyle="bold"
         app:backgroundTint="#CCDFFF"
@@ -105,15 +119,13 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/museums_home_btn" />
 
-    <Spinner
-        android:id="@+id/homePage_spinner"
-        android:layout_width="213dp"
-        android:layout_height="47dp"
-        android:layout_marginStart="100dp"
-        android:layout_marginTop="40dp"
-        android:layout_marginEnd="100dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/explore_home_tv" />
+    <ImageView
+        android:id="@+id/homePg_dropDown_icon"
+        android:layout_width="27dp"
+        android:layout_height="48dp"
+        android:src="@drawable/ic_baseline_arrow_drop_down_24"
+        app:layout_constraintBottom_toBottomOf="@+id/homePage_spinner"
+        app:layout_constraintEnd_toEndOf="@+id/homePage_spinner"
+        app:layout_constraintTop_toTopOf="@+id/homePage_spinner" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
