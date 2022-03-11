@@ -239,9 +239,9 @@ public class ModelFirebase {
         documentReference.set(user);
     }
 
-    public void createUserWithEmail(User userFromCode, Model.AddUserToFBListener listener) {
+    public void createUserWithEmail(String pass,User userFromCode, Model.AddUserToFBListener listener) {
         String email = userFromCode.email;
-        String password = userFromCode.password;
+        String password = pass;
 
         mAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
@@ -255,7 +255,7 @@ public class ModelFirebase {
                             userFromCode.setId(userId);
                             addUser(userFromCode, listener);
                             //updateUI(user);
-
+                            listener.onComplete("true");
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w("TAG", "createUserWithEmail:failure", task.getException());

@@ -7,18 +7,18 @@ import java.util.Map;
 
 public class User {
 
-    String userName, email, sex, country, password, id, avatarUrl;
+    String userName, email, sex, country, id, avatarUrl;//, password
     List<String> lstSaved; // TODO:: id of all the post of the saved post
     List<String> lstUserPosts;
     final public static String COLLECTION_NAME = "Users";
 
 
-    public User(String userName, String email, String sex, String country, String password, List<String> lstSaved,List<String>lstUserPosts) {
+    public User(String userName, String email, String sex, String country, List<String> lstSaved,List<String>lstUserPosts) {
         this.userName = userName;
         this.email = email;
         this.sex = sex;
         this.country = country;
-        this.password = password;
+        //this.password = password;
         this.avatarUrl = null;
         this.lstSaved =lstSaved;
         this.lstUserPosts = lstUserPosts;
@@ -29,11 +29,11 @@ public class User {
         String email = (String)json.get("email");
         String sex = (String)json.get("sex");
         String country = (String)json.get("country");
-        String password = (String)json.get("password");
+        //String password = (String)json.get("password");
         String url = (String)json.get("avatarUrl");
         List<String>lstSaved = (List<String>) json.get("lstSaved");
         List<String>lstUserPosts = (List<String>) json.get("lstUserPosts");
-        User user = new User(userName,email,sex,country,password,lstSaved,lstUserPosts);
+        User user = new User(userName,email,sex,country,lstSaved,lstUserPosts);
         user.setAvatarUrl(url);
         return user;
     }
@@ -44,7 +44,7 @@ public class User {
         json.put("email",email);
         json.put("sex",sex);
         json.put("country",country);
-        json.put("password",password);
+        //json.put("password",password);
         json.put("id",id);
         json.put("avatarUrl", avatarUrl);
         json.put("lstSaved",lstSaved);
@@ -84,13 +84,13 @@ public class User {
         this.userName = userName;
     }
 
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
+//    public String getPassword() {
+//        return password;
+//    }
+//
+//    public void setPassword(String password) {
+//        this.password = password;
+//    }
 
     public String getId() {
         return id;

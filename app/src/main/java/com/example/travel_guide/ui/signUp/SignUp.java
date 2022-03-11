@@ -86,7 +86,7 @@ public class SignUp extends Fragment {
                     submitBtn.setEnabled(true);
                 }
                 else {
-                    User user = new User(new_userName, new_email, new_sex, new_country, new_password, lstSaved, lstUserPosts);
+                    User user = new User(new_userName, new_email, new_sex, new_country, lstSaved, lstUserPosts);
                     checkImg(v, user, imageBitmap);
                 }
             }
@@ -111,7 +111,7 @@ public class SignUp extends Fragment {
         if (imageBitmap != null) {
             Model.instance.saveImage(imageBitmap, new_userName + ".jpg", "user_avatars", url -> {
                 user.setAvatarUrl(url);
-                Model.instance.createUserWithEmail(user, new Model.AddUserToFBListener() {
+                Model.instance.createUserWithEmail(new_password,user, new Model.AddUserToFBListener() {
                     @Override
                     public void onComplete(String isSuccess) {
                         if (isSuccess.equals("true")) {
