@@ -30,8 +30,8 @@ import java.util.List;
 //User Edit Page
 public class EditUserPage extends Fragment {
 
-    EditText userName, email, sex, country, password;
-    String new_userName, new_email, new_sex, new_country, new_password, new_id, avatarUrl;
+    EditText userName, email, sex, country;//, password;
+    String new_userName, new_email, new_sex, new_country, new_id, avatarUrl;//, new_password;
     ImageView userAvatar;
     Bitmap imageBitmap;
     List<String>lstSaved,lstUserPosts;
@@ -51,7 +51,7 @@ public class EditUserPage extends Fragment {
                 email.setText(user.getEmail());
                 new_sex = user.getSex();
                 country.setText(user.getCountry());
-                password.setText(user.getPassword());
+                //password.setText(user.getPassword());
                 lstSaved = user.getLstSaved();
                 lstUserPosts =user.getLstUserPosts();
                 avatarUrl = user.getAvatarUrl();
@@ -65,7 +65,7 @@ public class EditUserPage extends Fragment {
         userName = view.findViewById(R.id.user_name_account_edit_et);
         email = view.findViewById(R.id.email_account_edit_et);
         country = view.findViewById(R.id.country_account_edit_et);
-        password = view.findViewById(R.id.password_account_edit_et);
+       // password = view.findViewById(R.id.password_account_edit_et);
         userAvatar = view.findViewById(R.id.userAvater_edit_acount_imv);
 
         ImageButton galleryBtn = view.findViewById(R.id.gallery_editAccount_imb);
@@ -81,9 +81,9 @@ public class EditUserPage extends Fragment {
                 new_userName = userName.getText().toString();
                 new_email = email.getText().toString();
                 new_country = country.getText().toString();
-                new_password = password.getText().toString();
+                //new_password = password.getText().toString();
 
-                User u = new User(new_userName,new_email,new_sex,new_country,new_password, lstSaved,lstUserPosts);
+                User u = new User(new_userName,new_email,new_sex,new_country, lstSaved,lstUserPosts);
                 u.setId(userId);
 
                 if(imageBitmap!=null) {

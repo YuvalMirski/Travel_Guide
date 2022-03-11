@@ -12,6 +12,7 @@ import androidx.lifecycle.MutableLiveData;
 
 import com.example.travel_guide.MyApplication;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -44,8 +45,6 @@ public class Model {
     }
 
 
-
-
     public enum PostListLoadingState { //indicate the possible states
         loading,
         loaded
@@ -68,19 +67,19 @@ public class Model {
     //------------------------------------POST------------------------------------//
 
     public LiveData<List<UserPost>> getCategoryPosts(String categoryName, String userId, String location) {
-       // if (listLiveDataPost.getValue() == null) {
-            Long lastUpdateDate = getLastUpdateDate();
-           //refreshCategoryPage(categoryName, userId, location);
-            postListLoadingState.setValue(PostListLoadingState.loading);
+        // if (listLiveDataPost.getValue() == null) {
+        Long lastUpdateDate = getLastUpdateDate();
+        //refreshCategoryPage(categoryName, userId, location);
+        postListLoadingState.setValue(PostListLoadingState.loading);
 
-        if(categoryName.equals("userSavedPost"))
-           modelFirebase.getAllPosts(lastUpdateDate, new ModelFirebase.GetAllPostsListener() {
-               @Override
-               public void onComplete(List<UserPost> list) {
-                       sortSavedPost(list,userId);
-                       postListLoadingState.postValue(PostListLoadingState.loaded);
-               }
-           });
+        if (categoryName.equals("userSavedPost"))
+            modelFirebase.getAllPosts(lastUpdateDate, new ModelFirebase.GetAllPostsListener() {
+                @Override
+                public void onComplete(List<UserPost> list) {
+                    sortSavedPost(list, userId);
+                    postListLoadingState.postValue(PostListLoadingState.loaded);
+                }
+            });
         else {
             modelFirebase.getAllPosts(new ModelFirebase.GetAllPostsListener() {
                 @Override
@@ -88,7 +87,7 @@ public class Model {
 
 
                     if (!categoryName.equals("allCategories"))
-                        listLiveDataPost.setValue(sortCategory(list,categoryName, userId, location));
+                        listLiveDataPost.setValue(sortCategory(list, categoryName, userId, location));
 
                     else //all categories
                         listLiveDataPost.setValue(list);
@@ -100,8 +99,8 @@ public class Model {
         return listLiveDataPost;
     }
 
-    private List<UserPost> sortCategory(List<UserPost> list,String categoryName, String userId, String location) {
-        List<UserPost>lst = new ArrayList<UserPost>();
+    private List<UserPost> sortCategory(List<UserPost> list, String categoryName, String userId, String location) {
+        List<UserPost> lst = new ArrayList<UserPost>();
         if (!location.equals("")) {
 
             if (categoryName.equals("userCreatePosts")) {
@@ -110,27 +109,22 @@ public class Model {
                     if (us.getUserId().equals(userId) && us.getLocation().equals(location))
                         lst.add(us);
                 }
-            }
-
-            else {
+            } else {
                 for (UserPost us : list) {
                     if (us.getCategory().equals(categoryName) && (us.getLocation().equals(location)))
-                         lst.add(us);
+                        lst.add(us);
 
                 }
             }
 
-        }
-        else {
+        } else {
             if (categoryName.equals("userCreatePosts")) {
 
                 for (UserPost us : list) {
                     if (us.getUserId().equals(userId))
                         lst.add(us);
                 }
-            }
-
-            else {
+            } else {
                 for (UserPost us : list) {
                     if (us.getCategory().equals(categoryName))
                         lst.add(us);
@@ -141,21 +135,21 @@ public class Model {
         return lst;
     }
 
-    private List<UserPost> sortSavedPost(List<UserPost> list,String userid) {
-        List<UserPost>lst = new ArrayList<UserPost>();
+    private List<UserPost> sortSavedPost(List<UserPost> list, String userid) {
+        List<UserPost> lst = new ArrayList<UserPost>();
         List<String> lstSaved = getUser(userid).getValue().getLstSaved();
 
-      for (String spp : lstSaved){
-          for (UserPost us : list){
-              if(spp.equals(us.getId()))
-                  lst.add(us);
-          }
-      }
+        for (String spp : lstSaved) {
+            for (UserPost us : list) {
+                if (spp.equals(us.getId()))
+                    lst.add(us);
+            }
+        }
         SaveInRoom(lst);
-    return lst;
+        return lst;
     }
 
-    public void SaveInRoom(List<UserPost> lst){
+    public void SaveInRoom(List<UserPost> lst) {
         executor.execute(new Runnable() {
             @Override
             public void run() {
@@ -163,7 +157,7 @@ public class Model {
 
                 for (UserPost us : lst) {
                     System.out.println("list size : " + lst.size());
-                     //AppLocalDB.db.userPostDao().delete(us);
+                    //AppLocalDB.db.userPostDao().delete(us);
                     AppLocalDB.db.userPostDao().insertAll(us);
                     if (lud < us.getUpdateDate()) {
                         lud = us.getUpdateDate();
@@ -179,8 +173,9 @@ public class Model {
             }
         });
     }
+
     public void deleteSaveFromRoom(UserPost us) {
-        executor.execute(()->{
+        executor.execute(() -> {
             Long lud = new Long(0);
             if (lud > us.getUpdateDate()) {
                 lud = us.getUpdateDate();
@@ -194,78 +189,9 @@ public class Model {
 
 
     public void refreshCategoryPage(String category, String userId, String location) {
-        getCategoryPosts(category,userId,location);
+        getCategoryPosts(category, userId, location);
     }
 
-//    public void refreshPageSaved(String userid) {
-//
-//        List<String> lstSaved = getUser(userid).getValue().getLstSaved();
-//
-//        postListLoadingState.setValue(PostListLoadingState.loading);
-//
-//
-//        Long lastUpdateDate = getLastUpdateDate();
-//
-//        modelFirebase.getUserSavedPost(userid, lstSaved, lastUpdateDate, new ModelFirebase.GetAllPostsListener() {
-//            @Override
-//            public void onComplete(List<UserPost> list) {
-//                executor.execute(() -> {
-//                    try {
-//                        Thread.sleep(1000);
-//                    } catch (InterruptedException e) {
-//                        e.printStackTrace();
-//                    }
-//                });
-//                executor.execute(new Runnable() {
-//                    @Override
-//                    public void run() {
-//                        Long lud = new Long(0);
-//                        System.out.println("before list");
-//
-////                        for (UserPost userPost : AppLocalDB.db.userPostDao().getAll())
-////                            AppLocalDB.db.userPostDao().delete(userPost);
-//
-//                        for (UserPost us : list) {
-//                            System.out.println("list size : " + list.size());
-//                            // AppLocalDB.db.userPostDao().insertAll(us);
-//                                    AppLocalDB.db.userPostDao().insertAll(us);
-////                            else
-////                                AppLocalDB.db.userPostDao().delete(us);
-//
-//                            if (lud < us.getUpdateDate()) {
-//                                lud = us.getUpdateDate();
-//                            }
-//                        }
-//                        //update last local update date
-//                        MyApplication.getContext()
-//                                .getSharedPreferences("TAG", Context.MODE_PRIVATE)
-//                                .edit().putLong(UserPost.LAST_UPDATE, lud).commit();
-//
-//                        List<UserPost> userPostList = AppLocalDB.db.userPostDao().getAll(); // get all data from local db
-//                        listLiveDataPost.postValue(userPostList);// post will pass it to main thread
-//                        postListLoadingState.postValue(PostListLoadingState.loaded);
-//
-//                    }
-//                });
-//
-//            }
-//        });
-//    }
-
-//    public void refreshPageCategory(String userId, String category, String location) {
-//
-//        postListLoadingState.setValue(PostListLoadingState.loading);
-//
-//        Long lastUpdateDate = getLastUpdateDate();
-//        postListLoadingState.setValue(PostListLoadingState.loading);
-//        modelFirebase.getCategoryPosts(lastUpdateDate, userId, category, location, new ModelFirebase.GetAllPostsListener() {
-//            @Override
-//            public void onComplete(List<UserPost> list) {
-//                listLiveDataPost.setValue(list);
-//                postListLoadingState.setValue(PostListLoadingState.loaded);
-//            }
-//        });
-//    }
 
     // go to firebase
     public void refreshPostList() {
@@ -338,7 +264,6 @@ public class Model {
 
 
     public void refreshUser(String id) {
-
         modelFirebase.getUserById(id, new GetUserById() {
             @Override
             public void onComplete(User user) {
@@ -362,8 +287,8 @@ public class Model {
 //        modelFirebase.addUser(user,listener);
 //    }
 
-    public void createUserWithEmail(User user, AddUserToFBListener listener) {
-        modelFirebase.createUserWithEmail(user, listener);
+    public void createUserWithEmail(String password,User user, AddUserToFBListener listener) {
+        modelFirebase.createUserWithEmail(password, user, listener);
     }
 
     public void isUserIn(Model.OnCompleteGeneralListener listener) {
@@ -374,9 +299,43 @@ public class Model {
         modelFirebase.userSignIn(email, password, listener);
     }
 
+
+
+//    public static void deleteCache(Context context) {
+//        try {
+//            File dir = context.getCacheDir();
+//            deleteDir(dir);
+//        } catch (Exception e) { e.printStackTrace();}
+//    }
+//    public static boolean deleteDir(File dir) {
+//        if (dir != null && dir.isDirectory()) {
+//            String[] children = dir.list();
+//            for (int i = 0; i < children.length; i++) {
+//                boolean success = deleteDir(new File(dir, children[i]));
+//                if (!success) {
+//                    return false;
+//                }
+//            }
+//            return dir.delete();
+//        } else if(dir!= null && dir.isFile()) {
+//            return dir.delete();
+//        } else {
+//            return false;
+//        }
+//    }
+
+
     public void signOut(String userid) {
-        //TODO:: delete info from Room
-//        List<String> lstSaved = getUser(userid).getValue().getLstSaved();
+        executor.execute(() -> {
+            Long lud = new Long(0);
+            for (UserPost us : AppLocalDB.db.userPostDao().getAll()) {
+                deleteSaveFromRoom(us);
+            }
+            MyApplication.getContext()
+                    .getSharedPreferences("TAG", Context.MODE_PRIVATE)
+                    .edit().putLong(UserPost.LAST_UPDATE, lud).commit();
+
+        });
 
         modelFirebase.signOut();
     }
@@ -402,10 +361,10 @@ public class Model {
     public void getUserById(String userId, GetUserById listener) {
 //        if (LiveDataUser.getValue().getId().equals(userId))
 ////            listener.onComplete(LiveDataUser.getValue());
-//        if(currentUser.getId().equals(userId))
+//        if(currentUser != null)
 //            listener.onComplete(currentUser);
 //        else
-        modelFirebase.getUserById(userId, listener);
+            modelFirebase.getUserById(userId, listener);
     }
 
     public interface DeleteUserById {

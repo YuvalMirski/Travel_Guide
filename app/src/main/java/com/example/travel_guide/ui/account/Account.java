@@ -21,7 +21,7 @@ import com.squareup.picasso.Picasso;
 //User Details Page
 public class Account extends Fragment {
 
-    TextView userName, email, sex, country, password;
+    TextView userName, email, sex, country;//, password;
     ImageView userAvatar;
 
     @Override
@@ -30,7 +30,6 @@ public class Account extends Fragment {
         View view = inflater.inflate(R.layout.fragment_account, container, false);
 
         String userId = AccountArgs.fromBundle(getArguments()).getUserId();
-        // String userId = AccountArgs.fromBundle(getArguments().getBundle());
 
         Model.instance.getUserById(userId, new Model.GetUserById() {
             @Override
@@ -39,7 +38,7 @@ public class Account extends Fragment {
                 email.setText(user.getEmail());
                 sex.setText(user.getSex());
                 country.setText(user.getCountry());
-                password.setText(user.getPassword());
+                //password.setText(user.getPassword());
 
                 if(user.getAvatarUrl()!=null) {
                     Picasso.get()
@@ -53,14 +52,14 @@ public class Account extends Fragment {
         email = view.findViewById(R.id.email_account_str_tv);
         sex = view.findViewById(R.id.sex_account_str_tv);
         country = view.findViewById(R.id.country_account_str_tv);
-        password = view.findViewById(R.id.password_account_str_tv);
+        //password = view.findViewById(R.id.password_account_str_tv);
         userAvatar = view.findViewById(R.id.userAvatar_account_details_imv);
 
         userName.setEnabled(false);
         email.setEnabled(false);
         sex.setEnabled(false);
         country.setEnabled(false);
-        password.setEnabled(false);
+        //password.setEnabled(false);
 
         ImageButton editBtn = view.findViewById(R.id.edit_accoutn_btn);
         editBtn.setOnClickListener(v -> Navigation.findNavController(v).navigate(AccountDirections.actionGlobalEditUserFragment(userId)));
