@@ -80,7 +80,7 @@ public class ModelFirebase {
                             userPost = UserPost.create(doc.getData()); //convert from json to Post
                             updateId(ids.get(i), userPost);
                             if (userPost != null) {
-                                if(userPost.isDeleted.equals("false"))
+                                if (userPost.isDeleted.equals("false"))
                                     list.add(userPost);
                             }
                             i++;
@@ -90,7 +90,7 @@ public class ModelFirebase {
                 });
     }
 
-    public void getAllPosts( GetAllPostsListener listener) {
+    public void getAllPosts(GetAllPostsListener listener) {
 
         db.collection(UserPost.COLLECTION_NAME)
                 .get()
@@ -107,7 +107,7 @@ public class ModelFirebase {
                             userPost = UserPost.create(doc.getData()); //convert from json to Post
                             updateId(ids.get(i), userPost);
                             if (userPost != null) {
-                                if(userPost.isDeleted.equals("false"))
+                                if (userPost.isDeleted.equals("false"))
                                     list.add(userPost);
                             }
                             i++;
@@ -154,7 +154,6 @@ public class ModelFirebase {
     }
 
 
-
     public void getPostById(String postId, Model.GetPostById listener) {
 
         db.collection(UserPost.COLLECTION_NAME)
@@ -171,7 +170,6 @@ public class ModelFirebase {
                     }
                 });
     }
-
 
     //------------------------------------USER------------------------------------//
 
@@ -239,7 +237,7 @@ public class ModelFirebase {
         documentReference.set(user);
     }
 
-    public void createUserWithEmail(String pass,User userFromCode, Model.AddUserToFBListener listener) {
+    public void createUserWithEmail(String pass, User userFromCode, Model.AddUserToFBListener listener) {
         String email = userFromCode.email;
         String password = pass;
 
@@ -317,21 +315,6 @@ public class ModelFirebase {
         mAuth.signOut();
     }
 
-    public void deleteUser(Model.OnCompleteGeneralListener listener) {
-
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser(); // connected user can delete itself
-        user.delete()
-                .addOnCompleteListener(new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                        if (task.isSuccessful()) {
-                            Log.d("TAG", "User account deleted.");
-                        }
-                    }
-                });
-        listener.onComplete(null);
-    }
-
     public void getUserIdFromFB(Model.GetUserId listener) {
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         String id = null;
@@ -342,7 +325,7 @@ public class ModelFirebase {
     }
 
     public void getConnectedUser(Model.GetConnectedUser listener) {
-       // FirebaseUser userRB = FirebaseAuth.getInstance().getCurrentUser();
+        // FirebaseUser userRB = FirebaseAuth.getInstance().getCurrentUser();
         FirebaseUser userRB = mAuth.getCurrentUser();
         getUserById(userRB.getUid(), new Model.GetUserById() {
             @Override

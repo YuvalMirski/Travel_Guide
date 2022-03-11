@@ -30,7 +30,7 @@ public class PostListRvFragment extends Fragment {
     MyAdapter adapter;
     SwipeRefreshLayout swipeRefresh;
     String categoryName,userId,locationName;
-
+    User currUserVM;
     @Override
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
@@ -46,6 +46,8 @@ public class PostListRvFragment extends Fragment {
         userId = PostListRvFragmentArgs.fromBundle(getArguments()).getUserId();
         categoryName = PostListRvFragmentArgs.fromBundle(getArguments()).getCategoryName();
         locationName = PostListRvFragmentArgs.fromBundle(getArguments()).getLocationName();
+
+       // currUserVM = Model.instance.getCurrentUser();
 
         viewModel.demoCtor(categoryName,userId,locationName);
 
@@ -141,6 +143,7 @@ public class PostListRvFragment extends Fragment {
                 }
             });
 
+
             itemView.setOnClickListener(v -> {
                 int pos = getAdapterPosition();
                 listener.onItemClick(v, pos);
@@ -160,25 +163,22 @@ public class PostListRvFragment extends Fragment {
                         .into(postImg);
             }
 
-            Model.instance.getUserById(post.getUserId(), user -> {
 
-                if(user.getLstSaved().contains(post.getId()))
-                {
-                    likeImg.setImageResource(R.drawable.ic_baseline_bookmark_remove_24);
-                    Model.instance.deleteSaveFromRoom(post);
-                }
-                else
-                {
-                    likeImg.setImageResource(R.drawable.ic_baseline_saved);
-                }
+            if(viewModel.getUserLiveData().getValue().getLstSaved().contains(post.getId())){
+                likeImg.setImageResource(R.drawable.ic_baseline_bookmark_remove_24);
+                Model.instance.deleteSaveFromRoom(post);
+            }
+            else{
+                likeImg.setImageResource(R.drawable.ic_baseline_saved);
 
-                userName.setText(user.getUserName());
-                if(user.getAvatarUrl()!=null) {
-                    Picasso.get()
-                            .load(user.getAvatarUrl())
-                            .into(userAvatar);
-                }
-            });
+            }
+            userName.setText(viewModel.getUserLiveData().getValue().getUserName());
+            if(viewModel.getUserLiveData().getValue().getAvatarUrl()!=null) {
+                Picasso.get()
+                        .load(viewModel.getUserLiveData().getValue().getAvatarUrl())
+                        .into(userAvatar);
+            }
+
         }
     }
 

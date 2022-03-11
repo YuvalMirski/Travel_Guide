@@ -192,8 +192,6 @@ public class Model {
         getCategoryPosts(category, userId, location);
     }
 
-
-    // go to firebase
     public void refreshPostList() {
         postListLoadingState.setValue(PostListLoadingState.loading);
 
@@ -236,9 +234,9 @@ public class Model {
     }
 
 
-    public interface DeletePostById {
-        void onComplete();
-    }
+//    public interface DeletePostById {
+//        void onComplete();
+//    }
 
     public void deletePostById(UserPost userPost, AddPostListener listener) {
         //modelFirebase.deletePostById(postId,listener);
