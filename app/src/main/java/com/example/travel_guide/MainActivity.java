@@ -60,7 +60,7 @@ public class MainActivity extends AppCompatActivity  {//implements NavigationVie
         // menu should be considered as top level destinations.
         // menu should be considered as top level destinations.
         mAppBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.logIn_nav,R.id.signUp_nav, R.id.logOut_nav)
+                R.id.homePage_nav, R.id.logIn_nav,R.id.signUp_nav, R.id.logOut_nav)
                 .setOpenableLayout(drawer)
                 .build();
 
@@ -80,7 +80,6 @@ public class MainActivity extends AppCompatActivity  {//implements NavigationVie
                 Model.instance.signOut(userId);
                 Fragment logInFragment = new LogIn();
 
-//                getSupportFragmentManager().beginTransaction().replace(R.id.nav_host_fragment_content_main,logInFragment).commit();
                 Intent intent = new Intent(getContext(), LoginActivity.class);
                 startActivity(intent);
                 finish();
@@ -97,7 +96,6 @@ public class MainActivity extends AppCompatActivity  {//implements NavigationVie
         signUp.setVisible(false);
 
         BottomNavigationView bottomNav = (BottomNavigationView)findViewById(R.id.bottom_navigation);
-        //bottomNav.animate(); TODO:animation
         bottomNav.setOnNavigationItemSelectedListener(navListener);
 
         //Update drawer header
@@ -174,18 +172,24 @@ public class MainActivity extends AppCompatActivity  {//implements NavigationVie
         if (!super.onOptionsItemSelected(item)){
             switch (item.getItemId()){
                 case android.R.id.home:
-                    navController.navigateUp();
+//                    navController.navigateUp();
+                    NavigationUI.onNavDestinationSelected(item, navController);
                     return true;
                 case R.id.action_account:
                     Fragment accountFragment = new Account();
                     bundle.putString("userId", userId);
                     accountFragment.setArguments(bundle);
                     getSupportFragmentManager().beginTransaction().replace(R.id.nav_host_fragment_content_main,accountFragment).commit();
-                    return true;
+//                   NavigationUI.onNavDestinationSelected(item, navController); TODO:: to dolike this witn naigationUI
+
+                return true;
             }
-        }else{
-            return true;
         }
-        return false;
+        return NavigationUI.onNavDestinationSelected(item, navController);
+
+//        else{
+//            return true;
+//        }
+//        return false;
     }
 }
