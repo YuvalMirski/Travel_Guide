@@ -30,7 +30,6 @@ public class Account extends Fragment {
         View view = inflater.inflate(R.layout.fragment_account, container, false);
 
         String userId = AccountArgs.fromBundle(getArguments()).getUserId();
-        // String userId = AccountArgs.fromBundle(getArguments().getBundle());
 
         Model.instance.getUserById(userId, new Model.GetUserById() {
             @Override

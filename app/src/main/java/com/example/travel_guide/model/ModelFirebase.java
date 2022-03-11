@@ -116,119 +116,7 @@ public class ModelFirebase {
                     listener.onComplete(list);
                 });
     }
-//    public void getCategoryPosts(Long lastUpdateDate, String userId, String categoryName, String location, GetAllPostsListener listener) {
-//        //DocumentReference a = db.collection(UserPost.COLLECTION_NAME).document();
-//        String fieldKey, fieldVal;
-//        CollectionReference categoryReference = db.collection(UserPost.COLLECTION_NAME);
-//        if (categoryName.equals("userCreatePosts")) {
-//            fieldKey = "userId";
-//            fieldVal = userId;
-//        } else {
-//            fieldKey = "category";
-//            fieldVal = categoryName;//.whereEqualTo("location","NYC")
-//        }
-//        if (!location.equals("")) {
-//            Task<QuerySnapshot> q = categoryReference.whereEqualTo(fieldKey, fieldVal).whereEqualTo("location", location).whereEqualTo("isDeleted", "false")
-//                    .get()
-//                    .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-//                        List<UserPost> list = new LinkedList<UserPost>();
-//
-//                        @Override
-//                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
-//                            if (task.isSuccessful()) {
-//                                for (QueryDocumentSnapshot document : task.getResult()) {
-//
-//                                    UserPost userPost = UserPost.create(document.getData()); //convert from json to Post
-//                                    updateId(document.getId(), userPost);
-//                                    list.add(userPost);
-//                                }
-//                            } else {
-//                                Log.d("TAG", "Error getting documents: ", task.getException());
-//                            }
-//                            listener.onComplete(list);
-//                        }
-//                    });
-//        } else {// for all user
-//            Task<QuerySnapshot> q = categoryReference.whereEqualTo(fieldKey, fieldVal).whereEqualTo("isDeleted", "false")
-//                    .get()
-//                    .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-//                        List<UserPost> list = new LinkedList<UserPost>();
-//
-//                        @Override
-//                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
-//                            if (task.isSuccessful()) {
-//                                for (QueryDocumentSnapshot document : task.getResult()) {
-//                                    UserPost userPost = UserPost.create(document.getData()); //convert from json to Post
-//                                    updateId(document.getId(), userPost);
-//                                    list.add(userPost);
-//                                }
-//                            } else {
-//                                Log.d("TAG", "Error getting documents: ", task.getException());
-//                            }
-//                            listener.onComplete(list);
-//                        }
-//                    });
-//        }
-//    }
-//
-//    public void getUserSavedPost(String userId, List<String> userSavedPostLst, Long lastUpdateDate, GetAllPostsListener listener) {
-//        // CollectionReference postReference = db.collection(UserPost.COLLECTION_NAME);
-//
-//        List<UserPost> list = new LinkedList<UserPost>();
-//
-//        for (String s : userSavedPostLst) {
-//            CollectionReference categoryReference = db.collection(UserPost.COLLECTION_NAME);
-//            //Task<QuerySnapshot> q = categoryReference.whereEqualTo("id", s).whereGreaterThanOrEqualTo("updateDate",new Timestamp(lastUpdateDate,0))
-//            Task<QuerySnapshot> q = categoryReference.whereEqualTo("id", s).whereGreaterThanOrEqualTo("updateDate",new Timestamp(lastUpdateDate,0))
-//                    .get()
-//                    .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-//
-//                        @Override
-//                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
-//
-//                            if (task.isSuccessful()) {
-//                                for (QueryDocumentSnapshot document : task.getResult()) {
-//                                    System.out.println("inside +++++++++++++++++++++++++++");
-//                                    UserPost userPost = UserPost.create(document.getData()); //convert from json to Post
-//                                    updateId(document.getId(), userPost);
-//                                    list.add(userPost);
-//                                }
-//                            }
-//                            //listener.onComplete(list);
-//                        }
-//                    });listener.onComplete(list);
-//        }
-//        if (userSavedPostLst.size() == 0)
-//            listener.onComplete(list);
-//
-//
-////toDO:: ----------------------------------------------------------
-//
-////            for (String s : userSavedPostLst)
-////            {
-////                db.collection(UserPost.COLLECTION_NAME)
-////                        .document(s)
-////                        .get()
-////                        .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-////                            @Override
-////                            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-////                                UserPost userPost = null;
-////                                if (task.isSuccessful() & task.getResult() != null) {
-////                                    DocumentSnapshot document = task.getResult();
-////                                    userPost = UserPost.create(task.getResult().getData());
-////                                    updateId(document.getId(), userPost);
-////
-////                                    System.out.println("work to fetch");
-////                                    System.out.println(userPost.getId());
-////                                    list.add(userPost);
-////                                }listener.onComplete(list);
-////                            }
-////                        });
-////            }
-////            if(userSavedPostLst.size()==0)
-////                listener.onComplete(list);
-//
-//    }
+
 
     public void updateId(String id, UserPost userPost) {
 //        DocumentReference a = db.collection(UserPost.COLLECTION_NAME).document(id);
@@ -265,21 +153,7 @@ public class ModelFirebase {
                 .addOnFailureListener(e -> listener.onComplete());
     }
 
-//    public void deletePostById(String postId, Model.DeletePostById listener) {
-//
-////        Map<String, Object> json = userPost.toJson();
-////        db.collection(UserPost.COLLECTION_NAME)
-////                .document(userPost.getId())
-////                .set(json)
-////                .addOnSuccessListener(unused -> listener.onComplete())
-////                .addOnFailureListener(e -> listener.onComplete());
-//
-////        db.collection(UserPost.COLLECTION_NAME)
-////                .document(postId)
-////                .delete()
-////                .addOnSuccessListener(unused -> listener.onComplete())
-////                .addOnFailureListener(e -> listener.onComplete());
-//    }
+
 
     public void getPostById(String postId, Model.GetPostById listener) {
 
