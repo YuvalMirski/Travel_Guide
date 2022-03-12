@@ -19,7 +19,6 @@ public class PostListRvViewModel extends ViewModel {
    public void demoCtor(String categoryName,String userId,String location){
        categoryPostList = Model.instance.getCategoryPosts(categoryName,userId,location);
        userLiveData = Model.instance.getUser(userId);
-       //userLiveData.getValue = Model.instance.getCurrentUser();
    }
 
     public LiveData<List<UserPost>> getCategoryPostList() {

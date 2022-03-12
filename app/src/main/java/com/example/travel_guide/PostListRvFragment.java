@@ -30,7 +30,7 @@ public class PostListRvFragment extends Fragment {
     MyAdapter adapter;
     SwipeRefreshLayout swipeRefresh;
     String categoryName,userId,locationName;
-    User currUserVM;
+
     @Override
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);

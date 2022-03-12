@@ -25,17 +25,17 @@ public class Model {
     public Executor executor = Executors.newFixedThreadPool(1);
     public Handler mainThread = HandlerCompat.createAsync(Looper.getMainLooper());
 
-    User currentUser;
+    //User currentUser;
     MutableLiveData<User> LiveDataUser = new MutableLiveData<User>();
 
     public User getCurrentUser() {
-        //return LiveDataUser.getValue();
-        return currentUser;
+        return LiveDataUser.getValue();
+        //return currentUser;
     }
 
     public void setCurrentUser(User currentUser) {
-        //this.LiveDataUser.setValue(currentUser);
-        this.currentUser = currentUser;
+        this.LiveDataUser.setValue(currentUser);
+       // this.currentUser = currentUser;
     }
 
     public Long getLastUpdateDate() {
