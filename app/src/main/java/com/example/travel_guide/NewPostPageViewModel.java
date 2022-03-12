@@ -8,7 +8,6 @@ import com.example.travel_guide.model.User;
 
 public class NewPostPageViewModel extends ViewModel {
 
-
     LiveData<User> userLiveData;
     String userId;
     public NewPostPageViewModel() {
@@ -18,8 +17,8 @@ public class NewPostPageViewModel extends ViewModel {
         this.userId = userId;
         userLiveData = Model.instance.getUser(userId);
     }
+
     public LiveData<User> getUserLiveData() {
         return userLiveData;
     }
-
 }

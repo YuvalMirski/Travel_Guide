@@ -70,7 +70,7 @@ public class PostListRvFragment extends Fragment {
           //   String postId = viewModel.getPostList().getValue().get(position).getId();
                String postId = viewModel.getCategoryPostList().getValue().get(position).getId();
               // Navigation.findNavController(v).navigate(PostListRvFragmentDirections.actionPostListRvFragmentToPostPage(postId));
-               Navigation.findNavController(v).navigate(PostListRvFragmentDirections.actionGlobalPostPage(postId, userId));
+               Navigation.findNavController(v).navigate(PostListRvFragmentDirections.actionPostListRvFragmentToPostPage(postId, userId));
             }
         });
 
@@ -178,7 +178,6 @@ public class PostListRvFragment extends Fragment {
                         .load(viewModel.getUserLiveData().getValue().getAvatarUrl())
                         .into(userAvatar);
             }
-
         }
     }
 
@@ -189,7 +188,6 @@ public class PostListRvFragment extends Fragment {
     class MyAdapter extends RecyclerView.Adapter<MyViewHolder> {
 
         OnItemClickListener listener;
-
         public void setOnItemClickListener(OnItemClickListener listener) {
             this.listener = listener;
         }
@@ -216,9 +214,6 @@ public class PostListRvFragment extends Fragment {
 
         @Override
         public int getItemCount() {
-//            if (viewModel.getPostList().getValue() == null)
-//                return 0;
-//            return viewModel.getPostList().getValue().size();
             if (viewModel.getCategoryPostList().getValue() == null)
                 return 0;
             return viewModel.getCategoryPostList().getValue().size();

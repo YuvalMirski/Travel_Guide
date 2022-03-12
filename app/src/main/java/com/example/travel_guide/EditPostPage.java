@@ -22,6 +22,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.travel_guide.model.Model;
 import com.example.travel_guide.model.User;
@@ -36,7 +37,7 @@ public class EditPostPage extends Fragment {
 
     //TODO:: only the post creator will be able to edit it's post
 
-    EditText postName, location, about;
+    EditText postName, about;
     ImageView postImg;
     Bitmap imageBitmap;
     String new_name,new_location, new_about, new_id, new_category,userId, imageUrl;
@@ -90,6 +91,7 @@ public class EditPostPage extends Fragment {
         saveBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                saveBtn.setEnabled(false);
                 new_name = postName.getText().toString();
                 new_location = citySpinner.getSelectedItem().toString();
                 new_category = categorySpinner.getSelectedItem().toString().toLowerCase();
@@ -98,19 +100,23 @@ public class EditPostPage extends Fragment {
                 UserPost userPost = new UserPost(new_name,new_location,new_about,new_category,userId);
                 userPost.setId(postId);
 
-                if(imageBitmap!=null) {
-                    Model.instance.saveImage(imageBitmap, new_name+ ".jpg", "post_pics",url -> {
-                        userPost.setPostImgUrl(url);
-                        Model.instance.updateUserPost(userPost,()->{
-                            Navigation.findNavController(postName).navigateUp();
+                if(new_name!=null && new_about!=null) {
+                    if (imageBitmap != null) {
+                        Model.instance.saveImage(imageBitmap, new_name + ".jpg", "post_pics", url -> {
+                            userPost.setPostImgUrl(url);
+                            Model.instance.updateUserPost(userPost, () -> {
+                                Navigation.findNavController(postName).navigateUp();
+                            });
                         });
-                    });
+                    } else {
+                        Toast.makeText(getContext(), "You must add post image", Toast.LENGTH_LONG).show();
+                        saveBtn.setEnabled(true);
+                    }
                 }
-                else {
-                    userPost.setPostImgUrl(imageUrl);
-                    Model.instance.updateUserPost(userPost, () -> {
-                        Navigation.findNavController(postName).navigateUp();
-                    });
+                else
+                {
+                    Toast.makeText(getContext(), "You must add post name and description", Toast.LENGTH_LONG).show();
+                    saveBtn.setEnabled(true);
                 }
             }
         });
@@ -125,8 +131,7 @@ public class EditPostPage extends Fragment {
                 Model.instance.updateUser(u,()-> System.out.println(""));
 
                 Model.instance.deletePostById(currentPost, () -> {
-                    Navigation.findNavController(postName).navigateUp();
-                    //Navigation.findNavController(v).navigate(EditPostPageDirections.actionEditPostPageToPostListRvFragment("","",""));
+                    Navigation.findNavController(v).navigate(EditPostPageDirections.actionGlobalHomePageNav(userId));
                 });
             }
         });
@@ -135,7 +140,6 @@ public class EditPostPage extends Fragment {
     }
 
     final static int SELECT_PICTURE = 200;
-
     private void openGallery() {
         // Create intent for picking a photo from the gallery
         Intent intent = new Intent();

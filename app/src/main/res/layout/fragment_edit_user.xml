@@ -12,21 +12,22 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="50dp"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="32dp"
         android:layout_marginEnd="50dp"
-        android:text="Account"
+        android:text="Edit account"
         android:textSize="34sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/userAvater_edit_acount_imv"
-        android:layout_width="150dp"
-        android:layout_height="150dp"
+        android:layout_width="170dp"
+        android:layout_height="170dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="32dp"
         android:layout_marginEnd="8dp"
         android:src="@drawable/avatar"
         app:layout_constraintEnd_toEndOf="parent"
@@ -47,7 +48,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="32dp"
         android:layout_marginEnd="24dp"
         android:hint="@string/hint_account_edit_username"
         app:boxCornerRadiusBottomEnd="100dp"
@@ -132,48 +133,18 @@
             app:layout_constraintStart_toEndOf="@+id/country_account_edit_tv" />
     </com.google.android.material.textfield.TextInputLayout>
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/password_account_edit_tv"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="24dp"
-        android:hint="@string/hint_account_edit_country"
-        app:boxCornerRadiusBottomEnd="100dp"
-        app:boxCornerRadiusBottomStart="100dp"
-        app:boxCornerRadiusTopEnd="100dp"
-        app:boxCornerRadiusTopStart="100dp"
-        app:boxStrokeWidth="0dp"
-        app:boxStrokeWidthFocused="0dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/country_account_edit_tv">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/password_account_edit_et"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="text"
-            android:maxLines="1"
-            android:textColor="@color/black"
-            android:textSize="20dp"
-            app:layout_constraintStart_toEndOf="@+id/password_account_edit_tv" />
-    </com.google.android.material.textfield.TextInputLayout>
-
     <Button
         android:id="@+id/save_account_edit_btn"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="100dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="50dp"
         android:layout_marginEnd="100dp"
-        android:text="Save"
         android:backgroundTint="#4e5f8f"
+        android:text="Save"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/password_account_edit_tv" />
+        app:layout_constraintTop_toBottomOf="@+id/country_account_edit_tv" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

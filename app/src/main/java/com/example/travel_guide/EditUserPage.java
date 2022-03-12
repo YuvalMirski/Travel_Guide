@@ -19,6 +19,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.example.travel_guide.model.Model;
 import com.example.travel_guide.model.User;
@@ -69,28 +70,32 @@ public class EditUserPage extends Fragment {
         ImageButton galleryBtn = view.findViewById(R.id.gallery_editAccount_imb);
         galleryBtn.setOnClickListener(v -> openGallery());
 
-//        Button deleteBtn = view.findViewById(R.id.delete_account_edit_btn);
-//        deleteBtn.setOnClickListener(v -> Model.instance.deleteUserById(userId,()-> Navigation.findNavController(userName).navigateUp()));
-
         Button saveBtn = view.findViewById(R.id.save_account_edit_btn);
         saveBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                saveBtn.setEnabled(false);
                 new_userName = userName.getText().toString();
                 new_email = email.getText().toString();
                 new_country = country.getText().toString();
                 User u = new User(new_userName,new_email,new_sex,new_country, lstSaved,lstUserPosts);
                 u.setId(userId);
 
-                if(imageBitmap!=null) {
-                    Model.instance.saveImage(imageBitmap, new_userName+ ".jpg", "user_avatars",url -> {
-                        u.setAvatarUrl(url);
-                        Model.instance.updateUser(u, ()->Navigation.findNavController(userName).navigateUp());
-                    });
+                if(new_userName!=null && new_email!=null && new_country!=null) {
+                    if (imageBitmap != null) {
+                        Model.instance.saveImage(imageBitmap, new_userName + ".jpg", "user_avatars", url -> {
+                            u.setAvatarUrl(url);
+                            Model.instance.updateUser(u, () -> Navigation.findNavController(userName).navigateUp());
+                        });
+                    } else {
+                        Toast.makeText(getContext(), "You must add user image", Toast.LENGTH_LONG).show();
+                        saveBtn.setEnabled(true);
+                    }
                 }
-                else {
-                    u.setAvatarUrl(avatarUrl);
-                    Model.instance.updateUser(u, ()->Navigation.findNavController(userName).navigateUp());
+                else
+                {
+                    Toast.makeText(getContext(), "Wrong username, email or country!", Toast.LENGTH_LONG).show();
+                    saveBtn.setEnabled(true);
                 }
             }
         });

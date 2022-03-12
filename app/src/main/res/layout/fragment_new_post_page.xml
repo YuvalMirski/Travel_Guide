@@ -7,7 +7,6 @@
     android:background="@drawable/background_default2"
     tools:context=".NewPostPage">
 
-
     <EditText
         android:id="@+id/post_name_post_page_new_et"
         android:layout_width="wrap_content"
@@ -15,7 +14,7 @@
         android:layout_marginStart="30dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="30dp"
-        android:hint="post name"
+        android:hint="Post name"
         android:textSize="34sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.496"

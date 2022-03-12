@@ -58,9 +58,7 @@ public class HomePage extends Fragment {
 
         //String userId = HomePageArgs.fromBundle(getArguments()).getUserId();
         userId = homeViewModel.getUserId();
-        System.out.println("user id is: "+userId);
 
-        //String city = citySpinner.getSelectedItem().toString(); TODO:: to enter in the buttoms below
         attractionBtn.setOnClickListener(v->Navigation.findNavController(v).navigate(HomePageDirections.actionGlobalPostListRvFragment("attractions",userId,citySpinner.getSelectedItem().toString())));
         toursBtn.setOnClickListener(v -> Navigation.findNavController(v).navigate(HomePageDirections.actionGlobalPostListRvFragment("tours",userId,citySpinner.getSelectedItem().toString())));
         restaurantsBtn.setOnClickListener(v -> Navigation.findNavController(v).navigate(HomePageDirections.actionGlobalPostListRvFragment("restaurants",userId,citySpinner.getSelectedItem().toString())));

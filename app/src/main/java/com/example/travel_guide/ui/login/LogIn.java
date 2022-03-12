@@ -43,7 +43,6 @@ public class LogIn extends Fragment {
 //        //loginViewModel = new ViewModelProvider(this).get(LoginViewModel.class);
 //    }
 
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -60,6 +59,7 @@ public class LogIn extends Fragment {
         loginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                loginBtn.setEnabled(false);
                 userEmail = email.getText().toString();
                 userPassword = password.getText().toString();
                 if (checkLogin(userEmail,userPassword)) {
@@ -70,32 +70,26 @@ public class LogIn extends Fragment {
                             if (user != null) {
                                 Model.instance.setCurrentUser(user);
 
-                                //TODO:: to change unabled to press
-                                //navigationView.setNavigationItemSelectedListener(this);
-
                                 InputMethodManager imm = (InputMethodManager) getContext().getSystemService(Activity.INPUT_METHOD_SERVICE); //hide the keyboard input
                                 imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
 
                                 toFeedActivity();
-//                              Navigation.findNavController(v).navigate(LogInDirections.actionGlobalHomePageNav(user.getId()));
-
                             } else {
                                 wrongLogin(v,"Wrong email or password!");
+                                loginBtn.setEnabled(true);
                             }
                         }
                     });
                 }
                 else {
                     wrongLogin(v,"Email or password isn't valid!");
+                    loginBtn.setEnabled(true);
                 }
             }
         });
 
         Button signUpBtn = (Button) view.findViewById(R.id.signup_login_btn);
-        signUpBtn.setOnClickListener(v -> Navigation.findNavController(v).navigate(LogInDirections.actionLogInNavToSignUpNav()));
-
-
-        //TODO:: add button for user without account
+//        signUpBtn.setOnClickListener(v -> Navigation.findNavController(v).navigate(LogInDirections.actionLogInNavToSignUpNav()));
 
         return view;
     }
@@ -105,7 +99,6 @@ public class LogIn extends Fragment {
         startActivity(intent);
         getActivity().finish();
     }
-
 
     public boolean checkLogin(String email, String password)
     {
@@ -128,6 +121,4 @@ public class LogIn extends Fragment {
             Toast.makeText(getContext(), msg, Toast.LENGTH_LONG).show();
         }
     }
-
 }
-//https://www.tutorialspoint.com/android/android_login_screen.htm

@@ -116,7 +116,6 @@ public class SignUp extends Fragment {
                     public void onComplete(String isSuccess) {
                         if (isSuccess.equals("true")) {
                             toFeedActivity();
-//                            Navigation.findNavController(v).navigate(SignUpDirections.actionSignUpNavToLogInNav());
                         } else {
                             String msg = isSuccess.split(": ")[1];
                             Toast.makeText(getContext(), msg, Toast.LENGTH_LONG).show();

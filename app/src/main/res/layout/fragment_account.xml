@@ -10,7 +10,7 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content">
 
         <TextView
             android:id="@+id/title_account_tv"
@@ -19,7 +19,7 @@
             android:layout_marginStart="50dp"
             android:layout_marginTop="30dp"
             android:layout_marginEnd="50dp"
-            android:text="Account"
+            android:text="My account"
             android:textSize="34sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
@@ -28,15 +28,16 @@
 
         <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/userAvatar_account_details_imv"
-            android:layout_width="130dp"
-            android:layout_height="130dp"
+            android:layout_width="0dp"
+            android:layout_height="150dp"
             android:layout_marginStart="8dp"
-            android:layout_marginEnd="32dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="8dp"
             android:src="@drawable/avatar"
-            app:layout_constraintBottom_toBottomOf="@+id/username_account_tv"
             app:layout_constraintDimensionRatio="H,1:1"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/username_account_tv"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/title_account_tv"
             app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.CornerSize50Percent" />
 
         <com.google.android.material.textfield.TextInputLayout
@@ -44,8 +45,8 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
-            android:layout_marginTop="100dp"
-            android:layout_marginEnd="16dp"
+            android:layout_marginTop="24dp"
+            android:layout_marginEnd="32dp"
             android:hint="@string/hint_account_username"
             app:boxCornerRadiusBottomEnd="100dp"
             app:boxCornerRadiusBottomStart="100dp"
@@ -53,9 +54,9 @@
             app:boxCornerRadiusTopStart="100dp"
             app:boxStrokeWidth="0dp"
             app:boxStrokeWidthFocused="0dp"
-            app:layout_constraintEnd_toStartOf="@+id/userAvatar_account_details_imv"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/title_account_tv">
+            app:layout_constraintTop_toBottomOf="@+id/userAvatar_account_details_imv">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/user_name_account_str_tv"
@@ -93,8 +94,8 @@
                 android:layout_height="wrap_content"
                 android:inputType="text"
                 android:maxLines="1"
-                android:textSize="20sp"
                 android:textColor="@color/black"
+                android:textSize="20sp"
                 app:layout_constraintBottom_toBottomOf="@+id/email_account_tv"
                 app:layout_constraintStart_toEndOf="@+id/email_account_tv" />
         </com.google.android.material.textfield.TextInputLayout>
@@ -123,8 +124,8 @@
                 android:layout_height="wrap_content"
                 android:inputType="text"
                 android:maxLines="1"
-                android:textSize="20sp"
                 android:textColor="@color/black"
+                android:textSize="20sp"
                 app:layout_constraintBottom_toBottomOf="@+id/sex_account_tv"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/sex_account_tv" />
@@ -154,61 +155,13 @@
                 android:layout_height="wrap_content"
                 android:inputType="text"
                 android:maxLines="1"
-                android:textSize="20sp"
                 android:textColor="@color/black"
+                android:textSize="20sp"
                 app:layout_constraintBottom_toBottomOf="@+id/country_account_tv"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/country_account_tv" />
         </com.google.android.material.textfield.TextInputLayout>
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/password_account_tv"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="32dp"
-            android:hint="@string/hint_account_password"
-            app:boxCornerRadiusBottomEnd="100dp"
-            app:boxCornerRadiusBottomStart="100dp"
-            app:boxCornerRadiusTopEnd="100dp"
-            app:boxCornerRadiusTopStart="100dp"
-            app:boxStrokeWidth="0dp"
-            app:boxStrokeWidthFocused="0dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/country_account_tv">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/password_account_str_tv"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="text"
-                android:maxLines="1"
-                android:textSize="20sp"
-                android:textColor="@color/black"
-                app:layout_constraintBottom_toBottomOf="@+id/password_account_tv"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/password_account_tv" />
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <Button
-            android:id="@+id/post_account_btn"
-            android:layout_width="200dp"
-            android:layout_height="60dp"
-            android:layout_marginStart="100dp"
-            android:layout_marginTop="32dp"
-            android:layout_marginEnd="100dp"
-            android:layout_marginBottom="32dp"
-            android:backgroundTint="#0d3a71"
-            android:text="My Posts"
-            android:textSize="16sp"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/password_account_tv"
-            app:layout_constraintVertical_bias="0.0" />
 
         <ImageButton
             android:id="@+id/edit_accoutn_btn"
@@ -221,6 +174,39 @@
             android:src="@drawable/ic_baseline_edit_24"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/myPosts_account_btn"
+            android:layout_width="0dp"
+            android:layout_height="60dp"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="24dp"
+            android:layout_marginEnd="32dp"
+            android:layout_marginBottom="24dp"
+            android:backgroundTint="#0d3a71"
+            android:text="My Posts"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/savedPosts_account_btn"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/country_account_tv" />
+
+        <Button
+            android:id="@+id/savedPosts_account_btn"
+            android:layout_width="0dp"
+            android:layout_height="60dp"
+            android:layout_marginTop="24dp"
+            android:layout_marginEnd="32dp"
+            android:layout_marginBottom="24dp"
+            android:backgroundTint="#0d3a71"
+            android:text="saved posts"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/myPosts_account_btn"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/myPosts_account_btn" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </ScrollView>

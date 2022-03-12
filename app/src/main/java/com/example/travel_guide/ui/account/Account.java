@@ -11,7 +11,6 @@ import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
-import androidx.navigation.fragment.NavHostFragment;
 
 import com.example.travel_guide.R;
 import com.example.travel_guide.model.Model;
@@ -29,8 +28,7 @@ public class Account extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_account, container, false);
 
-        String userId = AccountArgs.fromBundle(getArguments()).getUserId();
-
+        String userId = Model.instance.getCurrentUser().getId();
         Model.instance.getUserById(userId, new Model.GetUserById() {
             @Override
             public void onComplete(User user) {
@@ -38,7 +36,6 @@ public class Account extends Fragment {
                 email.setText(user.getEmail());
                 sex.setText(user.getSex());
                 country.setText(user.getCountry());
-                //password.setText(user.getPassword());
 
                 if(user.getAvatarUrl()!=null) {
                     Picasso.get()
@@ -52,20 +49,21 @@ public class Account extends Fragment {
         email = view.findViewById(R.id.email_account_str_tv);
         sex = view.findViewById(R.id.sex_account_str_tv);
         country = view.findViewById(R.id.country_account_str_tv);
-        //password = view.findViewById(R.id.password_account_str_tv);
         userAvatar = view.findViewById(R.id.userAvatar_account_details_imv);
 
         userName.setEnabled(false);
         email.setEnabled(false);
         sex.setEnabled(false);
         country.setEnabled(false);
-        //password.setEnabled(false);
 
         ImageButton editBtn = view.findViewById(R.id.edit_accoutn_btn);
-        editBtn.setOnClickListener(v -> Navigation.findNavController(v).navigate(AccountDirections.actionGlobalEditUserFragment(userId)));
+        editBtn.setOnClickListener(v -> Navigation.findNavController(v).navigate(AccountDirections.actionAccountNavToEditUserFragment(userId))); 
 
-        Button userPostBtn = view.findViewById(R.id.post_account_btn); //list of posts that the user has created
+        Button userPostBtn = view.findViewById(R.id.myPosts_account_btn); //list of posts that the user has created
         userPostBtn.setOnClickListener(v -> Navigation.findNavController(v).navigate(AccountDirections.actionGlobalPostListRvFragment("userCreatePosts",userId,"")));
+
+        Button savedPostsBtn = view.findViewById(R.id.savedPosts_account_btn); //list of posts that the user saved for later
+        savedPostsBtn.setOnClickListener(v -> Navigation.findNavController(v).navigate(AccountDirections.actionGlobalPostListRvFragment("userSavedPost",userId,"")));
 
         return view;
     }

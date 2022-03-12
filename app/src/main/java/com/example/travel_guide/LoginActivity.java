@@ -49,5 +49,4 @@ public class LoginActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.login_navhost);
         return NavigationUI.navigateUp(navController, mAppBarConfiguration) || super.onSupportNavigateUp();
     }
-
 }
