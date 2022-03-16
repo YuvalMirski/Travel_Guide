@@ -10,9 +10,9 @@ public class NewPostPageViewModel extends ViewModel {
 
     LiveData<User> userLiveData;
     String userId;
-    public NewPostPageViewModel() {
 
-    }
+    public NewPostPageViewModel() { }
+
     public void updateUser(String userId){
         this.userId = userId;
         userLiveData = Model.instance.getUser(userId);

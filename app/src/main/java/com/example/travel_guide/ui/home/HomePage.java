@@ -23,7 +23,6 @@ import com.example.travel_guide.model.User;
 import com.example.travel_guide.ui.account.Account;
 import com.google.android.material.navigation.NavigationView;
 
-
 public class HomePage extends Fragment {
 
     HomePageViewModel homeViewModel;
@@ -56,7 +55,6 @@ public class HomePage extends Fragment {
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         citySpinner.setAdapter(adapter);
 
-        //String userId = HomePageArgs.fromBundle(getArguments()).getUserId();
         userId = homeViewModel.getUserId();
 
         attractionBtn.setOnClickListener(v->Navigation.findNavController(v).navigate(HomePageDirections.actionGlobalPostListRvFragment("attractions",userId,citySpinner.getSelectedItem().toString())));

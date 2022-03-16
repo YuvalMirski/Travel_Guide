@@ -27,21 +27,13 @@ import com.google.android.material.navigation.NavigationView;
 
 public class LogIn extends Fragment {
 
-    LoginViewModel loginViewModel;
     private int attemptLogIn = 3;
     private String userEmail, userPassword;
-    boolean isConnected;
     Button loginBtn;
 
     public LogIn() {
         // Required empty public constructor
     }
-
-//    @Override
-//    public void onAttach(@NonNull Context context) {
-//        super.onAttach(context);
-//        //loginViewModel = new ViewModelProvider(this).get(LoginViewModel.class);
-//    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -63,7 +55,6 @@ public class LogIn extends Fragment {
                 userEmail = email.getText().toString();
                 userPassword = password.getText().toString();
                 if (checkLogin(userEmail,userPassword)) {
-
                     Model.instance.userSignIn(email.getText().toString().trim(), password.getText().toString().trim(), new Model.OnCompleteGeneralListener() {
                         @Override
                         public void onComplete(User user) {

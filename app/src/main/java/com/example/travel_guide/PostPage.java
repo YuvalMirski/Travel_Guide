@@ -15,7 +15,6 @@ import com.example.travel_guide.model.Model;
 import com.example.travel_guide.model.UserPost;
 import com.squareup.picasso.Picasso;
 
-
 public class PostPage extends Fragment {
     TextView postName, location, category, about;
     ImageView postImg;

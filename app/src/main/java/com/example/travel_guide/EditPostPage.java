@@ -32,10 +32,7 @@ import com.squareup.picasso.Picasso;
 import java.io.IOException;
 import java.util.Arrays;
 
-
 public class EditPostPage extends Fragment {
-
-    //TODO:: only the post creator will be able to edit it's post
 
     EditText postName, about;
     ImageView postImg;
@@ -156,7 +153,6 @@ public class EditPostPage extends Fragment {
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == RESULT_OK) {
-
             if (requestCode == SELECT_PICTURE) {
                 Uri selectedImageUri = data.getData();
                 imageBitmap = null;

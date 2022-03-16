@@ -20,11 +20,9 @@ public class HomePageViewModel extends ViewModel {
             }
         });
     }
-    public LiveData<User> getUserLiveData() {
-        return userLiveData;
-    }
+
+    public LiveData<User> getUserLiveData() { return userLiveData; }
     public String getUserId() {
         return userId;
     }
-
 }

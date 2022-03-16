@@ -32,8 +32,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-//Create User Page
-
 public class SignUp extends Fragment {
     EditText email, country, userName, password;
     ImageView avatarPic;
@@ -61,7 +59,6 @@ public class SignUp extends Fragment {
         submitBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 submitBtn.setEnabled(false);
                 RadioButton checkedSexRB = sexRG.findViewById(sexRG.getCheckedRadioButtonId());
 
