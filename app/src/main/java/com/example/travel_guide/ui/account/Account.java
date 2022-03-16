@@ -17,10 +17,9 @@ import com.example.travel_guide.model.Model;
 import com.example.travel_guide.model.User;
 import com.squareup.picasso.Picasso;
 
-//User Details Page
 public class Account extends Fragment {
 
-    TextView userName, email, sex, country;//, password;
+    TextView userName, email, sex, country;
     ImageView userAvatar;
 
     @Override

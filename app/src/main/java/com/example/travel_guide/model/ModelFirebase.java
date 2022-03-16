@@ -126,7 +126,6 @@ public class ModelFirebase {
     }
 
     public void addUserPost(UserPost userPost, Model.AddPostListener listener) {
-        //TODO:: need to update Room
         System.out.println("userPost in add: " + userPost.getId());
 
         Map<String, Object> json = userPost.toJson();

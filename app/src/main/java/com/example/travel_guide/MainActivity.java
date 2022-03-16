@@ -73,7 +73,6 @@ public class MainActivity extends AppCompatActivity {//implements NavigationView
         Picasso.get()
                 .load(currentUser.getAvatarUrl())
                 .into(userAvatar);
-
     }
 
     @Override
@@ -93,13 +92,8 @@ public class MainActivity extends AppCompatActivity {//implements NavigationView
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-
         if (!super.onOptionsItemSelected(item)) {
             switch (item.getItemId()) {
-//                case android.R.id.home:
-//                    navController.navigateUp();
-//                    NavigationUI.onNavDestinationSelected(item, navController);
-//                    return true;
                 case R.id.action_logout:
                     Model.instance.signOut(userId);
                     Intent intent = new Intent(getContext(), LoginActivity.class);

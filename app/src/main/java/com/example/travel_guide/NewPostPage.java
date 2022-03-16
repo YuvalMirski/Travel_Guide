@@ -34,13 +34,12 @@ import java.io.IOException;
 
 public class NewPostPage extends Fragment {
 
-    String new_name,new_location, new_about, new_category,userId;
+    String new_name, new_location, new_about, new_category, userId;
     EditText postName, about;
     ImageView postPic;
     Bitmap imageBitmap;
     Spinner categorySpinner, citySpinner;
     String[] categoryArr, cityArr;
-
     NewPostPageViewModel viewModel;
 
     @Override
@@ -74,9 +73,9 @@ public class NewPostPage extends Fragment {
                 new_location = citySpinner.getSelectedItem().toString();
                 new_category = categorySpinner.getSelectedItem().toString().toLowerCase();
                 new_about = about.getText().toString();
-                UserPost userPost = new UserPost(new_name,new_location,new_about,new_category,userId);
+                UserPost userPost = new UserPost(new_name, new_location, new_about, new_category, userId);
 
-                if(new_name!=null && new_about!=null) {
+                if (new_name != null && new_about != null) {
                     if (imageBitmap != null) {
                         Model.instance.saveImage(imageBitmap, new_name + ".jpg", "post_pics", url -> {
                             userPost.setPostImgUrl(url);
@@ -94,9 +93,7 @@ public class NewPostPage extends Fragment {
                         Toast.makeText(getContext(), "You must add post image", Toast.LENGTH_LONG).show();
                         addPostBtn.setEnabled(true);
                     }
-                }
-                else
-                {
+                } else {
                     Toast.makeText(getContext(), "You must add post name and description", Toast.LENGTH_LONG).show();
                     addPostBtn.setEnabled(true);
                 }
@@ -108,7 +105,8 @@ public class NewPostPage extends Fragment {
 
 
     final static int SELECT_PICTURE = 200;
-    private void openGallery(){
+
+    private void openGallery() {
         // Create intent for picking a photo from the gallery
         Intent intent = new Intent();
         intent.setType("image/*");
@@ -125,8 +123,10 @@ public class NewPostPage extends Fragment {
                 Uri selectedImageUri = data.getData();
                 imageBitmap = null;
                 try {
-                    imageBitmap = MediaStore.Images.Media.getBitmap(getContext().getContentResolver(),selectedImageUri);
-                } catch (IOException e) { e.printStackTrace(); }
+                    imageBitmap = MediaStore.Images.Media.getBitmap(getContext().getContentResolver(), selectedImageUri);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
 
                 if (imageBitmap != null) {
                     postPic.setImageBitmap(imageBitmap);
@@ -135,8 +135,7 @@ public class NewPostPage extends Fragment {
         }
     }
 
-    public void initSpinners(View view)
-    {
+    public void initSpinners(View view) {
         categorySpinner = (Spinner) view.findViewById(R.id.spinner_category_postPage);
         ArrayAdapter<CharSequence> adapterCategory = ArrayAdapter.createFromResource(getContext(), R.array.CategoryList, R.layout.spinner_item);
         adapterCategory.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);

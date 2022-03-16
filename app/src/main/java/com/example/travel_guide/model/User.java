@@ -8,7 +8,7 @@ import java.util.Map;
 public class User {
 
     String userName, email, sex, country, id, avatarUrl;//, password
-    List<String> lstSaved; // TODO:: id of all the post of the saved post
+    List<String> lstSaved;
     List<String> lstUserPosts;
     final public static String COLLECTION_NAME = "Users";
 

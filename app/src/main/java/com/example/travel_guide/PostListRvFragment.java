@@ -29,8 +29,8 @@ public class PostListRvFragment extends Fragment {
     PostListRvViewModel viewModel;
     MyAdapter adapter;
     SwipeRefreshLayout swipeRefresh;
-    String categoryName,userId,locationName;
-    User currUserVM;
+    String categoryName, userId, locationName;
+
     @Override
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
@@ -47,15 +47,11 @@ public class PostListRvFragment extends Fragment {
         categoryName = PostListRvFragmentArgs.fromBundle(getArguments()).getCategoryName();
         locationName = PostListRvFragmentArgs.fromBundle(getArguments()).getLocationName();
 
-       // currUserVM = Model.instance.getCurrentUser();
+        viewModel.demoCtor(categoryName, userId, locationName);
 
-        viewModel.demoCtor(categoryName,userId,locationName);
-
-        Model.instance.refreshCategoryPage(categoryName,userId,locationName);
+        Model.instance.refreshCategoryPage(categoryName, userId, locationName);
         swipeRefresh = view.findViewById(R.id.post_list_swiperefresh);
-
-        swipeRefresh.setOnRefreshListener(() -> Model.instance.refreshCategoryPage(categoryName,userId,locationName));
-        //swipeRefresh.setOnRefreshListener(() -> Model.instance.refreshPostList());
+        swipeRefresh.setOnRefreshListener(() -> Model.instance.refreshCategoryPage(categoryName, userId, locationName));
 
         RecyclerView list = view.findViewById(R.id.post_list_rv);
         list.setHasFixedSize(true);
@@ -67,16 +63,13 @@ public class PostListRvFragment extends Fragment {
         adapter.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClick(View v, int position) {
-          //   String postId = viewModel.getPostList().getValue().get(position).getId();
-               String postId = viewModel.getCategoryPostList().getValue().get(position).getId();
-              // Navigation.findNavController(v).navigate(PostListRvFragmentDirections.actionPostListRvFragmentToPostPage(postId));
-               Navigation.findNavController(v).navigate(PostListRvFragmentDirections.actionPostListRvFragmentToPostPage(postId, userId));
+                String postId = viewModel.getCategoryPostList().getValue().get(position).getId();
+                Navigation.findNavController(v).navigate(PostListRvFragmentDirections.actionPostListRvFragmentToPostPage(postId, userId));
             }
         });
 
-        viewModel.getUserLiveData().observe(getViewLifecycleOwner(),user -> refresh());
+        viewModel.getUserLiveData().observe(getViewLifecycleOwner(), user -> refresh());
         viewModel.getCategoryPostList().observe(getViewLifecycleOwner(), userPosts -> refresh());
-        //viewModel.getPostList().observe(getViewLifecycleOwner(), userPosts -> refresh());
 
         swipeRefresh.setRefreshing(Model.instance.getPostListLoadingState().getValue() == Model.PostListLoadingState.loading);
 
@@ -94,16 +87,8 @@ public class PostListRvFragment extends Fragment {
     }
 
     private void refresh() {
-
         adapter.notifyDataSetChanged();
         swipeRefresh.setRefreshing(false);
-
-//        swipeRefresh.setRefreshing(true);
-//        Model.instance.getAllPosts((list)->{
-//            viewModel.setPostList(list);
-//            adapter.notifyDataSetChanged();
-//            swipeRefresh.setRefreshing(false);
-//        });
     }
 
 
@@ -129,19 +114,16 @@ public class PostListRvFragment extends Fragment {
                     int position = getAdapterPosition();
                     String postId = viewModel.getCategoryPostList().getValue().get(position).getId();
 
-                    if(!viewModel.getUserLiveData().getValue().getLstSaved().contains(postId)) //add saved post
+                    if (!viewModel.getUserLiveData().getValue().getLstSaved().contains(postId)) //add saved post
                     {
                         viewModel.getUserLiveData().getValue().getLstSaved().add(postId);
                         User u = viewModel.userLiveData.getValue();
                         Model.instance.updateUser(u, () -> likeImg.setImageResource(R.drawable.ic_baseline_bookmark_remove_24));
-                    }
-                    else {
-//                      likeImg.setVisibility(v.GONE);// maybe to write that is exist
+                    } else {
                         viewModel.getUserLiveData().getValue().getLstSaved().remove(postId);
                         User u = viewModel.userLiveData.getValue();
                         Model.instance.updateUser(u, () -> likeImg.setImageResource(R.drawable.ic_baseline_saved));
                     }
-
                 }
             });
 
@@ -152,43 +134,42 @@ public class PostListRvFragment extends Fragment {
             });
         }
 
-        public void bind(UserPost post){
+        public void bind(UserPost post) {
             postName.setText(post.getName());
-            String categoryUserPost = post.getCategory().substring(0,1).toUpperCase() + post.getCategory().substring(1);
+            String categoryUserPost = post.getCategory().substring(0, 1).toUpperCase() + post.getCategory().substring(1);
             category.setText(categoryUserPost);
             location.setText(post.getLocation());
             postImg.setImageResource(R.drawable.avatar);
 
-            if(post.getPostImgUrl()!=null) {
+            if (post.getPostImgUrl() != null) {
                 Picasso.get()
                         .load(post.getPostImgUrl())
                         .into(postImg);
             }
 
-            if(viewModel.getUserLiveData().getValue().getLstSaved().contains(post.getId())){
+            if (viewModel.getUserLiveData().getValue().getLstSaved().contains(post.getId())) {
                 likeImg.setImageResource(R.drawable.ic_baseline_bookmark_remove_24);
                 Model.instance.deleteSaveFromRoom(post);
-            }
-            else{
+            } else {
                 likeImg.setImageResource(R.drawable.ic_baseline_saved);
 
-           }
+            }
 
             userName.setText(viewModel.getUserLiveData().getValue().getUserName());
-            if(viewModel.getUserLiveData().getValue().getAvatarUrl()!=null) {
+            if (viewModel.getUserLiveData().getValue().getAvatarUrl() != null) {
                 Picasso.get()
                         .load(viewModel.getUserLiveData().getValue().getAvatarUrl())
                         .into(userAvatar);
             }
 
             Model.instance.getUserById(post.getUserId(), user -> {
-            userName.setText(user.getUserName());
-            if(user.getAvatarUrl()!=null) {
-                Picasso.get()
-                        .load(user.getAvatarUrl())
-                        .into(userAvatar);
-            }
-        });
+                userName.setText(user.getUserName());
+                if (user.getAvatarUrl() != null) {
+                    Picasso.get()
+                            .load(user.getAvatarUrl())
+                            .into(userAvatar);
+                }
+            });
         }
     }
 
@@ -199,6 +180,7 @@ public class PostListRvFragment extends Fragment {
     class MyAdapter extends RecyclerView.Adapter<MyViewHolder> {
 
         OnItemClickListener listener;
+
         public void setOnItemClickListener(OnItemClickListener listener) {
             this.listener = listener;
         }
@@ -213,14 +195,8 @@ public class PostListRvFragment extends Fragment {
 
         @Override
         public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
-           //UserPost post = viewModel.getPostList().getValue().get(position);
             UserPost post = viewModel.getCategoryPostList().getValue().get(position);
             holder.bind(post);
-
-            //  holder.imageView.setImageResource(post.getUserProfile());
-
-            //TODO:: maybe i can save post id here instead of subtract it twice
-            //  String post_id = post.getId();
         }
 
         @Override

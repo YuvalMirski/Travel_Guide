@@ -28,7 +28,6 @@ import com.squareup.picasso.Picasso;
 import java.io.IOException;
 import java.util.List;
 
-//User Edit Page
 public class EditUserPage extends Fragment {
 
     EditText userName, email, country;
@@ -62,6 +61,7 @@ public class EditUserPage extends Fragment {
                 }
             }
         });
+
         userName = view.findViewById(R.id.user_name_account_edit_et);
         email = view.findViewById(R.id.email_account_edit_et);
         country = view.findViewById(R.id.country_account_edit_et);

@@ -55,7 +55,6 @@
     <string name="hint_country_signUp">Country:</string>
     <string name="hint_password_signUp">Password:</string>
 
-
     <!-- Post Spinners -->
     <string-array name="CategoryList">
         <item>Attractions</item>
