@@ -25,17 +25,14 @@ public class Model {
     public Executor executor = Executors.newFixedThreadPool(1);
     public Handler mainThread = HandlerCompat.createAsync(Looper.getMainLooper());
 
-    //User currentUser;
     MutableLiveData<User> LiveDataUser = new MutableLiveData<User>();
 
     public User getCurrentUser() {
         return LiveDataUser.getValue();
-        //return currentUser;
     }
 
     public void setCurrentUser(User currentUser) {
         this.LiveDataUser.setValue(currentUser);
-       // this.currentUser = currentUser;
     }
 
     public Long getLastUpdateDate() {
@@ -57,7 +54,6 @@ public class Model {
     }
 
 
-    //List<UserPost> userPostListData;
     private Model() {
         postListLoadingState.setValue(PostListLoadingState.loaded);
     }
@@ -67,11 +63,8 @@ public class Model {
     //------------------------------------POST------------------------------------//
 
     public LiveData<List<UserPost>> getCategoryPosts(String categoryName, String userId, String location) {
-        // if (listLiveDataPost.getValue() == null) {
         Long lastUpdateDate = getLastUpdateDate();
-        //refreshCategoryPage(categoryName, userId, location);
         postListLoadingState.setValue(PostListLoadingState.loading);
-
         if (categoryName.equals("userSavedPost"))
             modelFirebase.getAllPosts(lastUpdateDate, new ModelFirebase.GetAllPostsListener() {
                 @Override
@@ -84,7 +77,6 @@ public class Model {
             modelFirebase.getAllPosts(new ModelFirebase.GetAllPostsListener() {
                 @Override
                 public void onComplete(List<UserPost> list) {
-
 
                     if (!categoryName.equals("allCategories"))
                         listLiveDataPost.setValue(sortCategory(list, categoryName, userId, location));
@@ -194,9 +186,7 @@ public class Model {
 
     public void refreshPostList() {
         postListLoadingState.setValue(PostListLoadingState.loading);
-
         Long lastUpdateDate = getLastUpdateDate();
-
         modelFirebase.getAllPosts(lastUpdateDate, new ModelFirebase.GetAllPostsListener() {
             @Override
             public void onComplete(List<UserPost> list) {
@@ -234,14 +224,7 @@ public class Model {
     }
 
 
-//    public interface DeletePostById {
-//        void onComplete();
-//    }
-
     public void deletePostById(UserPost userPost, AddPostListener listener) {
-        //modelFirebase.deletePostById(postId,listener);
-        // delete post from local db
-        //executor.execute(()->{AppLocalDB.db.userPostDao().delete(userPost);});
         deleteSaveFromRoom(userPost);
         modelFirebase.updateUserPost(userPost, listener);
     }
@@ -281,47 +264,14 @@ public class Model {
     public interface OnCompleteGeneralListener {
         void onComplete(User user);
     }
-//    public void addUser (User user,AddUserListener listener){
-//        modelFirebase.addUser(user,listener);
-//    }
 
-    public void createUserWithEmail(String password,User user, AddUserToFBListener listener) {
+    public void createUserWithEmail(String password, User user, AddUserToFBListener listener) {
         modelFirebase.createUserWithEmail(password, user, listener);
-    }
-
-    public void isUserIn(Model.OnCompleteGeneralListener listener) {
-        modelFirebase.isUserIn(listener);
     }
 
     public void userSignIn(String email, String password, Model.OnCompleteGeneralListener listener) {
         modelFirebase.userSignIn(email, password, listener);
     }
-
-
-
-//    public static void deleteCache(Context context) {
-//        try {
-//            File dir = context.getCacheDir();
-//            deleteDir(dir);
-//        } catch (Exception e) { e.printStackTrace();}
-//    }
-//    public static boolean deleteDir(File dir) {
-//        if (dir != null && dir.isDirectory()) {
-//            String[] children = dir.list();
-//            for (int i = 0; i < children.length; i++) {
-//                boolean success = deleteDir(new File(dir, children[i]));
-//                if (!success) {
-//                    return false;
-//                }
-//            }
-//            return dir.delete();
-//        } else if(dir!= null && dir.isFile()) {
-//            return dir.delete();
-//        } else {
-//            return false;
-//        }
-//    }
-
 
     public void signOut(String userid) {
         executor.execute(() -> {
@@ -355,23 +305,10 @@ public class Model {
         modelFirebase.getConnectedUser(listener);
     }
 
-
     public void getUserById(String userId, GetUserById listener) {
-//        if (LiveDataUser.getValue().getId().equals(userId))
-////            listener.onComplete(LiveDataUser.getValue());
-//        if(currentUser != null)
-//            listener.onComplete(currentUser);
-//        else
-            modelFirebase.getUserById(userId, listener);
+        modelFirebase.getUserById(userId, listener);
     }
 
-    public interface DeleteUserById {
-        void onComplete();
-    }
-
-    public void deleteUserById(String userId, DeleteUserById listener) {
-        modelFirebase.deleteUserById(userId, listener);
-    }
 
     public void initFireBaseAuto() {
         modelFirebase.initFireBaseAuto();
@@ -393,15 +330,7 @@ public class Model {
         modelFirebase.saveImage(imageBitmap, imageName, savePath, listener);
     }
 
-
-    //------------------------------------END USER------------------------------------//
-
-    //------------------------------------Authentication------------------------------------//
-
-
     public boolean isSignedIn() {
         return modelFirebase.isSignedIn();
     }
-
-
 }

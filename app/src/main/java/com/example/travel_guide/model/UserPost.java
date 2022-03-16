@@ -34,9 +34,7 @@ public class UserPost {
 
     long updateDate = new Long(0);
 
-    //ImageView userProfile;
-
-    public UserPost() { // this C'tor for ROOM
+    public UserPost() {
 
     }
 
@@ -62,7 +60,6 @@ public class UserPost {
         Timestamp ts = (Timestamp) json.get("updateDate");
         Long updateDate = ts.getSeconds();
 
-
         UserPost userPost = new UserPost(name, location, about, category, userId);
 
         userPost.setUpdateDate(updateDate);
@@ -83,7 +80,6 @@ public class UserPost {
         json.put("userId", userId);
         json.put("postImgUrl", postImgUrl);
         json.put("isDeleted", isDeleted);
-
         json.put("updateDate", FieldValue.serverTimestamp());// get time stamp from firebase
         return json;
 

@@ -117,18 +117,11 @@ public class ModelFirebase {
                 });
     }
 
-
     public void updateId(String id, UserPost userPost) {
-//        DocumentReference a = db.collection(UserPost.COLLECTION_NAME).document(id);
-        // userPost.setId(a.getId());
         userPost.setId(id);
-//        a.set(userPost);
     }
 
     public void addUserPost(UserPost userPost, Model.AddPostListener listener) {
-        //TODO:: need to update Room
-        System.out.println("userPost in add: " + userPost.getId());
-
         Map<String, Object> json = userPost.toJson();
         db.collection(UserPost.COLLECTION_NAME)
                 .add(json)
@@ -139,7 +132,6 @@ public class ModelFirebase {
                         listener.onComplete();
                     }
                 })
-                //.addOnSuccessListener(unused -> listener.onComplete())
                 .addOnFailureListener(e -> listener.onComplete());
     }
 
@@ -203,16 +195,6 @@ public class ModelFirebase {
                 .addOnFailureListener(e -> listener.onComplete());
     }
 
-
-    public void deleteUserById(String userId, Model.DeleteUserById listener) {
-        db.collection(User.COLLECTION_NAME)
-                .document(userId)
-                .delete()
-                .addOnSuccessListener(unused -> listener.onComplete())
-                .addOnFailureListener(e -> listener.onComplete());
-    }
-
-
     public void getUserById(String userId, Model.GetUserById listener) {
 
         db.collection(User.COLLECTION_NAME)
@@ -252,32 +234,14 @@ public class ModelFirebase {
                             String userId = user.getUid();
                             userFromCode.setId(userId);
                             addUser(userFromCode, listener);
-                            //updateUI(user);
                             listener.onComplete("true");
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w("TAG", "createUserWithEmail:failure", task.getException());
                             listener.onComplete(task.getException().toString());
-                            // Toast.makeText(MyApplication.getContext().getApplicationContext(), "Registration Failed", Toast.LENGTH_LONG).show();
-
-//                            updateUI(null);
                         }
                     }
                 });
-    }
-
-    public void isUserIn(Model.OnCompleteGeneralListener listener) {
-        FirebaseUser user = mAuth.getCurrentUser();
-        if (user != null) {
-            getUserById(user.getUid(), new Model.GetUserById() {
-                @Override
-                public void onComplete(User usr) {
-
-                    usr.setId(user.getUid());
-                    listener.onComplete(usr);
-                }
-            });
-        }
     }
 
     public void userSignIn(String email, String password, Model.OnCompleteGeneralListener listener) {
@@ -293,16 +257,12 @@ public class ModelFirebase {
                             getUserById(user.getUid(), new Model.GetUserById() {
                                 @Override
                                 public void onComplete(User usr) {
-
                                     usr.setId(user.getUid());
                                     listener.onComplete(usr);
                                 }
                             });
 
-                            //return user;
-                            //updateUI(user);
                         } else {
-                            // If sign in fails, display a message to the user.
                             Log.w("TAG", "signInWithEmail:failure", task.getException());
                             listener.onComplete(null);
                         }
@@ -325,7 +285,6 @@ public class ModelFirebase {
     }
 
     public void getConnectedUser(Model.GetConnectedUser listener) {
-        // FirebaseUser userRB = FirebaseAuth.getInstance().getCurrentUser();
         FirebaseUser userRB = mAuth.getCurrentUser();
         getUserById(userRB.getUid(), new Model.GetUserById() {
             @Override
@@ -333,7 +292,6 @@ public class ModelFirebase {
                 listener.onComplete(user);
             }
         });
-
     }
 
     /**
@@ -360,5 +318,4 @@ public class ModelFirebase {
             });
         });
     }
-
 }
