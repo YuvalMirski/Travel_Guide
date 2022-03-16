@@ -44,6 +44,7 @@ public class EditPostPage extends Fragment {
     Spinner categorySpinner, citySpinner;
     String[] categoryArr, cityArr;
     UserPost currentPost;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -86,7 +87,7 @@ public class EditPostPage extends Fragment {
         Button saveBtn = view.findViewById(R.id.save_post_page_edit_delete_btn);
         Button deleteBtn = view.findViewById(R.id.delete_post_page_edit_btn);
         ImageButton galleryBtn = view.findViewById(R.id.editPost_gallery_imb);
-        galleryBtn.setOnClickListener(v -> openGallery());
+        galleryBtn.setOnClickListener(v -> EditPostPage.this.openGallery());
 
         saveBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -109,8 +110,10 @@ public class EditPostPage extends Fragment {
                             });
                         });
                     } else {
-                        Toast.makeText(getContext(), "You must add post image", Toast.LENGTH_LONG).show();
-                        saveBtn.setEnabled(true);
+                        userPost.setPostImgUrl(imageUrl);
+                        Model.instance.updateUserPost(userPost, () -> {
+                            Navigation.findNavController(postName).navigateUp();
+                        });
                     }
                 }
                 else

@@ -88,8 +88,8 @@ public class EditUserPage extends Fragment {
                             Model.instance.updateUser(u, () -> Navigation.findNavController(userName).navigateUp());
                         });
                     } else {
-                        Toast.makeText(getContext(), "You must add user image", Toast.LENGTH_LONG).show();
-                        saveBtn.setEnabled(true);
+                        u.setAvatarUrl(avatarUrl);
+                        Model.instance.updateUser(u, () -> Navigation.findNavController(userName).navigateUp());
                     }
                 }
                 else
