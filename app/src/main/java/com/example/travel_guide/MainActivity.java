@@ -53,7 +53,7 @@ public class MainActivity extends AppCompatActivity {//implements NavigationView
         NavigationView navigationView = binding.navView;
 
         mAppBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.homePage_nav, R.id.account_nav, R.id.newPostPage)
+                R.id.homePage_nav)// R.id.account_nav, R.id.newPostPage)
                 .setOpenableLayout(drawer)
                 .build();
 
