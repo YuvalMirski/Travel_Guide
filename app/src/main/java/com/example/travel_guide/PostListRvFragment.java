@@ -30,7 +30,7 @@ public class PostListRvFragment extends Fragment {
     MyAdapter adapter;
     SwipeRefreshLayout swipeRefresh;
     String categoryName,userId,locationName;
-
+    User currUserVM;
     @Override
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
@@ -128,6 +128,7 @@ public class PostListRvFragment extends Fragment {
                 public void onClick(View v) {
                     int position = getAdapterPosition();
                     String postId = viewModel.getCategoryPostList().getValue().get(position).getId();
+
                     if(!viewModel.getUserLiveData().getValue().getLstSaved().contains(postId)) //add saved post
                     {
                         viewModel.getUserLiveData().getValue().getLstSaved().add(postId);
@@ -140,6 +141,7 @@ public class PostListRvFragment extends Fragment {
                         User u = viewModel.userLiveData.getValue();
                         Model.instance.updateUser(u, () -> likeImg.setImageResource(R.drawable.ic_baseline_saved));
                     }
+
                 }
             });
 
@@ -163,7 +165,6 @@ public class PostListRvFragment extends Fragment {
                         .into(postImg);
             }
 
-
             if(viewModel.getUserLiveData().getValue().getLstSaved().contains(post.getId())){
                 likeImg.setImageResource(R.drawable.ic_baseline_bookmark_remove_24);
                 Model.instance.deleteSaveFromRoom(post);
@@ -171,13 +172,23 @@ public class PostListRvFragment extends Fragment {
             else{
                 likeImg.setImageResource(R.drawable.ic_baseline_saved);
 
-            }
+           }
+
             userName.setText(viewModel.getUserLiveData().getValue().getUserName());
             if(viewModel.getUserLiveData().getValue().getAvatarUrl()!=null) {
                 Picasso.get()
                         .load(viewModel.getUserLiveData().getValue().getAvatarUrl())
                         .into(userAvatar);
             }
+
+            Model.instance.getUserById(post.getUserId(), user -> {
+            userName.setText(user.getUserName());
+            if(user.getAvatarUrl()!=null) {
+                Picasso.get()
+                        .load(user.getAvatarUrl())
+                        .into(userAvatar);
+            }
+        });
         }
     }
 
