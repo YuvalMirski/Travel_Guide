@@ -26,6 +26,8 @@ public class Model {
     public Handler mainThread = HandlerCompat.createAsync(Looper.getMainLooper());
 
     MutableLiveData<User> LiveDataUser = new MutableLiveData<User>();
+    MutableLiveData<List<UserPost>> listLiveDataPost = new MutableLiveData<List<UserPost>>();
+    MutableLiveData<PostListLoadingState> postListLoadingState = new MutableLiveData();
 
     public User getCurrentUser() {
         return LiveDataUser.getValue();
@@ -46,8 +48,6 @@ public class Model {
         loaded
     }
 
-    MutableLiveData<PostListLoadingState> postListLoadingState = new MutableLiveData();
-
     public LiveData<PostListLoadingState> getPostListLoadingState() {
         return postListLoadingState;
     }
@@ -55,8 +55,6 @@ public class Model {
     private Model() {
         postListLoadingState.setValue(PostListLoadingState.loaded);
     }
-
-    MutableLiveData<List<UserPost>> listLiveDataPost = new MutableLiveData<List<UserPost>>();
 
     //------------------------------------POST------------------------------------//
 
@@ -136,7 +134,6 @@ public class Model {
             public void run() {
                 Long lud = new Long(0);
                 for (UserPost us : lst) {
-                    System.out.println("list size : " + lst.size());
                     AppLocalDB.db.userPostDao().insertAll(us);
                     if (lud < us.getUpdateDate()) {
                         lud = us.getUpdateDate();
