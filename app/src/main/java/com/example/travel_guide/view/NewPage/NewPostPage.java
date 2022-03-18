@@ -39,6 +39,7 @@ public class NewPostPage extends Fragment {
     EditText postName, about;
     ImageView postPic;
     Bitmap imageBitmap;
+    Button addPostBtn;
     Spinner categorySpinner, citySpinner;
     String[] categoryArr, cityArr;
     NewPostPageViewModel viewModel;
@@ -65,44 +66,42 @@ public class NewPostPage extends Fragment {
         ImageButton galleryBtn = view.findViewById(R.id.addPost_gallery_imb);
         galleryBtn.setOnClickListener(v -> openGallery());
 
-        Button addPostBtn = view.findViewById(R.id.add_post_page_new_btn);
-        addPostBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                addPostBtn.setEnabled(false);
-                new_name = postName.getText().toString();
-                new_location = citySpinner.getSelectedItem().toString();
-                new_category = categorySpinner.getSelectedItem().toString().toLowerCase();
-                new_about = about.getText().toString();
-                UserPost userPost = new UserPost(new_name, new_location, new_about, new_category, userId);
-
-                if (new_name != null && new_about != null) {
-                    if (imageBitmap != null) {
-                        Model.instance.saveImage(imageBitmap, new_name + ".jpg", "post_pics", url -> {
-                            userPost.setPostImgUrl(url);
-                            Model.instance.addUserPost(userPost, () -> {
-                                if (!viewModel.getUserLiveData().getValue().getLstUserPosts().contains(userPost.getId())) {
-                                    viewModel.getUserLiveData().getValue().getLstUserPosts().add(userPost.getId());
-                                    User u = viewModel.userLiveData.getValue();
-                                    Model.instance.updateUser(u, () -> Navigation.findNavController(v).navigate(NewPostPageDirections.actionGlobalHomePageNav(userId)));
-                                } else {
-                                    Navigation.findNavController(v).navigate(NewPostPageDirections.actionGlobalHomePageNav(userId));
-                                }
-                            });
-                        });
-                    } else {
-                        Toast.makeText(getContext(), "You must add post image", Toast.LENGTH_LONG).show();
-                        addPostBtn.setEnabled(true);
-                    }
-                } else {
-                    Toast.makeText(getContext(), "You must add post name and description", Toast.LENGTH_LONG).show();
-                    addPostBtn.setEnabled(true);
-                }
-            }
-        });
+        addPostBtn = view.findViewById(R.id.add_post_page_new_btn);
+        addPostBtn.setOnClickListener(v -> addPostBtnAction(v));
         return view;
     }
 
+    private void addPostBtnAction(View v) {
+        addPostBtn.setEnabled(false);
+        new_name = postName.getText().toString();
+        new_location = citySpinner.getSelectedItem().toString();
+        new_category = categorySpinner.getSelectedItem().toString().toLowerCase();
+        new_about = about.getText().toString();
+        UserPost userPost = new UserPost(new_name, new_location, new_about, new_category, userId);
+
+        if (new_name != null && new_about != null) {
+            if (imageBitmap != null) {
+                Model.instance.saveImage(imageBitmap, new_name + ".jpg", "post_pics", url -> {
+                    userPost.setPostImgUrl(url);
+                    Model.instance.addUserPost(userPost, () -> {
+                        if (!viewModel.getUserLiveData().getValue().getLstUserPosts().contains(userPost.getId())) {
+                            viewModel.getUserLiveData().getValue().getLstUserPosts().add(userPost.getId());
+                            User u = viewModel.userLiveData.getValue();
+                            Model.instance.updateUser(u, () -> Navigation.findNavController(v).navigate(NewPostPageDirections.actionGlobalHomePageNav(userId)));
+                        } else {
+                            Navigation.findNavController(v).navigate(NewPostPageDirections.actionGlobalHomePageNav(userId));
+                        }
+                    });
+                });
+            } else {
+                Toast.makeText(getContext(), "You must add post image", Toast.LENGTH_LONG).show();
+                addPostBtn.setEnabled(true);
+            }
+        } else {
+            Toast.makeText(getContext(), "You must add post name and description", Toast.LENGTH_LONG).show();
+            addPostBtn.setEnabled(true);
+        }
+    }
 
     final static int SELECT_PICTURE = 200;
 

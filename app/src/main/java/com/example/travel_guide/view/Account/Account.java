@@ -21,28 +21,17 @@ public class Account extends Fragment {
 
     TextView userName, email, sex, country;
     ImageView userAvatar;
+    Button userPostBtn, savedPostsBtn;
+    ImageButton editBtn;
+    String userId;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_account, container, false);
 
-        String userId = Model.instance.getCurrentUser().getId();
-        Model.instance.getUserById(userId, new Model.GetUserById() {
-            @Override
-            public void onComplete(User user) {
-                userName.setText(user.getUserName());
-                email.setText(user.getEmail());
-                sex.setText(user.getSex());
-                country.setText(user.getCountry());
-
-                if(user.getAvatarUrl()!=null) {
-                    Picasso.get()
-                            .load(user.getAvatarUrl())
-                            .into(userAvatar);
-                }
-            }
-        });
+        userId = Model.instance.getCurrentUser().getId();
+        Model.instance.getUserById(userId, user -> getUserAction(user));
 
         userName = view.findViewById(R.id.user_name_account_str_tv);
         email = view.findViewById(R.id.email_account_str_tv);
@@ -55,15 +44,28 @@ public class Account extends Fragment {
         sex.setEnabled(false);
         country.setEnabled(false);
 
-        ImageButton editBtn = view.findViewById(R.id.edit_accoutn_btn);
-        editBtn.setOnClickListener(v -> Navigation.findNavController(v).navigate(AccountDirections.actionAccountNavToEditUserFragment(userId))); 
+        editBtn = view.findViewById(R.id.edit_accoutn_btn);
+        editBtn.setOnClickListener(v -> Navigation.findNavController(v).navigate(AccountDirections.actionAccountNavToEditUserFragment(userId)));
 
-        Button userPostBtn = view.findViewById(R.id.myPosts_account_btn);
-        userPostBtn.setOnClickListener(v -> Navigation.findNavController(v).navigate(AccountDirections.actionGlobalPostListRvFragment("userCreatePosts",userId,"")));
+        userPostBtn = view.findViewById(R.id.myPosts_account_btn);
+        userPostBtn.setOnClickListener(v -> Navigation.findNavController(v).navigate(AccountDirections.actionGlobalPostListRvFragment("userCreatePosts", userId, "")));
 
-        Button savedPostsBtn = view.findViewById(R.id.savedPosts_account_btn);
-        savedPostsBtn.setOnClickListener(v -> Navigation.findNavController(v).navigate(AccountDirections.actionGlobalPostListRvFragment("userSavedPost",userId,"")));
+        savedPostsBtn = view.findViewById(R.id.savedPosts_account_btn);
+        savedPostsBtn.setOnClickListener(v -> Navigation.findNavController(v).navigate(AccountDirections.actionGlobalPostListRvFragment("userSavedPost", userId, "")));
 
         return view;
+    }
+
+    private void getUserAction(User user) {
+        userName.setText(user.getUserName());
+        email.setText(user.getEmail());
+        sex.setText(user.getSex());
+        country.setText(user.getCountry());
+
+        if (user.getAvatarUrl() != null) {
+            Picasso.get()
+                    .load(user.getAvatarUrl())
+                    .into(userAvatar);
+        }
     }
 }

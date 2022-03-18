@@ -31,27 +31,7 @@ public class PostPage extends Fragment {
         String postId = PostPageArgs.fromBundle(getArguments()).getPostId();
         userLoggedId = PostPageArgs.fromBundle(getArguments()).getUserId();
 
-        Model.instance.getPostById(postId, new Model.GetPostById() {
-            @Override
-            public void onComplete(UserPost userPost) {
-              postName.setText(userPost.getName());
-              location.setText(userPost.getLocation());
-              String categoryUserPost = userPost.getCategory().substring(0,1).toUpperCase() + userPost.getCategory().substring(1);
-              category.setText(categoryUserPost);
-              about.setText(userPost.getAbout());
-              userNamePostId = userPost.getUserId();
-
-              if(userPost.getPostImgUrl()!=null) {
-                  Picasso.get()
-                          .load(userPost.getPostImgUrl())
-                          .into(postImg);
-              }
-
-              if(!userNamePostId.equals(userLoggedId)) {
-                  editBtn.setVisibility(View.INVISIBLE);
-              }
-            }
-        });
+        Model.instance.getPostById(postId, userPost -> getPostAction(userPost));
 
         postName = view.findViewById(R.id.post_name_post_page_details_tv);
         location = view.findViewById(R.id.location_post_page_details_tv);
@@ -66,5 +46,24 @@ public class PostPage extends Fragment {
         editBtn.setOnClickListener(v -> Navigation.findNavController(v).navigate(PostPageDirections.actionPostPageToEditPostPage(postId)));
 
         return view;
+    }
+
+    private void getPostAction(UserPost userPost) {
+        postName.setText(userPost.getName());
+        location.setText(userPost.getLocation());
+        String categoryUserPost = userPost.getCategory().substring(0, 1).toUpperCase() + userPost.getCategory().substring(1);
+        category.setText(categoryUserPost);
+        about.setText(userPost.getAbout());
+        userNamePostId = userPost.getUserId();
+
+        if (userPost.getPostImgUrl() != null) {
+            Picasso.get()
+                    .load(userPost.getPostImgUrl())
+                    .into(postImg);
+        }
+
+        if (!userNamePostId.equals(userLoggedId)) {
+            editBtn.setVisibility(View.INVISIBLE);
+        }
     }
 }

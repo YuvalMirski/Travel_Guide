@@ -31,7 +31,8 @@ public class UserPost {
 
     long updateDate = new Long(0);
 
-    public UserPost() { }
+    public UserPost() {
+    }
 
     public UserPost(String name, String location, String about, String category, String userId) {
         this.name = name;

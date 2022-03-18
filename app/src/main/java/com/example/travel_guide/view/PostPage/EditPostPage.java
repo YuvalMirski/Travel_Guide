@@ -37,10 +37,11 @@ public class EditPostPage extends Fragment {
     EditText postName, about;
     ImageView postImg;
     Bitmap imageBitmap;
-    String new_name,new_location, new_about, new_id, new_category,userId, imageUrl;
+    String new_name, new_location, new_about, new_id, new_category, userId, imageUrl, postId;
     Spinner categorySpinner, citySpinner;
     String[] categoryArr, cityArr;
     UserPost currentPost;
+    Button saveBtn, deleteBtn;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -48,31 +49,9 @@ public class EditPostPage extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_edit_post_page, container, false);
 
-        String postId = EditPostPageArgs.fromBundle(getArguments()).getPostId();
+        postId = EditPostPageArgs.fromBundle(getArguments()).getPostId();
         new_id = postId;
-        Model.instance.getPostById(postId, new Model.GetPostById() {
-            @Override
-            public void onComplete(UserPost userPost) {
-                currentPost = userPost;
-                currentPost.setId(postId);
-                postName.setText(userPost.getName());
-                new_location = userPost.getLocation();
-                new_category = userPost.getCategory();
-                about.setText(userPost.getAbout());
-                imageUrl = userPost.getPostImgUrl();
-
-                int categoryIndex = Arrays.asList(categoryArr).indexOf(new_category);
-                categorySpinner.setSelection(categoryIndex);
-                int cityIndex = Arrays.asList(cityArr).indexOf(new_location);
-                citySpinner.setSelection(cityIndex);
-
-                if(userPost.getPostImgUrl()!=null) {
-                    Picasso.get()
-                            .load(imageUrl)
-                            .into(postImg);
-                }
-            }
-        });
+        Model.instance.getPostById(postId, userPost -> getPostAction(userPost));
 
         Model.instance.getUserIdFromFB(id -> userId = id);
 
@@ -81,65 +60,82 @@ public class EditPostPage extends Fragment {
         postImg = view.findViewById(R.id.picture_post_page_edit_);
         initSpinners(view);
 
-        Button saveBtn = view.findViewById(R.id.save_post_page_edit_delete_btn);
-        Button deleteBtn = view.findViewById(R.id.delete_post_page_edit_btn);
+        saveBtn = view.findViewById(R.id.save_post_page_edit_delete_btn);
+        deleteBtn = view.findViewById(R.id.delete_post_page_edit_btn);
         ImageButton galleryBtn = view.findViewById(R.id.editPost_gallery_imb);
         galleryBtn.setOnClickListener(v -> EditPostPage.this.openGallery());
 
-        saveBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                saveBtn.setEnabled(false);
-                new_name = postName.getText().toString();
-                new_location = citySpinner.getSelectedItem().toString();
-                new_category = categorySpinner.getSelectedItem().toString().toLowerCase();
-                new_about = about.getText().toString();
-
-                UserPost userPost = new UserPost(new_name,new_location,new_about,new_category,userId);
-                userPost.setId(postId);
-
-                if(new_name!=null && new_about!=null) {
-                    if (imageBitmap != null) {
-                        Model.instance.saveImage(imageBitmap, new_name + ".jpg", "post_pics", url -> {
-                            userPost.setPostImgUrl(url);
-                            Model.instance.updateUserPost(userPost, () -> {
-                                Navigation.findNavController(postName).navigateUp();
-                            });
-                        });
-                    } else {
-                        userPost.setPostImgUrl(imageUrl);
-                        Model.instance.updateUserPost(userPost, () -> {
-                            Navigation.findNavController(postName).navigateUp();
-                        });
-                    }
-                }
-                else
-                {
-                    Toast.makeText(getContext(), "You must add post name and description", Toast.LENGTH_LONG).show();
-                    saveBtn.setEnabled(true);
-                }
-            }
-        });
-
-        deleteBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                currentPost.setIsDeleted("delete");
-                User u = Model.instance.getUser(userId).getValue();
-                u.getLstSaved().remove(postId);
-                u.getLstUserPosts().remove(postId);
-                Model.instance.updateUser(u,()-> System.out.println(""));
-
-                Model.instance.deletePostById(currentPost, () -> {
-                    Navigation.findNavController(v).navigate(EditPostPageDirections.actionGlobalHomePageNav(userId));
-                });
-            }
-        });
+        saveBtn.setOnClickListener(v -> saveBtnAction(v));
+        deleteBtn.setOnClickListener(v -> deleteBtnAction(v));
 
         return view;
     }
 
+    private void deleteBtnAction(View v) {
+        currentPost.setIsDeleted("delete");
+        User u = Model.instance.getUser(userId).getValue();
+        u.getLstSaved().remove(postId);
+        u.getLstUserPosts().remove(postId);
+        Model.instance.updateUser(u, () -> System.out.println(""));
+
+        Model.instance.deletePostById(currentPost, () -> {
+            Navigation.findNavController(v).navigate(EditPostPageDirections.actionGlobalHomePageNav(userId));
+        });
+    }
+
+    private void saveBtnAction(View v) {
+        saveBtn.setEnabled(false);
+        new_name = postName.getText().toString();
+        new_location = citySpinner.getSelectedItem().toString();
+        new_category = categorySpinner.getSelectedItem().toString().toLowerCase();
+        new_about = about.getText().toString();
+
+        UserPost userPost = new UserPost(new_name, new_location, new_about, new_category, userId);
+        userPost.setId(postId);
+
+        if (new_name != null && new_about != null) {
+            if (imageBitmap != null) {
+                Model.instance.saveImage(imageBitmap, new_name + ".jpg", "post_pics", url -> {
+                    userPost.setPostImgUrl(url);
+                    Model.instance.updateUserPost(userPost, () -> {
+                        Navigation.findNavController(postName).navigateUp();
+                    });
+                });
+            } else {
+                userPost.setPostImgUrl(imageUrl);
+                Model.instance.updateUserPost(userPost, () -> {
+                    Navigation.findNavController(postName).navigateUp();
+                });
+            }
+        } else {
+            Toast.makeText(getContext(), "You must add post name and description", Toast.LENGTH_LONG).show();
+            saveBtn.setEnabled(true);
+        }
+    }
+
+    private void getPostAction(UserPost userPost) {
+        currentPost = userPost;
+        currentPost.setId(postId);
+        postName.setText(userPost.getName());
+        new_location = userPost.getLocation();
+        new_category = userPost.getCategory();
+        about.setText(userPost.getAbout());
+        imageUrl = userPost.getPostImgUrl();
+
+        int categoryIndex = Arrays.asList(categoryArr).indexOf(new_category);
+        categorySpinner.setSelection(categoryIndex);
+        int cityIndex = Arrays.asList(cityArr).indexOf(new_location);
+        citySpinner.setSelection(cityIndex);
+
+        if (userPost.getPostImgUrl() != null) {
+            Picasso.get()
+                    .load(imageUrl)
+                    .into(postImg);
+        }
+    }
+
     final static int SELECT_PICTURE = 200;
+
     private void openGallery() {
         // Create intent for picking a photo from the gallery
         Intent intent = new Intent();
@@ -157,8 +153,10 @@ public class EditPostPage extends Fragment {
                 Uri selectedImageUri = data.getData();
                 imageBitmap = null;
                 try {
-                    imageBitmap = MediaStore.Images.Media.getBitmap(getContext().getContentResolver(),selectedImageUri);
-                } catch (IOException e) { e.printStackTrace(); }
+                    imageBitmap = MediaStore.Images.Media.getBitmap(getContext().getContentResolver(), selectedImageUri);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
 
                 if (imageBitmap != null) {
                     postImg.setImageBitmap(imageBitmap);
@@ -167,8 +165,7 @@ public class EditPostPage extends Fragment {
         }
     }
 
-    public void initSpinners(View view)
-    {
+    public void initSpinners(View view) {
         categorySpinner = (Spinner) view.findViewById(R.id.spinner_category_editPostPage);
         ArrayAdapter<CharSequence> adapterCategory = ArrayAdapter.createFromResource(getContext(), R.array.CategoryList, R.layout.spinner_item);
         adapterCategory.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);

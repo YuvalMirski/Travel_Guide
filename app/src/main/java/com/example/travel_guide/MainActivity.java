@@ -97,8 +97,7 @@ public class MainActivity extends AppCompatActivity {//implements NavigationView
                     drawer.closeDrawers();
                     return true;
             }
-        }
-        else{
+        } else {
             return true;
         }
         return false;

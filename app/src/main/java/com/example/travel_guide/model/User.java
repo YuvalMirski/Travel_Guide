@@ -12,39 +12,39 @@ public class User {
     List<String> lstUserPosts;
     final public static String COLLECTION_NAME = "Users";
 
-    public User(String userName, String email, String sex, String country, List<String> lstSaved,List<String>lstUserPosts) {
+    public User(String userName, String email, String sex, String country, List<String> lstSaved, List<String> lstUserPosts) {
         this.userName = userName;
         this.email = email;
         this.sex = sex;
         this.country = country;
         this.avatarUrl = null;
-        this.lstSaved =lstSaved;
+        this.lstSaved = lstSaved;
         this.lstUserPosts = lstUserPosts;
     }
 
     public static User create(Map<String, Object> json) {
-        String userName = (String)json.get("userName");
-        String email = (String)json.get("email");
-        String sex = (String)json.get("sex");
-        String country = (String)json.get("country");
-        String url = (String)json.get("avatarUrl");
-        List<String>lstSaved = (List<String>) json.get("lstSaved");
-        List<String>lstUserPosts = (List<String>) json.get("lstUserPosts");
-        User user = new User(userName,email,sex,country,lstSaved,lstUserPosts);
+        String userName = (String) json.get("userName");
+        String email = (String) json.get("email");
+        String sex = (String) json.get("sex");
+        String country = (String) json.get("country");
+        String url = (String) json.get("avatarUrl");
+        List<String> lstSaved = (List<String>) json.get("lstSaved");
+        List<String> lstUserPosts = (List<String>) json.get("lstUserPosts");
+        User user = new User(userName, email, sex, country, lstSaved, lstUserPosts);
         user.setAvatarUrl(url);
         return user;
     }
 
     public Map<String, Object> toJson() {
-        Map<String,Object>json = new HashMap<String,Object>();
-        json.put("userName",userName);
-        json.put("email",email);
-        json.put("sex",sex);
-        json.put("country",country);
-        json.put("id",id);
+        Map<String, Object> json = new HashMap<String, Object>();
+        json.put("userName", userName);
+        json.put("email", email);
+        json.put("sex", sex);
+        json.put("country", country);
+        json.put("id", id);
         json.put("avatarUrl", avatarUrl);
-        json.put("lstSaved",lstSaved);
-        json.put("lstUserPosts",lstUserPosts);
+        json.put("lstSaved", lstSaved);
+        json.put("lstUserPosts", lstUserPosts);
         return json;
     }
 
@@ -100,7 +100,11 @@ public class User {
         this.lstUserPosts = lstUserPosts;
     }
 
-    public void setAvatarUrl(String url) { this.avatarUrl=url; }
+    public void setAvatarUrl(String url) {
+        this.avatarUrl = url;
+    }
 
-    public String getAvatarUrl(){ return avatarUrl; }
+    public String getAvatarUrl() {
+        return avatarUrl;
+    }
 }

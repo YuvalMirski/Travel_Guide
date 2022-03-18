@@ -26,7 +26,7 @@ public class IntroActivity extends AppCompatActivity {
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-            if(Model.instance.isSignedIn()){
+            if (Model.instance.isSignedIn()) {
                 Model.instance.getConnectedUser(new Model.GetConnectedUser() {
                     @Override
                     public void onComplete(User user) {
@@ -36,8 +36,7 @@ public class IntroActivity extends AppCompatActivity {
                         });
                     }
                 });
-            }
-            else{
+            } else {
                 Model.instance.mainThread.post(() -> {
                     toLoginActivity();
                 });

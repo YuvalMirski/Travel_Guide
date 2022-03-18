@@ -60,26 +60,20 @@ public class PostListRvFragment extends Fragment {
         adapter = new MyAdapter();
         list.setAdapter(adapter);
 
-        adapter.setOnItemClickListener(new OnItemClickListener() {
-            @Override
-            public void onItemClick(View v, int position) {
-                String postId = viewModel.getCategoryPostList().getValue().get(position).getId();
-                Navigation.findNavController(v).navigate(PostListRvFragmentDirections.actionPostListRvFragmentToPostPage(postId, userId));
-            }
+        adapter.setOnItemClickListener((v, position) -> {
+            String postId = viewModel.getCategoryPostList().getValue().get(position).getId();
+            Navigation.findNavController(v).navigate(PostListRvFragmentDirections.actionPostListRvFragmentToPostPage(postId, userId));
         });
 
         viewModel.getUserLiveData().observe(getViewLifecycleOwner(), user -> refresh());
         viewModel.getCategoryPostList().observe(getViewLifecycleOwner(), userPosts -> refresh());
         swipeRefresh.setRefreshing(Model.instance.getPostListLoadingState().getValue() == Model.PostListLoadingState.loading);
 
-        Model.instance.getPostListLoadingState().observe(getViewLifecycleOwner(), new Observer<Model.PostListLoadingState>() {
-            @Override
-            public void onChanged(Model.PostListLoadingState postListLoadingState) {
-                if (postListLoadingState == Model.PostListLoadingState.loading) {
-                    swipeRefresh.setRefreshing(true);
-                } else {
-                    swipeRefresh.setRefreshing(false);
-                }
+        Model.instance.getPostListLoadingState().observe(getViewLifecycleOwner(), postListLoadingState -> {
+            if (postListLoadingState == Model.PostListLoadingState.loading) {
+                swipeRefresh.setRefreshing(true);
+            } else {
+                swipeRefresh.setRefreshing(false);
             }
         });
         return view;
@@ -106,29 +100,28 @@ public class PostListRvFragment extends Fragment {
             userName = itemView.findViewById(R.id.userName_listrow_tv);
             userAvatar = itemView.findViewById(R.id.userNameAvatar_listRow_imv);
 
-            likeImg.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    int position = getAdapterPosition();
-                    String postId = viewModel.getCategoryPostList().getValue().get(position).getId();
-
-                    if (!viewModel.getUserLiveData().getValue().getLstSaved().contains(postId)) //add saved post
-                    {
-                        viewModel.getUserLiveData().getValue().getLstSaved().add(postId);
-                        User u = viewModel.userLiveData.getValue();
-                        Model.instance.updateUser(u, () -> likeImg.setImageResource(R.drawable.ic_baseline_bookmark_remove_24));
-                    } else {
-                        viewModel.getUserLiveData().getValue().getLstSaved().remove(postId);
-                        User u = viewModel.userLiveData.getValue();
-                        Model.instance.updateUser(u, () -> likeImg.setImageResource(R.drawable.ic_baseline_saved));
-                    }
-                }
-            });
+            likeImg.setOnClickListener(v -> likeImgAction(v));
 
             itemView.setOnClickListener(v -> {
                 int pos = getAdapterPosition();
                 listener.onItemClick(v, pos);
             });
+        }
+
+        private void likeImgAction(View v) {
+            int position = getAdapterPosition();
+            String postId = viewModel.getCategoryPostList().getValue().get(position).getId();
+
+            if (!viewModel.getUserLiveData().getValue().getLstSaved().contains(postId)) //add saved post
+            {
+                viewModel.getUserLiveData().getValue().getLstSaved().add(postId);
+                User u = viewModel.userLiveData.getValue();
+                Model.instance.updateUser(u, () -> likeImg.setImageResource(R.drawable.ic_baseline_bookmark_remove_24));
+            } else {
+                viewModel.getUserLiveData().getValue().getLstSaved().remove(postId);
+                User u = viewModel.userLiveData.getValue();
+                Model.instance.updateUser(u, () -> likeImg.setImageResource(R.drawable.ic_baseline_saved));
+            }
         }
 
         public void bind(UserPost post) {

@@ -54,50 +54,47 @@ public class SignUp extends Fragment {
         uploadPicBtn.setOnClickListener(v -> openGallery());
 
         submitBtn = view.findViewById(R.id.submit_signup_btn);
-        submitBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                submitBtn.setEnabled(false);
-                RadioButton checkedSexRB = sexRG.findViewById(sexRG.getCheckedRadioButtonId());
+        submitBtn.setOnClickListener(v -> submitBtnAction(v));
 
-                new_userName = userName.getText().toString();
-                new_email = email.getText().toString();
-                new_country = country.getText().toString();
-                new_password = password.getText().toString();
-                lstSaved = new ArrayList<>();
-                lstUserPosts = new ArrayList<>();
-
-                if(checkedSexRB!= null) {
-                    new_sex = (String) checkedSexRB.getText();
-                }
-                else {
-                    Toast.makeText(getContext(), "You must choose sex", Toast.LENGTH_LONG).show();
-                    submitBtn.setEnabled(true);
-                }
-
-                String checkRes = checkSignUp(new_email,new_password,new_userName, new_country);
-                if(!checkRes.equals("true")){
-                    Toast.makeText(getContext(), checkRes, Toast.LENGTH_LONG).show();
-                    submitBtn.setEnabled(true);
-                }
-                else {
-                    User user = new User(new_userName, new_email, new_sex, new_country, lstSaved, lstUserPosts);
-                    checkImg(v, user, imageBitmap);
-                }
-            }
-        });
         return view;
     }
 
-    private String checkSignUp(String new_email, String new_password, String new_userName, String new_country)
-    {
-        if(new_userName.equals(""))
+    private void submitBtnAction(View v) {
+        submitBtn.setEnabled(false);
+        RadioButton checkedSexRB = sexRG.findViewById(sexRG.getCheckedRadioButtonId());
+
+        new_userName = userName.getText().toString();
+        new_email = email.getText().toString();
+        new_country = country.getText().toString();
+        new_password = password.getText().toString();
+        lstSaved = new ArrayList<>();
+        lstUserPosts = new ArrayList<>();
+
+        if (checkedSexRB != null) {
+            new_sex = (String) checkedSexRB.getText();
+        } else {
+            Toast.makeText(getContext(), "You must choose sex", Toast.LENGTH_LONG).show();
+            submitBtn.setEnabled(true);
+        }
+
+        String checkRes = checkSignUp(new_email, new_password, new_userName, new_country);
+        if (!checkRes.equals("true")) {
+            Toast.makeText(getContext(), checkRes, Toast.LENGTH_LONG).show();
+            submitBtn.setEnabled(true);
+        } else {
+            User user = new User(new_userName, new_email, new_sex, new_country, lstSaved, lstUserPosts);
+            checkImg(v, user, imageBitmap);
+        }
+    }
+
+    private String checkSignUp(String new_email, String new_password, String new_userName, String new_country) {
+        if (new_userName.equals(""))
             return "You must enter username";
-        if(new_email.equals("") || !(android.util.Patterns.EMAIL_ADDRESS.matcher(new_email).matches()))
-            return  "You must enter correct email";
-        if(new_country.equals(""))
+        if (new_email.equals("") || !(android.util.Patterns.EMAIL_ADDRESS.matcher(new_email).matches()))
+            return "You must enter correct email";
+        if (new_country.equals(""))
             return "You must enter country";
-        if(new_password.equals("") || new_password.length()<6)
+        if (new_password.equals("") || new_password.length() < 6)
             return "You must correct password";
         return "true";
     }
@@ -106,7 +103,7 @@ public class SignUp extends Fragment {
         if (imageBitmap != null) {
             Model.instance.saveImage(imageBitmap, new_userName + ".jpg", "user_avatars", url -> {
                 user.setAvatarUrl(url);
-                Model.instance.createUserWithEmail(new_password,user, new Model.AddUserToFBListener() {
+                Model.instance.createUserWithEmail(new_password, user, new Model.AddUserToFBListener() {
                     @Override
                     public void onComplete(String isSuccess) {
                         if (isSuccess.equals("true")) {
@@ -125,6 +122,7 @@ public class SignUp extends Fragment {
     }
 
     final static int SELECT_PICTURE = 200;
+
     private void openGallery() {
         // Create intent for picking a photo from the gallery
         Intent intent = new Intent();
