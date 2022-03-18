@@ -12,14 +12,9 @@ import android.widget.TextView;
 
 import com.example.travel_guide.model.Model;
 import com.example.travel_guide.model.User;
-import com.example.travel_guide.ui.account.Account;
-import com.example.travel_guide.ui.home.HomePage;
-import com.example.travel_guide.ui.login.LogIn;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
 
 import androidx.annotation.NonNull;
-import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;

@@ -1,4 +1,4 @@
-package com.example.travel_guide.ui.account;
+package com.example.travel_guide.view.Account;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;

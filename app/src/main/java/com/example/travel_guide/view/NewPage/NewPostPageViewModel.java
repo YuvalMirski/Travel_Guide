@@ -1,4 +1,4 @@
-package com.example.travel_guide;
+package com.example.travel_guide.view.NewPage;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModel;

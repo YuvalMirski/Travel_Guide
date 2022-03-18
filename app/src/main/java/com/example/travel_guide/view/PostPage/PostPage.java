@@ -1,4 +1,4 @@
-package com.example.travel_guide;
+package com.example.travel_guide.view.PostPage;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -11,6 +11,7 @@ import android.widget.TextView;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
+import com.example.travel_guide.R;
 import com.example.travel_guide.model.Model;
 import com.example.travel_guide.model.UserPost;
 import com.squareup.picasso.Picasso;

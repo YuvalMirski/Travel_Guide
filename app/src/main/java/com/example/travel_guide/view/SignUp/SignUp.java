@@ -1,4 +1,4 @@
-package com.example.travel_guide.ui.signUp;
+package com.example.travel_guide.view.SignUp;
 
 import static android.app.Activity.RESULT_OK;
 
@@ -18,10 +18,8 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.navigation.Navigation;
 
 import com.example.travel_guide.MainActivity;
 import com.example.travel_guide.R;

@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/homePage_nav"
-        android:name="com.example.travel_guide.ui.home.HomePage"
+        android:name="com.example.travel_guide.view.HomePage.HomePage"
         android:label="Home"
         tools:layout="@layout/fragment_home_page">
         <action
@@ -22,7 +22,7 @@
     </fragment>
     <fragment
         android:id="@+id/account_nav"
-        android:name="com.example.travel_guide.ui.account.Account"
+        android:name="com.example.travel_guide.view.Account.Account"
         android:label="Account"
         tools:layout="@layout/fragment_account">
         <argument
@@ -49,7 +49,7 @@
 <!--    </fragment>-->
     <fragment
         android:id="@+id/postListRvFragment"
-        android:name="com.example.travel_guide.PostListRvFragment"
+        android:name="com.example.travel_guide.view.PostList.PostListRvFragment"
         android:label="All posts"
         tools:layout="@layout/fragment_post_list_rv">
         <action
@@ -67,7 +67,7 @@
     </fragment>
     <fragment
         android:id="@+id/postPage"
-        android:name="com.example.travel_guide.PostPage"
+        android:name="com.example.travel_guide.view.PostPage.PostPage"
         android:label="Post"
         tools:layout="@layout/fragment_post_page">
         <argument
@@ -82,7 +82,7 @@
     </fragment>
     <fragment
         android:id="@+id/editPostPage"
-        android:name="com.example.travel_guide.EditPostPage"
+        android:name="com.example.travel_guide.view.PostPage.EditPostPage"
         android:label="Edit Post"
         tools:layout="@layout/fragment_edit_post_page">
         <argument
@@ -91,7 +91,7 @@
     </fragment>
     <fragment
         android:id="@+id/newPostPage"
-        android:name="com.example.travel_guide.NewPostPage"
+        android:name="com.example.travel_guide.view.NewPage.NewPostPage"
         android:label="Add post"
         tools:layout="@layout/fragment_new_post_page">
         <argument
@@ -101,7 +101,7 @@
     <action android:id="@+id/action_global_account_nav" app:destination="@id/account_nav" />
     <fragment
         android:id="@+id/editUserFragment"
-        android:name="com.example.travel_guide.EditUserPage"
+        android:name="com.example.travel_guide.view.Account.EditUserPage"
         android:label="Edit account"
         tools:layout="@layout/fragment_edit_user">
         <argument

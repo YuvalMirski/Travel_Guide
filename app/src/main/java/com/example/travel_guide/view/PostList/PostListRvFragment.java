@@ -1,4 +1,4 @@
-package com.example.travel_guide;
+package com.example.travel_guide.view.PostList;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -19,7 +19,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.travel_guide.model.AppLocalDB;
+import com.example.travel_guide.R;
 import com.example.travel_guide.model.Model;
 import com.example.travel_guide.model.User;
 import com.example.travel_guide.model.UserPost;

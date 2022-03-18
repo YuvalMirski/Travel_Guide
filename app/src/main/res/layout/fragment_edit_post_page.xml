@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/background_default2"
-    tools:context=".EditPostPage">
+    tools:context=".view.PostPage.EditPostPage">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/save_post_page_delete_btn"

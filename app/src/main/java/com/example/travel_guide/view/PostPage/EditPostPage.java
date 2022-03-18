@@ -1,4 +1,4 @@
-package com.example.travel_guide;
+package com.example.travel_guide.view.PostPage;
 
 import static android.app.Activity.RESULT_OK;
 
@@ -21,9 +21,9 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Spinner;
-import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.travel_guide.R;
 import com.example.travel_guide.model.Model;
 import com.example.travel_guide.model.User;
 import com.example.travel_guide.model.UserPost;

@@ -1,4 +1,4 @@
-package com.example.travel_guide.ui.home;
+package com.example.travel_guide.view.HomePage;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModel;
