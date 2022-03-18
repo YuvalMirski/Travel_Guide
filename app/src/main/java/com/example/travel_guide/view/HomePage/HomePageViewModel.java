@@ -12,12 +12,9 @@ public class HomePageViewModel extends ViewModel {
     String userId;
 
     public HomePageViewModel() {
-        Model.instance.getUserIdFromFB(new Model.GetUserId() {
-            @Override
-            public void onComplete(String id) {
-                userId = id;
-                userLiveData = Model.instance.getUser(id);
-            }
+        Model.instance.getUserIdFromFB(id -> {
+            userId = id;
+            userLiveData = Model.instance.getUser(id);
         });
     }
 
