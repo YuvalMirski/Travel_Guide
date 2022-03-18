@@ -11,5 +11,4 @@
         android:title="Logout"
         android:visible="true"
         app:showAsAction="always" />
-
 </menu>
