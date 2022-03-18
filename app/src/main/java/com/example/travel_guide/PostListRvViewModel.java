@@ -14,12 +14,12 @@ public class PostListRvViewModel extends ViewModel {
     LiveData<List<UserPost>> categoryPostList;
     LiveData<User> userLiveData;
 
-   public PostListRvViewModel(){}
+    public PostListRvViewModel(){}
 
-   public void demoCtor(String categoryName,String userId,String location){
+    public void demoCtor(String categoryName,String userId,String location){
        categoryPostList = Model.instance.getCategoryPosts(categoryName,userId,location);
        userLiveData = Model.instance.getUser(userId);
-   }
+    }
 
     public LiveData<List<UserPost>> getCategoryPostList() {
         return categoryPostList;

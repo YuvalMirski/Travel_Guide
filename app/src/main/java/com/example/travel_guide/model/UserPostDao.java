@@ -20,6 +20,4 @@ UserPostDao {
 
     @Delete
     void delete(UserPost userPost) ;
-
-
 }

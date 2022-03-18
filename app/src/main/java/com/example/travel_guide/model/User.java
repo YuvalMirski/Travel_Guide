@@ -12,7 +12,6 @@ public class User {
     List<String> lstUserPosts;
     final public static String COLLECTION_NAME = "Users";
 
-
     public User(String userName, String email, String sex, String country, List<String> lstSaved,List<String>lstUserPosts) {
         this.userName = userName;
         this.email = email;

@@ -36,10 +36,7 @@ public class LogIn extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-
-        //initialize the FirebaseAuth instance
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         Model.instance.initFireBaseAuto();
 
         View view = inflater.inflate(R.layout.fragment_log_in, container, false);

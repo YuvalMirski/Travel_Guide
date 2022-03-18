@@ -58,10 +58,10 @@ public class Account extends Fragment {
         ImageButton editBtn = view.findViewById(R.id.edit_accoutn_btn);
         editBtn.setOnClickListener(v -> Navigation.findNavController(v).navigate(AccountDirections.actionAccountNavToEditUserFragment(userId))); 
 
-        Button userPostBtn = view.findViewById(R.id.myPosts_account_btn); //list of posts that the user has created
+        Button userPostBtn = view.findViewById(R.id.myPosts_account_btn);
         userPostBtn.setOnClickListener(v -> Navigation.findNavController(v).navigate(AccountDirections.actionGlobalPostListRvFragment("userCreatePosts",userId,"")));
 
-        Button savedPostsBtn = view.findViewById(R.id.savedPosts_account_btn); //list of posts that the user saved for later
+        Button savedPostsBtn = view.findViewById(R.id.savedPosts_account_btn);
         savedPostsBtn.setOnClickListener(v -> Navigation.findNavController(v).navigate(AccountDirections.actionGlobalPostListRvFragment("userSavedPost",userId,"")));
 
         return view;

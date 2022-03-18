@@ -70,7 +70,6 @@ public class PostListRvFragment extends Fragment {
 
         viewModel.getUserLiveData().observe(getViewLifecycleOwner(), user -> refresh());
         viewModel.getCategoryPostList().observe(getViewLifecycleOwner(), userPosts -> refresh());
-
         swipeRefresh.setRefreshing(Model.instance.getPostListLoadingState().getValue() == Model.PostListLoadingState.loading);
 
         Model.instance.getPostListLoadingState().observe(getViewLifecycleOwner(), new Observer<Model.PostListLoadingState>() {
@@ -90,7 +89,6 @@ public class PostListRvFragment extends Fragment {
         adapter.notifyDataSetChanged();
         swipeRefresh.setRefreshing(false);
     }
-
 
     class MyViewHolder extends RecyclerView.ViewHolder {
         TextView postName, category, location, userName;
@@ -127,7 +125,6 @@ public class PostListRvFragment extends Fragment {
                 }
             });
 
-
             itemView.setOnClickListener(v -> {
                 int pos = getAdapterPosition();
                 listener.onItemClick(v, pos);
@@ -152,7 +149,6 @@ public class PostListRvFragment extends Fragment {
                 Model.instance.deleteSaveFromRoom(post);
             } else {
                 likeImg.setImageResource(R.drawable.ic_baseline_saved);
-
             }
 
             userName.setText(viewModel.getUserLiveData().getValue().getUserName());
@@ -178,7 +174,6 @@ public class PostListRvFragment extends Fragment {
     }
 
     class MyAdapter extends RecyclerView.Adapter<MyViewHolder> {
-
         OnItemClickListener listener;
 
         public void setOnItemClickListener(OnItemClickListener listener) {

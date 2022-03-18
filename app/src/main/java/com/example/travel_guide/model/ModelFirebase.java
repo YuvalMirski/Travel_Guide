@@ -48,7 +48,6 @@ public class ModelFirebase {
         return (currentUser != null);
     }
 
-
     public interface GetAllPostsListener {
         void onComplete(List<UserPost> list);
     }
@@ -57,12 +56,7 @@ public class ModelFirebase {
         mAuth = FirebaseAuth.getInstance();
     }
 
-    //TODO::getAllPosts can use for the saved post in the device
     public void getAllPosts(Long lastUpdateDate, GetAllPostsListener listener) {
-        Timestamp a = new Timestamp(lastUpdateDate, 0);
-        System.out.println(a);
-        System.out.println(a.toDate());
-        System.out.println(a.toString());
         db.collection(UserPost.COLLECTION_NAME)
                 .whereGreaterThanOrEqualTo("updateDate", new Timestamp(lastUpdateDate, 0))
                 .get()
@@ -91,7 +85,6 @@ public class ModelFirebase {
     }
 
     public void getAllPosts(GetAllPostsListener listener) {
-
         db.collection(UserPost.COLLECTION_NAME)
                 .get()
                 .addOnCompleteListener(task -> {
@@ -122,8 +115,6 @@ public class ModelFirebase {
     }
 
     public void addUserPost(UserPost userPost, Model.AddPostListener listener) {
-        System.out.println("userPost in add: " + userPost.getId());
-
         Map<String, Object> json = userPost.toJson();
         db.collection(UserPost.COLLECTION_NAME)
                 .add(json)
@@ -138,7 +129,6 @@ public class ModelFirebase {
     }
 
     public void updateUserPost(UserPost userPost, Model.AddPostListener listener) {
-        //TODO:: need to update Room
         Map<String, Object> json = userPost.toJson();
         db.collection(UserPost.COLLECTION_NAME)
                 .document(userPost.getId())
@@ -149,7 +139,6 @@ public class ModelFirebase {
 
 
     public void getPostById(String postId, Model.GetPostById listener) {
-
         db.collection(UserPost.COLLECTION_NAME)
                 .document(postId)
                 .get()
@@ -183,7 +172,6 @@ public class ModelFirebase {
     }
 
     public void updateUser(User user, Model.AddUserListener listener) {
-
         Map<String, Object> json = user.toJson();
         db.collection(User.COLLECTION_NAME)
                 .document(user.getId())
@@ -198,7 +186,6 @@ public class ModelFirebase {
     }
 
     public void getUserById(String userId, Model.GetUserById listener) {
-
         db.collection(User.COLLECTION_NAME)
                 .document(userId)
                 .get()
@@ -230,7 +217,6 @@ public class ModelFirebase {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-                            // Sign in success, update UI with the signed-in user's information
                             Log.d("TAG", "createUserWithEmail:success");
                             FirebaseUser user = mAuth.getCurrentUser();
                             String userId = user.getUid();
@@ -238,7 +224,6 @@ public class ModelFirebase {
                             addUser(userFromCode, listener);
                             listener.onComplete("true");
                         } else {
-                            // If sign in fails, display a message to the user.
                             Log.w("TAG", "createUserWithEmail:failure", task.getException());
                             listener.onComplete(task.getException().toString());
                         }
@@ -263,7 +248,6 @@ public class ModelFirebase {
                                     listener.onComplete(usr);
                                 }
                             });
-
                         } else {
                             Log.w("TAG", "signInWithEmail:failure", task.getException());
                             listener.onComplete(null);
@@ -273,7 +257,6 @@ public class ModelFirebase {
     }
 
     public void signOut() {
-
         mAuth.signOut();
     }
 
@@ -304,7 +287,7 @@ public class ModelFirebase {
     public void saveImage(Bitmap imageBitmap, String imageName, String savePath, Model.SaveImageListener listener) {
         // Create a storage reference from our app
         StorageReference storageRef = storage.getReference();
-        StorageReference imageRef = storageRef.child("/" + savePath + "/" + imageName); //TODO::to catch 2 types of images - user or post
+        StorageReference imageRef = storageRef.child("/" + savePath + "/" + imageName);
 
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         imageBitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);

@@ -41,7 +41,6 @@ public class Model {
                 .getLong(UserPost.LAST_UPDATE, 0);
     }
 
-
     public enum PostListLoadingState { //indicate the possible states
         loading,
         loaded
@@ -52,7 +51,6 @@ public class Model {
     public LiveData<PostListLoadingState> getPostListLoadingState() {
         return postListLoadingState;
     }
-
 
     private Model() {
         postListLoadingState.setValue(PostListLoadingState.loaded);
@@ -77,14 +75,11 @@ public class Model {
             modelFirebase.getAllPosts(new ModelFirebase.GetAllPostsListener() {
                 @Override
                 public void onComplete(List<UserPost> list) {
-
                     if (!categoryName.equals("allCategories"))
                         listLiveDataPost.setValue(sortCategory(list, categoryName, userId, location));
-
                     else //all categories
                         listLiveDataPost.setValue(list);
                     postListLoadingState.postValue(PostListLoadingState.loaded);
-
                 }
             });
         }
@@ -94,9 +89,7 @@ public class Model {
     private List<UserPost> sortCategory(List<UserPost> list, String categoryName, String userId, String location) {
         List<UserPost> lst = new ArrayList<UserPost>();
         if (!location.equals("")) {
-
             if (categoryName.equals("userCreatePosts")) {
-
                 for (UserPost us : list) {
                     if (us.getUserId().equals(userId) && us.getLocation().equals(location))
                         lst.add(us);
@@ -105,13 +98,10 @@ public class Model {
                 for (UserPost us : list) {
                     if (us.getCategory().equals(categoryName) && (us.getLocation().equals(location)))
                         lst.add(us);
-
                 }
             }
-
         } else {
             if (categoryName.equals("userCreatePosts")) {
-
                 for (UserPost us : list) {
                     if (us.getUserId().equals(userId))
                         lst.add(us);
@@ -123,7 +113,6 @@ public class Model {
                 }
             }
         }
-
         return lst;
     }
 
@@ -146,10 +135,8 @@ public class Model {
             @Override
             public void run() {
                 Long lud = new Long(0);
-
                 for (UserPost us : lst) {
                     System.out.println("list size : " + lst.size());
-                    //AppLocalDB.db.userPostDao().delete(us);
                     AppLocalDB.db.userPostDao().insertAll(us);
                     if (lud < us.getUpdateDate()) {
                         lud = us.getUpdateDate();
@@ -178,7 +165,6 @@ public class Model {
             AppLocalDB.db.userPostDao().delete(us);
         });
     }
-
 
     public void refreshCategoryPage(String category, String userId, String location) {
         getCategoryPosts(category, userId, location);
@@ -223,7 +209,6 @@ public class Model {
         return null;
     }
 
-
     public void deletePostById(UserPost userPost, AddPostListener listener) {
         deleteSaveFromRoom(userPost);
         modelFirebase.updateUserPost(userPost, listener);
@@ -231,18 +216,15 @@ public class Model {
     //------------------------------------END POST------------------------------------//
     //--------------------------------------------------------------------------------//
 
-
     //--------------------------------------------------------------------------------//
-    //------------------------------------USER------------------------------------//
+    //------------------------------------USER----------------------------------------//
 
     public LiveData<User> getUser(String id) {
-
         if (LiveDataUser.getValue() == null) {
             refreshUser(id);
         }
         return LiveDataUser;
     }
-
 
     public void refreshUser(String id) {
         modelFirebase.getUserById(id, new GetUserById() {
@@ -284,12 +266,10 @@ public class Model {
                     .edit().putLong(UserPost.LAST_UPDATE, lud).commit();
 
         });
-
         modelFirebase.signOut();
     }
 
     public void updateUser(User user, AddUserListener listener) {
-
         modelFirebase.updateUser(user, listener);
     }
 
@@ -308,7 +288,6 @@ public class Model {
     public void getUserById(String userId, GetUserById listener) {
         modelFirebase.getUserById(userId, listener);
     }
-
 
     public void initFireBaseAuto() {
         modelFirebase.initFireBaseAuto();

@@ -1,8 +1,5 @@
 package com.example.travel_guide.model;
 
-
-//this class store the data of a post\ activity
-
 import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
@@ -34,9 +31,7 @@ public class UserPost {
 
     long updateDate = new Long(0);
 
-    public UserPost() {
-
-    }
+    public UserPost() { }
 
     public UserPost(String name, String location, String about, String category, String userId) {
         this.name = name;
@@ -55,16 +50,12 @@ public class UserPost {
         String userId = (String) json.get("userId");
         String delete = (String) json.get("isDeleted");
 
-
-        System.out.println(json.get("updateDate"));
         Timestamp ts = (Timestamp) json.get("updateDate");
         Long updateDate = ts.getSeconds();
 
         UserPost userPost = new UserPost(name, location, about, category, userId);
-
         userPost.setUpdateDate(updateDate);
         userPost.setIsDeleted(delete);
-
         userPost.setPostImgUrl(postImgUrl);
 
         return userPost;
@@ -82,7 +73,6 @@ public class UserPost {
         json.put("isDeleted", isDeleted);
         json.put("updateDate", FieldValue.serverTimestamp());// get time stamp from firebase
         return json;
-
     }
 
     public String getName() {
@@ -156,5 +146,4 @@ public class UserPost {
     public String getIsDeleted() {
         return isDeleted;
     }
-
 }

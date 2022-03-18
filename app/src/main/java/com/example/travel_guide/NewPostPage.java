@@ -99,7 +99,6 @@ public class NewPostPage extends Fragment {
                 }
             }
         });
-
         return view;
     }
 
