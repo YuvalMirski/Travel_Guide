@@ -23,9 +23,7 @@ public class PostPage extends Fragment {
     Button editBtn;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_post_page, container, false);
 
         String postId = PostPageArgs.fromBundle(getArguments()).getPostId();

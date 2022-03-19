@@ -12,6 +12,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 
 import com.example.travel_guide.MainActivity;
 import com.example.travel_guide.R;
@@ -43,7 +44,7 @@ public class LogIn extends Fragment {
         loginBtn.setOnClickListener(v -> loginBtnAction(v));
 
         Button signUpBtn = (Button) view.findViewById(R.id.signup_login_btn);
-//        signUpBtn.setOnClickListener(v -> Navigation.findNavController(v).navigate(LogInDirections.actionLogInNavToSignUpNav()));
+        signUpBtn.setOnClickListener(v -> Navigation.findNavController(v).navigate(LogInDirections.actionLogInNavToSignUpNav()));
 
         return view;
     }
@@ -92,7 +93,6 @@ public class LogIn extends Fragment {
         attemptLogIn--;
         if (attemptLogIn == 0) {
             Toast.makeText(getContext(), "You had 3 wrong attempts to log in!", Toast.LENGTH_LONG).show();
-
             loginBtn.setEnabled(false);
             loginBtn.setVisibility(view.GONE);
         } else {

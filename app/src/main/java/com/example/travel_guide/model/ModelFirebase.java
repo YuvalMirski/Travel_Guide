@@ -232,7 +232,6 @@ public class ModelFirebase {
     }
 
     public void userSignIn(String email, String password, Model.OnCompleteGeneralListener listener) {
-
         mAuth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override

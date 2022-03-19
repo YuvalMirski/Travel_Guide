@@ -44,15 +44,12 @@ public class EditPostPage extends Fragment {
     Button saveBtn, deleteBtn;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_edit_post_page, container, false);
 
         postId = EditPostPageArgs.fromBundle(getArguments()).getPostId();
         new_id = postId;
         Model.instance.getPostById(postId, userPost -> getPostAction(userPost));
-
         Model.instance.getUserIdFromFB(id -> userId = id);
 
         postName = view.findViewById(R.id.post_name_post_page_edit_et);
@@ -63,8 +60,8 @@ public class EditPostPage extends Fragment {
         saveBtn = view.findViewById(R.id.save_post_page_edit_delete_btn);
         deleteBtn = view.findViewById(R.id.delete_post_page_edit_btn);
         ImageButton galleryBtn = view.findViewById(R.id.editPost_gallery_imb);
-        galleryBtn.setOnClickListener(v -> EditPostPage.this.openGallery());
 
+        galleryBtn.setOnClickListener(v -> openGallery());
         saveBtn.setOnClickListener(v -> saveBtnAction(v));
         deleteBtn.setOnClickListener(v -> deleteBtnAction(v));
 

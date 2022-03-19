@@ -38,15 +38,12 @@ public class PostListRvFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_post_list_rv, container, false);
 
         userId = PostListRvFragmentArgs.fromBundle(getArguments()).getUserId();
         categoryName = PostListRvFragmentArgs.fromBundle(getArguments()).getCategoryName();
         locationName = PostListRvFragmentArgs.fromBundle(getArguments()).getLocationName();
-
         viewModel.demoCtor(categoryName, userId, locationName);
 
         Model.instance.refreshCategoryPage(categoryName, userId, locationName);

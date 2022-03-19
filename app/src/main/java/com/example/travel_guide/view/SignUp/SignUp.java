@@ -38,6 +38,8 @@ public class SignUp extends Fragment {
     List<String> lstSaved, lstUserPosts;
     RadioGroup sexRG;
     Button submitBtn;
+    boolean flagConnected = false;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -107,10 +109,12 @@ public class SignUp extends Fragment {
                     @Override
                     public void onComplete(String isSuccess) {
                         if (isSuccess.equals("true")) {
+                            Model.instance.setCurrentUser(user);
                             toFeedActivity();
                         } else {
                             String msg = isSuccess.split(": ")[1];
                             Toast.makeText(getContext(), msg, Toast.LENGTH_LONG).show();
+                            submitBtn.setEnabled(true);
                         }
                     }
                 });
@@ -136,7 +140,6 @@ public class SignUp extends Fragment {
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == RESULT_OK) {
-
             if (requestCode == SELECT_PICTURE) {
                 Uri selectedImageUri = data.getData();
                 imageBitmap = null;
@@ -154,8 +157,11 @@ public class SignUp extends Fragment {
     }
 
     private void toFeedActivity() {
-        Intent intent = new Intent(getContext(), MainActivity.class);
-        startActivity(intent);
-        getActivity().finish();
+        if (!flagConnected) {
+            Intent intent = new Intent(getContext(), MainActivity.class);
+            startActivity(intent);
+            getActivity().finish();
+            flagConnected = true;
+        }
     }
 }
