@@ -84,7 +84,7 @@ public class EditUserPage extends Fragment {
         User u = new User(new_userName, new_email, new_sex, new_country, lstSaved, lstUserPosts);
         u.setId(userId);
 
-        if (new_userName != null && new_email != null && new_country != null) {
+        if (!new_userName.equals("") && !new_email.equals("") && !new_country.equals("")) {
             if (imageBitmap != null) {
                 Model.instance.saveImage(imageBitmap, new_userName + ".jpg", "user_avatars", url -> {
                     u.setAvatarUrl(url);

@@ -82,7 +82,7 @@ public class LogIn extends Fragment {
     }
 
     public boolean checkLogin(String email, String password) {
-        if (email != null && password != null) {
+        if (!email.equals("") && !password.equals("")) {
             if (android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches() && password.length() >= 6)
                 return true;
         }

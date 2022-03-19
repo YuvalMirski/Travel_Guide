@@ -78,7 +78,7 @@ public class NewPostPage extends Fragment {
         new_about = about.getText().toString();
         UserPost userPost = new UserPost(new_name, new_location, new_about, new_category, userId);
 
-        if (new_name != null && new_about != null) {
+        if (!new_name.equals("") && !new_about.equals("")) {
             if (imageBitmap != null) {
                 Model.instance.saveImage(imageBitmap, new_name + ".jpg", "post_pics", url -> {
                     userPost.setPostImgUrl(url);
