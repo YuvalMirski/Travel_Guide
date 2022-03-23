@@ -19,7 +19,6 @@ import com.example.travel_guide.R;
 import com.example.travel_guide.model.Model;
 import com.example.travel_guide.model.User;
 
-
 public class LogIn extends Fragment {
 
     private int attemptLogIn = 3;

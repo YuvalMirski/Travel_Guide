@@ -19,5 +19,5 @@ UserPostDao {
     void insertAll(UserPost... userPosts);
 
     @Delete
-    void delete(UserPost userPost) ;
+    void delete(UserPost userPost);
 }

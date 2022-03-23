@@ -22,19 +22,16 @@ public class IntroActivity extends AppCompatActivity {
 
         Model.instance.executor.execute(() -> {
             try {
-                Thread.sleep(1500);
+                Thread.sleep(2000);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
             if (Model.instance.isSignedIn()) {
-                Model.instance.getConnectedUser(new Model.GetConnectedUser() {
-                    @Override
-                    public void onComplete(User user) {
-                        Model.instance.setCurrentUser(user);
-                        Model.instance.mainThread.post(() -> {
-                            toFeedActivity();
-                        });
-                    }
+                Model.instance.getConnectedUser(user -> {
+                    Model.instance.setCurrentUser(user);
+                    Model.instance.mainThread.post(() -> {
+                        toFeedActivity();
+                    });
                 });
             } else {
                 Model.instance.mainThread.post(() -> {

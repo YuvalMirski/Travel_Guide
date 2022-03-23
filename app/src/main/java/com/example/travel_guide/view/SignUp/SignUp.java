@@ -40,7 +40,6 @@ public class SignUp extends Fragment {
     Button submitBtn;
     boolean flagConnected = false;
 
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_sign_up, container, false);

@@ -137,7 +137,6 @@ public class ModelFirebase {
                 .addOnFailureListener(e -> listener.onComplete());
     }
 
-
     public void getPostById(String postId, Model.GetPostById listener) {
         db.collection(UserPost.COLLECTION_NAME)
                 .document(postId)
